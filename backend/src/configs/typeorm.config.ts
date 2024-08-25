@@ -24,6 +24,6 @@ export function TypeormConfig(configService: ConfigService) {
     logging: logging, //로그 정보 출력 여부
     retryAttempts: env === 'production' ? 10 : 1, //DB 연결시도 횟수
   };
-  console.log(option);
+
   return option;
 }
