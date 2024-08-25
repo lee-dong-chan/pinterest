@@ -14,11 +14,14 @@ export class User extends Common {
   @PrimaryGeneratedColumn({ type: 'int', unsigned: true })
   id: number;
 
-  @Column({ type: 'varchar', length: 64, unique: true })
-  emil: string;
+  @Column({ type: 'varchar', length: 200, unique: true })
+  email: string;
 
-  @Column({ type: 'varchar', length: 30 })
+  @Column({ type: 'varchar', length: 128 })
   password: string;
+
+  @Column({ type: 'varchar', length: 128 })
+  name: string;
 
   @Column({ type: 'datetime' })
   birthdate: Date;
@@ -27,7 +30,7 @@ export class User extends Common {
   userimg: string;
 
   @OneToMany((type) => Post, (Post) => Post.id)
-  post: Relation<Post>[];
+  post: Post[];
 
   @OneToMany((type) => Comment, (Comment) => Comment.id)
   comment: Relation<Comment>[];

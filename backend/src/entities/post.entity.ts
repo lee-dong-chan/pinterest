@@ -28,14 +28,17 @@ export class Post extends Common {
   @ManyToOne((type) => User, (User) => User.id, {
     nullable: false,
     onDelete: 'CASCADE',
+    eager: true,
   })
   user: Relation<User>;
 
   @ManyToOne((type) => Category, (Category) => Category.id, {
     nullable: false,
     onDelete: 'CASCADE',
+    eager: true,
   })
   category: Relation<Category>;
+
   @OneToMany((type) => Comment, (Comment) => Comment.id)
   Comment: Relation<Comment>[];
 }
