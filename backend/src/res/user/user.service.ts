@@ -72,7 +72,6 @@ export class UserService {
         'sha512',
       ).toString('hex');
       const checkid = await User.findOne({ where: { email: cryptoId } });
-      console.log(cryptoId);
       const checkpw = await User.findOne({ where: { password: cryptoPw } });
       if (!checkid) {
         return { result: 'not found email' };
