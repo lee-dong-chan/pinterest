@@ -1,4 +1,10 @@
-import { Entity, ManyToOne, PrimaryGeneratedColumn, Relation } from 'typeorm';
+import {
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  Relation,
+} from 'typeorm';
 
 import { Common } from './common.entity';
 
@@ -14,6 +20,7 @@ export class Selecttags extends Common {
     nullable: false,
     onDelete: 'CASCADE',
   })
+  @JoinColumn()
   post: Relation<Post>;
 
   @ManyToOne((type) => Tags, (Tags) => Tags.id, {
@@ -21,5 +28,6 @@ export class Selecttags extends Common {
     nullable: false,
     onDelete: 'CASCADE',
   })
+  @JoinColumn()
   tags: Relation<Tags>;
 }
