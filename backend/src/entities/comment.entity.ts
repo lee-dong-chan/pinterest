@@ -1,6 +1,7 @@
 import {
   Column,
   Entity,
+  JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
   Relation,
@@ -21,11 +22,13 @@ export class Comment extends Common {
     nullable: false,
     onDelete: 'CASCADE',
   })
+  @JoinColumn()
   user: Relation<User>;
   @ManyToOne((type) => Post, (Post) => Post.id, {
     eager: true,
     nullable: false,
     onDelete: 'CASCADE',
   })
+  @JoinColumn()
   post: Relation<Post>;
 }

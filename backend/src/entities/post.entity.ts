@@ -1,6 +1,7 @@
 import {
   Column,
   Entity,
+  JoinColumn,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -30,6 +31,7 @@ export class Post extends Common {
     onDelete: 'CASCADE',
     eager: true,
   })
+  @JoinColumn()
   user: Relation<User>;
 
   @ManyToOne((type) => Category, (Category) => Category.id, {
@@ -37,6 +39,7 @@ export class Post extends Common {
     onDelete: 'CASCADE',
     eager: true,
   })
+  @JoinColumn()
   category: Relation<Category>;
 
   @OneToMany((type) => Comment, (Comment) => Comment.id)

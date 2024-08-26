@@ -1,21 +1,31 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+
+//controller
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { UserModule } from './res/user/user.module';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+
+//typeorm
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TypeormConfig } from './configs/typeorm.config';
+
+//entity
 import { Post } from './entities/post.entity';
 import { Category } from './entities/category.entity';
 import { Comment } from './entities/comment.entity';
 import { Tags } from './entities/tags.entity';
 import { Selecttags } from './entities/selecttag.entity';
-
 import { User } from './entities/user.entity';
+
+//module
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { UserModule } from './res/user/user.module';
 import { PostModule } from './res/post/post.module';
 import { CommentModule } from './res/comment/comment.module';
-import { CategoryService } from './res/category/category.service';
 import { CategoryModule } from './res/category/category.module';
+
+//sevice
+import { AppService } from './app.service';
+import { CategoryService } from './res/category/category.service';
+import { LogcheckMiddleware } from './middleware/logcheck/logcheck.middleware';
 
 @Module({
   imports: [
@@ -40,7 +50,12 @@ import { CategoryModule } from './res/category/category.module';
   controllers: [AppController],
   providers: [AppService, CategoryService],
 })
-export class AppModule {
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(LogcheckMiddleware).forRoutes('*');
+    // .forRoutes('users'); //user 경로에만 등록
+    // .forRoutes({ path: 'users', method: RequestMethod.GET }); //users 경로에서 GET 요청에만 등록
+  }
   constructor(private categoryService: CategoryService) {
     this.categoryService.defaultcategory();
   }

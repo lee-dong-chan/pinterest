@@ -27,13 +27,21 @@ export class AppController {
   }
 
   @Get('/list')
-  mainlist(@Param('id') id: number, @Query('keyword') keyword: string) {
-    return this.appService.getlist(id, keyword);
+  mainlist(
+    @Param('id') id: number,
+    @Query('keyword') keyword: string,
+    @Query('page') page: number,
+  ) {
+    return this.appService.getlist(id, keyword, page);
   }
 
   @Get('/list/:id')
-  catelist(@Param('id') id: number, @Query('keyword') keyword: string) {
-    return this.appService.getlist(id, keyword);
+  catelist(
+    @Param('id') id: number,
+    @Query('keyword') keyword: string,
+    @Query('page') page: number,
+  ) {
+    return this.appService.getlist(id, keyword, page);
   }
 
   @Get('/getpost/:id')

@@ -29,7 +29,7 @@ export class AppService {
   ) {}
 
   async logcheck(req: Request) {
-    if (req.session.user) {
+    if (req.body.user) {
       return { login: 'true' };
     } else {
       return { login: 'false' };
@@ -37,7 +37,7 @@ export class AppService {
   }
 
   async userdata(req: Request) {
-    if (req.session.user) {
+    if (req.body.user) {
       const userdata = await this.userRepo.findOne({
         where: { id: req.session.user },
       });
@@ -77,7 +77,7 @@ export class AppService {
     }
   }
 
-  async getlist(id?: number, keyword?: string) {
+  async getlist(id?: number, keyword?: string, page?: number) {
     try {
       if (!id && !keyword) {
         const data = await this.postRepo.find();

@@ -30,7 +30,7 @@ export class User extends Common {
   userimg: string;
 
   @OneToMany((type) => Post, (Post) => Post.id)
-  post: Post[];
+  post: Relation<Post>[];
 
   @OneToMany((type) => Comment, (Comment) => Comment.id)
   comment: Relation<Comment>[];
