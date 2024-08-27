@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Toolbar from "@/Component/Conteiner/Toolbar";
 
+import Providers from "@/Components/provider";
+import Body from "@/Components/Conteiner/BodyContainer";
+import RecoilWrap from "@/Components/recoil";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -17,13 +19,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <div>
-        <Toolbar />
-      </div>
       <body className={inter.className}>
-        <div>{children}</div>
+        <Providers>
+          <RecoilWrap>
+            <Body children={children} />
+          </RecoilWrap>
+        </Providers>
       </body>
-      <div></div>
     </html>
   );
 }

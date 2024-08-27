@@ -17,7 +17,7 @@ export class AppController {
   }
 
   @Get('/userdata')
-  userdata(@Req() req: Request) {
+  async userdata(@Req() req: Request) {
     return this.appService.userdata(req);
   }
 
