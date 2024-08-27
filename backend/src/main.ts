@@ -4,6 +4,13 @@ import * as session from 'express-session';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  app.enableCors({
+    origin: ['http://localhost:3000'],
+    credentials: true,
+    // exposedHeaders:[] 사용할 헤더 추가
+  });
+
   app.use(
     session({
       name: 'user',
@@ -16,6 +23,6 @@ async function bootstrap() {
     }),
   );
 
-  await app.listen(3000);
+  await app.listen(8000);
 }
 bootstrap();

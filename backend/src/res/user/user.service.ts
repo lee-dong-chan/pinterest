@@ -74,17 +74,21 @@ export class UserService {
       const checkid = await User.findOne({ where: { email: cryptoId } });
       const checkpw = await User.findOne({ where: { password: cryptoPw } });
       if (!checkid) {
+        console.log('id');
         return { result: 'not found email' };
       } else if (!checkpw) {
+        console.log('pw');
         return { result: 'not found password' };
       } else {
         req.session.user = checkid.id;
+        console.log('ok');
         return { result: 'login ok' };
       }
     } catch (err) {
       console.error(err);
     }
   }
+
   async logout(req: Request) {
     req.session.destroy;
     return { result: 'logout ok' };

@@ -6,7 +6,7 @@ import { Like, Repository } from 'typeorm';
 import { Post } from './entities/post.entity';
 import { User } from './entities/user.entity';
 import { Comment } from './entities/comment.entity';
-import { Category, defaultCategorys } from './entities/category.entity';
+import { Category } from './entities/category.entity';
 
 import { Tags } from './entities/tags.entity';
 import { Selecttags } from './entities/selecttag.entity';
@@ -38,14 +38,17 @@ export class AppService {
 
   async userdata(req: Request) {
     if (req.body.user) {
+      console.log(123);
       const userdata = await this.userRepo.findOne({
         where: { id: req.session.user },
       });
-      return {
+
+      const data = {
         userid: userdata.id,
         userimg: userdata.userimg,
         username: userdata.name,
       };
+      return data;
     }
   }
 
