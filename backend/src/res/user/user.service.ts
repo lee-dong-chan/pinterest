@@ -90,8 +90,9 @@ export class UserService {
   }
 
   async logout(req: Request) {
-    req.session.destroy;
-    return { result: 'logout ok' };
+    req.session.destroy(() => {
+      return { result: 'logout ok' };
+    });
   }
 
   async upuserimg(id: number, img: string) {

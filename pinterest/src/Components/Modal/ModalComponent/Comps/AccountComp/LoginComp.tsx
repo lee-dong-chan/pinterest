@@ -1,6 +1,10 @@
-import { Middlebutton } from "@/Components/Button.tsx/Button";
+import { Middlebutton } from "@/Components/Button/Button";
+import GoogleContainer from "@/Components/Conteiner/GoogleLoginContainer";
+import { Modalonoff } from "@/Context/LoginModalSystem";
 import { UseMutateFunction } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
+import { useSetRecoilState } from "recoil";
 
 interface IProps {
   setid: Dispatch<SetStateAction<string | undefined>>;
@@ -9,6 +13,8 @@ interface IProps {
 }
 
 const LoginComp = ({ setid, setpw, submit }: IProps): JSX.Element => {
+  const Modal = useSetRecoilState(Modalonoff);
+  const router = useRouter();
   return (
     <div className="flex flex-col items-center">
       <label className="w-[100%]">
@@ -38,22 +44,15 @@ const LoginComp = ({ setid, setpw, submit }: IProps): JSX.Element => {
         className="mb-4"
         onClick={() => {
           submit();
+          Modal(false);
+          window.location.replace("/list");
         }}
       >
         <Middlebutton text="로그인" back="bg-red-600" color="text-white" />
       </div>
       <div className="mb-4">또는</div>
-      <div className="mb-8">
-        <img
-          src="/imgs/google.png"
-          className="absolute w-[2rem] mx-3 my-2"
-        ></img>
-        <Middlebutton
-          text="구글 계정으로 계속하기"
-          back="white"
-          color="text-black"
-        />
-      </div>
+
+      <GoogleContainer />
     </div>
   );
 };

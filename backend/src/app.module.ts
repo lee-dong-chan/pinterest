@@ -26,6 +26,7 @@ import { CategoryModule } from './res/category/category.module';
 import { AppService } from './app.service';
 import { CategoryService } from './res/category/category.service';
 import { LogcheckMiddleware } from './middleware/logcheck/logcheck.middleware';
+import { MulterModule } from '@nestjs/platform-express';
 
 @Module({
   imports: [
@@ -42,10 +43,12 @@ import { LogcheckMiddleware } from './middleware/logcheck/logcheck.middleware';
     }),
     //TypeOrmModule안에 imports와 inject를 사용하여 ConfigModule,ConfigService을 추가
     //그리고 useFactory로 설정을 반환 .useFactory는 동적으로 모듈을 만드는데 사용됨
+
     UserModule,
     PostModule,
     CommentModule,
     CategoryModule,
+    MulterModule.register({}),
   ],
   controllers: [AppController],
   providers: [AppService, CategoryService],
@@ -53,7 +56,7 @@ import { LogcheckMiddleware } from './middleware/logcheck/logcheck.middleware';
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(LogcheckMiddleware).forRoutes('*');
-    // .forRoutes('users'); //user 경로에만 등록
+    consumer.apply(LogcheckMiddleware).forRoutes('user'); //user 경로에만 등록
     // .forRoutes({ path: 'users', method: RequestMethod.GET }); //users 경로에서 GET 요청에만 등록
   }
   constructor(private categoryService: CategoryService) {

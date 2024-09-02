@@ -1,12 +1,14 @@
 import { useState } from "react";
-import LoginComp from "../../ModalComponent/Comps/Account/LoginComp";
-import { useMutation } from "@tanstack/react-query";
+import LoginComp from "../../ModalComponent/Comps/AccountComp/LoginComp";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
+import Ment from "../../ModalComponent/Comps/AccountComp/text";
 
 const Login = (): JSX.Element => {
   const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
   const [id, setid] = useState<string>();
   const [pw, setpw] = useState<string>();
+  const queryclient = useQueryClient();
 
   const { mutate, data } = useMutation({
     mutationKey: ["loginAccount"],
@@ -21,8 +23,16 @@ const Login = (): JSX.Element => {
       );
       return data;
     },
+    onSuccess() {
+      queryclient.invalidateQueries({ queryKey: ["logincheck"] });
+    },
   });
 
-  return <LoginComp setid={setid} setpw={setpw} submit={mutate} />;
+  return (
+    <div>
+      <Ment />
+      <LoginComp setid={setid} setpw={setpw} submit={mutate} />;
+    </div>
+  );
 };
 export default Login;

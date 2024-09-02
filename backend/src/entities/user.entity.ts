@@ -26,7 +26,7 @@ export class User extends Common {
   @Column({ type: 'datetime' })
   birthdate: Date;
 
-  @Column({ type: 'varchar', length: 10, nullable: true })
+  @Column({ type: 'varchar', length: 200, nullable: true })
   userimg: string;
 
   @OneToMany((type) => Post, (Post) => Post.id)
