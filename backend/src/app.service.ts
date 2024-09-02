@@ -10,6 +10,10 @@ import { Category } from './entities/category.entity';
 
 import { Tags } from './entities/tags.entity';
 import { Selecttags } from './entities/selecttag.entity';
+import { URLSearchParams } from 'url';
+import axios from 'axios';
+import { pbkdf2Sync } from 'crypto';
+import { MulterModule } from '@nestjs/platform-express';
 
 @Injectable()
 export class AppService {
@@ -38,7 +42,6 @@ export class AppService {
 
   async userdata(req: Request) {
     if (req.body.user) {
-      console.log(123);
       const userdata = await this.userRepo.findOne({
         where: { id: req.session.user },
       });
@@ -80,10 +83,11 @@ export class AppService {
     }
   }
 
-  async getlist(id?: number, keyword?: string, page?: number) {
+  async getlist(id?: number, keyword?: string, page?: number, limit?: number) {
     try {
       if (!id && !keyword) {
         const data = await this.postRepo.find();
+
         const selecttag = await this.selectRepo.find();
         const list = data.map((item) => {
           const tags = selecttag
@@ -101,19 +105,22 @@ export class AppService {
             userimg: item.user.userimg,
           };
         });
-        return list;
+
+        const startindex = (page - 1) * limit;
+        const endindex = page * limit;
+        const pageitmes = list.slice(startindex, endindex);
+        const hasMore = endindex < list.length;
+        return { post: pageitmes, hasmore: hasMore, page: page };
       } else if (id) {
         const cate = await this.categoryRepo.findOne({ where: { id: id } });
         const data = await this.postRepo.find({ where: { category: cate } });
         const selecttag = await this.selectRepo.find();
-        return data.map((item) => {
+        const list = data.map((item) => {
           const tags = selecttag
             .filter((tag) => tag.post.id === item.id)
             .map((item) => {
               return item.tags.name;
             });
-          console.log(tags);
-
           return {
             id: item.id,
             title: item.title,
@@ -124,12 +131,19 @@ export class AppService {
             userimg: item.user.userimg,
           };
         });
+
+        const startindex = (page - 1) * limit;
+        const endindex = page * limit;
+        const pageitmes = list.slice(startindex, endindex);
+        const hasMore = endindex < list.length;
+
+        return { post: pageitmes, hasmore: hasMore, page: page };
       } else if (keyword) {
         const data = await this.postRepo.find({
           where: { title: Like(`%${keyword}%`) },
         });
         const selecttag = await this.selectRepo.find();
-        return data.map((item) => {
+        const list = data.map((item) => {
           const tags = selecttag
             .filter((tag) => tag.post.id === item.id)
             .map((item) => {
@@ -146,6 +160,11 @@ export class AppService {
             userimg: item.user.userimg,
           };
         });
+        const startindex = (page - 1) * limit;
+        const endindex = page * limit;
+        const pageitmes = list.slice(startindex, endindex);
+        const hasMore = endindex < list.length;
+        return { post: pageitmes, hasmore: hasMore, page: page };
       }
     } catch (err) {
       console.error(err);
@@ -195,5 +214,77 @@ export class AppService {
     } catch (err) {
       console.error(err);
     }
+  }
+
+  async google(code: string, callbackUrl: string, req: Request) {
+    const tockenEndpoint = 'https://oauth2.googleapis.com/token';
+    const redirectURL = callbackUrl;
+    const clientID = process.env.CLIENT_ID;
+    const clientsecret = process.env.CLIENT_SECRET;
+
+    const params = new URLSearchParams();
+    params.append('code', code);
+    params.append('client_id', clientID);
+    params.append('client_secret', clientsecret);
+    params.append('redirect_uri', redirectURL);
+    params.append('grant_type', 'authorization_code');
+
+    try {
+      const TokenRequest = await axios.post(tockenEndpoint, params, {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      });
+
+      const accessToken = TokenRequest.data.access_token;
+
+      const userInfoResponse: {
+        id: string;
+        email: string;
+        name: string;
+        picture: string;
+      } = (
+        await axios.get('https://www.googleapis.com/oauth2/v1/userinfo', {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        })
+      ).data;
+
+      const salt = 'qwer';
+      const cryptoId = pbkdf2Sync(
+        userInfoResponse.email,
+        salt,
+        1000,
+        64,
+        'sha512',
+      ).toString('hex');
+
+      const cryptoPw = pbkdf2Sync(
+        process.env.GOOGLEUSER_PW,
+        salt,
+        1000,
+        64,
+        'sha512',
+      ).toString('hex');
+
+      const checkduplicate = await this.userRepo.findOne({
+        where: { email: cryptoId },
+      });
+
+      if (userInfoResponse) {
+        if (!checkduplicate) {
+          const Googleuser = this.userRepo.create({
+            email: cryptoId,
+            name: userInfoResponse.name,
+            password: cryptoPw,
+            birthdate: process.env.GOOGLE_BR,
+          });
+          await this.userRepo.save(Googleuser);
+        } else {
+          req.session.user = checkduplicate.id;
+        }
+      }
+    } catch (err) {}
   }
 }

@@ -1,6 +1,6 @@
 import ModalBox from "../ModalComponent/ModalBox";
 
-const ModalContainer = () => {
+const ModalContainer = ({}) => {
   return <ModalBox />;
 };
 export default ModalContainer;
