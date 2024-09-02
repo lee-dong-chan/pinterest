@@ -1,7 +1,8 @@
 import { useState } from "react";
-import RegistComp from "../../ModalComponent/Comps/Account/RegistComp";
+import RegistComp from "../../ModalComponent/Comps/AccountComp/RegistComp";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
+import Ment from "../../ModalComponent/Comps/AccountComp/text";
 
 const Regist = (): JSX.Element => {
   const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
@@ -23,7 +24,15 @@ const Regist = (): JSX.Element => {
   });
 
   return (
-    <RegistComp setid={setid} setpw={setpw} setdate={setdate} submit={mutate} />
+    <div>
+      <Ment />
+      <RegistComp
+        setid={setid}
+        setpw={setpw}
+        setdate={setdate}
+        submit={mutate}
+      />
+    </div>
   );
 };
 export default Regist;

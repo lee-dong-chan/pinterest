@@ -2,13 +2,6 @@ import { ConfigService } from '@nestjs/config';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 
 export function TypeormConfig(configService: ConfigService) {
-  const env = configService.get('NODE_ENV');
-
-  const synchronize =
-    configService.get<string>(`SYNCHRONIZE`) === 'true' ? true : false;
-  const logging =
-    configService.get<string>(`DB_LOGGING`) === 'true' ? true : false;
-
   const option: TypeOrmModuleOptions = {
     type: 'mysql',
     host: configService.get(`DB_HOST`),
@@ -17,8 +10,8 @@ export function TypeormConfig(configService: ConfigService) {
     password: configService.get(`DB_PASSWORD`),
     database: configService.get(`DB_DATABASE`),
     autoLoadEntities: true, //프로젝트 내의 entity의 자동스캔 여부
-    synchronize: env === synchronize, //DB 동기화
-    logging: logging, //로그 정보 출력 여부
+    synchronize: true, //DB 동기화
+    logging: true, //로그 정보 출력 여부
     retryAttempts: 1, //DB 연결시도 횟수
   };
 

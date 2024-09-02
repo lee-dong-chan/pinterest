@@ -3,8 +3,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 
 import Providers from "@/Components/provider";
-import Body from "@/Components/Conteiner/BodyContainer";
 import RecoilWrap from "@/Components/recoil";
+import Layout from "@/Components/Conteiner/LayoutContainer";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -22,7 +22,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <Providers>
           <RecoilWrap>
-            <Body children={children} />
+            <Layout children={children} />
           </RecoilWrap>
         </Providers>
       </body>

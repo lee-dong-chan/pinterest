@@ -1,6 +1,18 @@
-import { Controller, Get, Param, Query, Req } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Query,
+  Req,
+  UploadedFile,
+  UseInterceptors,
+} from '@nestjs/common';
 import { AppService } from './app.service';
 import { Request } from 'express';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
 
 @Controller()
 export class AppController {
@@ -17,7 +29,7 @@ export class AppController {
   }
 
   @Get('/userdata')
-  async userdata(@Req() req: Request) {
+  userdata(@Req() req: Request) {
     return this.appService.userdata(req);
   }
 
@@ -31,8 +43,9 @@ export class AppController {
     @Param('id') id: number,
     @Query('keyword') keyword: string,
     @Query('page') page: number,
+    @Query('limit') limit: number,
   ) {
-    return this.appService.getlist(id, keyword, page);
+    return this.appService.getlist(id, keyword, page, limit);
   }
 
   @Get('/list/:id')
@@ -40,8 +53,9 @@ export class AppController {
     @Param('id') id: number,
     @Query('keyword') keyword: string,
     @Query('page') page: number,
+    @Query('limit') limit: number,
   ) {
-    return this.appService.getlist(id, keyword, page);
+    return this.appService.getlist(id, keyword, page, limit);
   }
 
   @Get('/getpost/:id')
@@ -52,5 +66,30 @@ export class AppController {
   @Get('/myinfo/:id')
   test(@Param('id') id: number) {
     return this.appService.myinfo(id);
+  }
+
+  @Post('/GoogleCallback')
+  google(
+    @Query('code') code: string,
+    @Body('callbackUrl') callbackUrl: string,
+    @Req() req: Request,
+  ) {
+    return this.appService.google(code, callbackUrl, req);
+  }
+
+  @Post(`/upload`)
+  @UseInterceptors(
+    FileInterceptor('File', {
+      storage: diskStorage({
+        destination: './upload',
+        filename(req, file, callback) {
+          return callback(null, `${Date.now()}${file.originalname}`);
+        },
+      }),
+    }),
+  )
+  imgupload(@UploadedFile() file: Express.Multer.File) {
+    console.log(file);
+    return file;
   }
 }

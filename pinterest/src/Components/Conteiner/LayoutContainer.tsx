@@ -1,13 +1,16 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Toolbar from "./ToolbarContainer";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useRecoilValue } from "recoil";
-import ModalContainer from "../Modal/ModalContainer/ModalContiner";
-import { Modalonoff } from "@/Context/ModalSystem";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import ModalContainer from "../Modal/ModalContainer/AccountModalContiner";
+import { Modalonoff } from "@/Context/LoginModalSystem";
 import { useRouter } from "next/navigation";
+import DropModalBox from "../Modal/ModalComponent/DropModalBox";
+import { Droponoff } from "@/Context/DropDownModal";
+import { Logincheck, Userdata } from "@/Context/usercheck";
 
 export interface IUser {
   userid: number;
@@ -19,44 +22,44 @@ interface IProps {
   children: React.ReactNode;
 }
 
-const Body = ({ children }: IProps): JSX.Element => {
+const Layout = ({ children }: IProps): JSX.Element => {
   const onoffModal = useRecoilValue(Modalonoff);
+  const onoffDrop = useRecoilValue(Droponoff);
   const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
-  const [login, setlogin] = useState<string>("false");
-  const [userdata, setuserdata] = useState<IUser>();
-
+  const setlogin = useSetRecoilState(Logincheck);
+  const login = useRecoilValue(Logincheck);
+  const setuser = useSetRecoilState(Userdata);
+  const userdata = useRecoilValue(Userdata);
+  const router = useRouter();
   const logcheck = useQuery({
     queryKey: ["logincheck"],
     queryFn: async () => {
       const { data } = await axios.get(`${baseURL}/logcheck`, {
         withCredentials: true,
       });
+      const lastdata: string = data.login;
+      setlogin(lastdata);
+      if (lastdata == "false") {
+        router.push("/");
+      }
       return data;
     },
   });
 
-  const { data } = useQuery({
+  const { refetch } = useQuery({
     queryKey: ["userdata"],
     queryFn: async () => {
       const { data } = await axios.get(`${baseURL}/userdata`, {
         withCredentials: true,
       });
+      setuser(data);
       return data;
     },
   });
 
-  console.log(login);
-
-  const router = useRouter();
   useEffect(() => {
-    setlogin(logcheck.data?.login);
-    if (login) {
-      router.push("/list");
-    }
+    refetch();
   }, [logcheck.data]);
-  useEffect(() => {
-    setuserdata(data);
-  }, [data]);
 
   return (
     <div>
@@ -65,8 +68,9 @@ const Body = ({ children }: IProps): JSX.Element => {
         {children}
       </div>
       {onoffModal && <ModalContainer />}
+      {onoffDrop && <DropModalBox userdata={userdata} />}
     </div>
   );
 };
 
-export default Body;
+export default Layout;

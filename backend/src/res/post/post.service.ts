@@ -45,7 +45,13 @@ export class PostService {
           const tags = this.TagsRepo.create({
             name: item.name,
           });
-          await this.TagsRepo.save(tags);
+          const tag = await this.TagsRepo.save(tags);
+
+          const select = this.selectRepo.create({
+            post: post,
+            tags: tag,
+          });
+          await this.selectRepo.save(select);
         } else {
           const tag = await this.TagsRepo.findOne({
             where: { name: item.name },

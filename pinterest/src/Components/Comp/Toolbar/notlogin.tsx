@@ -1,6 +1,6 @@
-import { Smallbutton } from "@/Components/Button.tsx/Button";
+import { Smallbutton } from "@/Components/Button/Button";
 import SearchContainer from "@/Components/Conteiner/SearchContainer";
-import { Modalonoff, Modaltype } from "@/Context/ModalSystem";
+import { Modalonoff, Modaltype } from "@/Context/LoginModalSystem";
 import { useSetRecoilState } from "recoil";
 
 const Notlogin = (): JSX.Element => {
