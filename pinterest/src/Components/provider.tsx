@@ -11,7 +11,7 @@ function Providers({ children }: Props) {
   const client = new QueryClient({
     defaultOptions: {
       queries: {
-        refetchOnWindowFocus: false,
+        refetchOnWindowFocus: true,
         retry: false,
       },
     },

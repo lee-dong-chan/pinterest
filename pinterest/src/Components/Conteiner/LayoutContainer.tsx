@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 import DropModalBox from "../Modal/ModalComponent/DropModalBox";
 import { Droponoff } from "@/Context/DropDownModal";
 import { Logincheck, Userdata } from "@/Context/usercheck";
+import { useBreakPoint } from "@/CustomHook/BreakPoint";
 
 export interface IUser {
   userid: number;
@@ -31,6 +32,7 @@ const Layout = ({ children }: IProps): JSX.Element => {
   const setuser = useSetRecoilState(Userdata);
   const userdata = useRecoilValue(Userdata);
   const router = useRouter();
+
   const logcheck = useQuery({
     queryKey: ["logincheck"],
     queryFn: async () => {
@@ -39,12 +41,12 @@ const Layout = ({ children }: IProps): JSX.Element => {
       });
       const lastdata: string = data.login;
       setlogin(lastdata);
-      if (lastdata == "false") {
-        router.push("/");
-      }
-      return data;
+      return lastdata;
     },
+    refetchInterval: 20000,
   });
+
+  console.log(logcheck.data);
 
   const { refetch } = useQuery({
     queryKey: ["userdata"],
@@ -58,17 +60,22 @@ const Layout = ({ children }: IProps): JSX.Element => {
   });
 
   useEffect(() => {
-    refetch();
+    if (logcheck.data == "false") {
+      router.refresh();
+      refetch();
+    } else {
+      refetch();
+    }
   }, [logcheck.data]);
 
   return (
     <div>
       <div>
         <Toolbar login={login} userdata={userdata} />
-        {children}
+        <div> {children} </div>
+        {onoffModal && <ModalContainer />}
+        {onoffDrop && <DropModalBox userdata={userdata} />}
       </div>
-      {onoffModal && <ModalContainer />}
-      {onoffDrop && <DropModalBox userdata={userdata} />}
     </div>
   );
 };

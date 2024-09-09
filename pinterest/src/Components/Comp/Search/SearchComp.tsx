@@ -1,3 +1,4 @@
+import { useRouter } from "next/navigation";
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
 import { FaSearch } from "react-icons/fa";
 interface IProps {
@@ -5,6 +6,7 @@ interface IProps {
   keyword: string;
 }
 const SearchComp = ({ setsearch, keyword }: IProps): JSX.Element => {
+  const router = useRouter();
   return (
     <div>
       <div>
@@ -21,7 +23,7 @@ const SearchComp = ({ setsearch, keyword }: IProps): JSX.Element => {
           onKeyDown={(e) => {
             if (e.key == "Enter") {
               if (e.nativeEvent.isComposing === false) {
-                window.location.replace(`/searchlist?keyword=${keyword}`);
+                router.replace(`/searchlist?keyword=${keyword}`);
                 setsearch("");
               }
             }

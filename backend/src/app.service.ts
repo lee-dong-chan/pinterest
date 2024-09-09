@@ -192,6 +192,7 @@ export class AppService {
         title: data.title,
         postimg: data.postimg,
         content: data.content,
+        categoryname: data.category.name,
         tag: tag,
         postuser: data.user.name,
         postuserimg: data.user.userimg,
@@ -208,7 +209,7 @@ export class AppService {
       const post = (await this.postRepo.find())
         .filter((item) => item.user.id == user.id)
         .map((item) => {
-          return { title: item.title, img: item.postimg };
+          return { title: item.title, img: item.postimg, id: item.id };
         });
       return { name: user.name, img: user.userimg, post: post };
     } catch (err) {

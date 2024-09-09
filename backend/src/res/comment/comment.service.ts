@@ -17,6 +17,7 @@ export class CommentService {
     private readonly commentRepo: Repository<Comment>,
   ) {}
   async comment(createCommentDto: CreateCommentDto) {
+    console.log(createCommentDto);
     try {
       const user = await this.userRepo.findOne({
         where: { id: createCommentDto.userId },

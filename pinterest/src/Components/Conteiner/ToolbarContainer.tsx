@@ -6,7 +6,11 @@ interface IProps {
   userdata?: IUser;
 }
 const Toolbar = ({ login, userdata }: IProps): JSX.Element => {
-  return <ToolbarComp login={login} userdata={userdata} />;
+  return (
+    <div className="sticky top-0 bg-white z-[100]">
+      <ToolbarComp login={login} userdata={userdata} />
+    </div>
+  );
 };
 
 export default Toolbar;

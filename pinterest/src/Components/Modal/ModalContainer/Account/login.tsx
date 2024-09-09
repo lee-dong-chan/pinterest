@@ -1,3 +1,4 @@
+"use client";
 import { useState } from "react";
 import LoginComp from "../../ModalComponent/Comps/AccountComp/LoginComp";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -31,7 +32,7 @@ const Login = (): JSX.Element => {
   return (
     <div>
       <Ment />
-      <LoginComp setid={setid} setpw={setpw} submit={mutate} />;
+      <LoginComp setid={setid} setpw={setpw} submit={mutate} />
     </div>
   );
 };
