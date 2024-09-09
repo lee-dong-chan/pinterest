@@ -21,23 +21,8 @@ const Mainlist = async () => {
   console.log(categorys);
   return (
     <div>
-      <div className="mx-auto my-10 w-fit text-[1.7rem] font-bold">
-        pinterest 최고의 아이디어 탐색하기
-      </div>
       <div>{<ListContainer categorylist={categorys} />}</div>
     </div>
   );
 };
 export default Mainlist;
-
-// const Mainlist = async () => {
-//   return (
-//     <div>
-//       <div className="mx-auto my-10 w-fit text-[1.7rem] font-bold">
-//         pinterest 최고의 아이디어 탐색하기
-//       </div>
-//       <div>{<ListContainer />}</div>
-//     </div>
-//   );
-// };
-// export default Mainlist;

@@ -5,6 +5,8 @@ import Onlogin from "./onlogin";
 import { IUser } from "@/Components/Conteiner/LayoutContainer";
 import { usePathname } from "next/navigation";
 
+import { useBreakPoint } from "@/CustomHook/BreakPoint";
+
 interface IProps {
   login: string;
   userdata?: IUser;
@@ -12,20 +14,25 @@ interface IProps {
 
 const ToolbarComp = ({ login, userdata }: IProps): JSX.Element => {
   const pathname = usePathname();
+  const { ismini, isdesktop } = useBreakPoint();
   return (
     <div className="p-2 flex justify-between items-center">
       <div className="flex items-center">
         {login === "false" ? (
           <Link href={"/"}>
             <img
-              src="/imgs/pinterest.png"
+              src={`${
+                ismini ? "/imgs/minipin.png" : isdesktop && "imgs/pinterest.png"
+              }`}
               className="h-[3.5rem] me-3 pointer-events-none"
               alt="logo"
             ></img>
           </Link>
         ) : (
           <img
-            src="/imgs/pinterest.png"
+            src={`${
+              ismini ? "/imgs/minipin.png" : isdesktop && "imgs/pinterest.png"
+            }`}
             className="h-[3.5rem] me-3 pointer-events-none"
             alt="logo"
           ></img>
@@ -52,7 +59,6 @@ const ToolbarComp = ({ login, userdata }: IProps): JSX.Element => {
         )}
       </div>
       {pathname === "/" && <HomeToolbar />}
-
       {pathname !== "/" &&
         (login == "true" ? <Onlogin userdata={userdata} /> : <Notlogin />)}
     </div>

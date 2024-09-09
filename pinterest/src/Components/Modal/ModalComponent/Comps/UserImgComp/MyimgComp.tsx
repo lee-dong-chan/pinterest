@@ -1,10 +1,10 @@
+import { useRouter } from "next/navigation";
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
 import { IoMdClose } from "react-icons/io";
 interface IProps {
   setonimg: Dispatch<SetStateAction<boolean>>;
   inputimg: (e: ChangeEvent<HTMLInputElement>) => void;
   priview: string;
-
   upload: () => Promise<void>;
 }
 
@@ -14,6 +14,7 @@ const MyImgComp = ({
   priview,
   upload,
 }: IProps): JSX.Element => {
+  const router = useRouter();
   return (
     <div className="absolute top-[15%] w-[30rem] h-[30rem] border rounded-[0.5rem] bg-white">
       <div
@@ -36,6 +37,7 @@ const MyImgComp = ({
             <img
               className="h-[15rem] w-[15rem] rounded-[10rem] border"
               src={priview}
+              alt="priview"
             ></img>
           )}
         </div>
@@ -52,7 +54,7 @@ const MyImgComp = ({
           onClick={() => {
             if (priview) {
               upload();
-              window.location.reload();
+              router.refresh();
             }
           }}
         >

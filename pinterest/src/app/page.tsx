@@ -1,9 +1,9 @@
-import MainContainer from "@/pages/PageContainer/MainContainer";
+import HomeContainer from "@/pages/PageContainer/HomeContainer";
 
 export default function Home({}) {
   return (
     <main>
-      <MainContainer />
+      <HomeContainer />
     </main>
   );
 }

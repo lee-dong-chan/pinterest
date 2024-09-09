@@ -1,4 +1,4 @@
-import Button, { Smallbutton } from "@/Components/Button/Button";
+import { Smallbutton } from "@/Components/Button/Button";
 import { Modalonoff, Modaltype } from "@/Context/LoginModalSystem";
 import { useSetRecoilState } from "recoil";
 

@@ -1,12 +1,13 @@
 "use client";
 
 import { Debounce } from "@/CustomHook/Debounce";
-import WriteComp from "../PageComp/WriteComp";
+import WriteComp from "../PageComp/Write/WriteComp";
 import axios from "axios";
 import { ChangeEvent, useEffect, useState } from "react";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { useRecoilValue } from "recoil";
-import { Userdata } from "@/Context/usercheck";
+import { Logincheck, Userdata } from "@/Context/usercheck";
+import { useRouter } from "next/navigation";
 
 export interface Itag {
   id: number;
@@ -38,7 +39,9 @@ const WriteContainer = (): JSX.Element => {
     img: "",
   });
 
+  const router = useRouter();
   const user = useRecoilValue(Userdata);
+  const login = useRecoilValue(Logincheck);
 
   const inputFile = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -99,26 +102,35 @@ const WriteContainer = (): JSX.Element => {
   });
 
   const upload = async () => {
-    if (Img !== undefined) {
-      const data = await axios.post(`${baseULR}/upload`, Formdata, {
-        headers: { "Content-type": "multipart/form-data" },
-      });
-      const imgname: string = data.data.filename;
-      await axios.post(`${baseULR}/post/write`, {
-        title: title,
-        content: content,
-        postimg: imgname,
-        tags: filtertags,
-        categoryid: selectcate.id,
-        userid: user.userid,
-      });
-      window.location.replace("/list");
+    if (login == "true") {
+      if (Img !== undefined) {
+        const data = await axios.post(`${baseULR}/upload`, Formdata, {
+          headers: { "Content-type": "multipart/form-data" },
+        });
+        const imgname: string = data.data.filename;
+        await axios.post(`${baseULR}/post/write`, {
+          title: title,
+          content: content,
+          postimg: imgname,
+          tags: filtertags,
+          categoryid: selectcate.id,
+          userid: user.userid,
+        });
+        router.replace("/list");
+      }
+    } else {
     }
   };
 
   useEffect(() => {
     refetch();
   }, [search]);
+
+  useEffect(() => {
+    if (login == "false") {
+      router.back();
+    }
+  }, [login]);
 
   return (
     <WriteComp

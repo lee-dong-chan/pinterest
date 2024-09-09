@@ -28,7 +28,7 @@ export class PostService {
         where: { id: createPostDto.categoryid },
       });
       const user: User = await this.userRepo.findOne({
-        where: { id: createPostDto.categoryid },
+        where: { id: createPostDto.userid },
       });
 
       const post = this.postRepo.create({
