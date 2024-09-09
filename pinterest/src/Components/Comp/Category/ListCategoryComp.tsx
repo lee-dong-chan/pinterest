@@ -10,13 +10,11 @@ interface IProps {
 
 const CategoryComp = ({ categorylist, catelength, setcatelength }: IProps) => {
   return (
-    <div>
+    <div className="px-7 max-w-[70rem] mx-auto">
       <div
-        className={`p-2 max-w-[70rem] mx-auto ${
-          !catelength ? "h-[13rem] overflow-hidden" : ""
-        }`}
+        className={`p-2  ${!catelength ? "h-[10.5rem] overflow-hidden" : ""}`}
       >
-        <div className="grid grid-cols-5 gap-7">
+        <div className="flex flex-wrap max-w-[70rem] justify-center">
           {categorylist?.map((item: ICategory, idx: number) => (
             <Link
               key={idx}
@@ -39,7 +37,7 @@ const CategoryComp = ({ categorylist, catelength, setcatelength }: IProps) => {
       </div>
       {!catelength && (
         <div
-          className="mx-auto p-3 w-fit border bg-gray-200 rounded-[0.5rem]"
+          className="mx-auto my-5 p-3 w-fit border bg-gray-200 rounded-[0.5rem]"
           onClick={() => {
             setcatelength(true);
           }}

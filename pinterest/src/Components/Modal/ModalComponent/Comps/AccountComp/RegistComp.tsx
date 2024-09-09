@@ -59,7 +59,8 @@ const RegistComp = ({ setid, setpw, setdate, submit }: IProps): JSX.Element => {
       <div className="mb-8">
         <img
           src="/imgs/google.png"
-          className="absolute w-[2rem] mx-3 my-2"
+          className="absolute w-[2rem] mx-3 my-2 pointer-events-none"
+          alt="google"
         ></img>
         <Middlebutton
           text="구글 계정으로 계속하기"

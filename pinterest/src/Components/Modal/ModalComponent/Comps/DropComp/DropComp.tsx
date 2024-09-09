@@ -13,13 +13,18 @@ const DropComp = ({ userdata, logout }: IProps) => {
         <div>
           {userdata?.userimg == null ? (
             <div className="me-1 border overflow-hidden h-[3rem] w-[3rem] rounded-[3rem]">
-              <img src="/imgs/defaultuser.png" alt="defaultimg"></img>
+              <img
+                src="/imgs/defaultuser.png"
+                alt="defaultimg"
+                className="pointer-events-none"
+              ></img>
             </div>
           ) : (
             <div className="me-1 border overflow-hidden h-[3rem] w-[3rem] rounded-[3rem]">
               <img
                 src={`${imgbaseURL}/${userdata.userimg}`}
                 alt="userimg"
+                className="pointer-events-none"
               ></img>
             </div>
           )}

@@ -4,7 +4,7 @@ import axios from "axios";
 import { useParams, useSearchParams } from "next/navigation";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
-import { Observer } from "@/lib/observer";
+import { Observer } from "@/lib/Observer";
 import { IoMdArrowDropdown } from "react-icons/io";
 import PostListComp from "@/Components/Comp/List/PostListComp";
 import Link from "next/link";
@@ -16,7 +16,7 @@ const CategoryPageContainer = () => {
   const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
   const [cols, setcols] = useState<number>(5);
   const fetchdata = async (pageParam: number) => {
-    const pagesize = 8;
+    const pagesize = cols * 2;
     const { data } = await axios.get(
       `${baseURL}/list/${category?.id}?page=${pageParam}&limit=${pagesize}`
     );

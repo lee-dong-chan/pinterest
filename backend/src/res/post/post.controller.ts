@@ -7,6 +7,7 @@ export class PostController {
   constructor(private readonly postService: PostService) {}
   @Post('/write')
   writepost(@Body() CreatePostDto: CreatePostDto) {
+    console.log(CreatePostDto);
     return this.postService.writepost(CreatePostDto);
   }
 }

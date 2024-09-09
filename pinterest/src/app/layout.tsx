@@ -5,6 +5,7 @@ import "./globals.css";
 import Providers from "@/Components/provider";
 import RecoilWrap from "@/Components/recoil";
 import Layout from "@/Components/Conteiner/LayoutContainer";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
