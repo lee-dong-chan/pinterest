@@ -1,4 +1,5 @@
 import MyImgComp from "@/Components/Modal/ModalComponent/Comps/UserImgComp/MyimgComp";
+import { useBreakPoint } from "@/CustomHook/BreakPoint";
 import { ImgBaseURL } from "@/lib/Baseurls";
 import Link from "next/link";
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
@@ -31,6 +32,7 @@ const MyinfoComp = ({
   viewpost,
   setviewpost,
 }: IProps) => {
+  const { ismobile, ismini, isdesktop } = useBreakPoint();
   return (
     <div className="flex flex-col justify-center items-center">
       {userdata?.img == null ? (
@@ -75,23 +77,28 @@ const MyinfoComp = ({
       </div>
 
       {viewpost && (
-        <div className="mt-5 flex grid grid-cols-5 gap-4">
-          {userdata?.post.map(
-            (item: { title: string; img: string; id: number }, idx: number) => (
-              <Link href={`/post/${item.id}`}>
-                <div className="flex flex-col items-center">
-                  <img
-                    src={`${ImgBaseURL}/${item.img}`}
-                    className="w-[10rem] h-[10rem] rounded-[15rem] border pointer-events-none"
-                    alt="mypostimg"
-                  ></img>
-                  <div className="p-2 w-[10rem] text-center text-[1.2rem] fontbold truncate ">
-                    {item.title}
+        <div
+          className={`mt-5 mx-auto ${isdesktop && "grid grid-cols-4"} ${
+            ismini && "grid grid-cols-3"
+          } ${ismobile && "grid grid-cols-2"}`}
+        >
+          {userdata?.post &&
+            userdata?.post.map(
+              (
+                item: { title: string; img: string; id: number },
+                idx: number
+              ) => (
+                <Link key={idx} href={`/post/${item.id}`}>
+                  <div className="m-1 flex flex-col items-center group hover:bg-black">
+                    <img
+                      src={`${ImgBaseURL}/${item.img}`}
+                      className="w-[10rem] h-[10rem]  border pointer-events-none group-hover:opacity-[0.8]"
+                      alt="mypostimg"
+                    ></img>
                   </div>
-                </div>
-              </Link>
-            )
-          )}
+                </Link>
+              )
+            )}
         </div>
       )}
     </div>

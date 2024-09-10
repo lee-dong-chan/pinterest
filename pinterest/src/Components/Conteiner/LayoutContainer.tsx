@@ -55,7 +55,7 @@ const Layout = ({ children }: IProps): JSX.Element => {
     refetchInterval: 200000,
   });
 
-  const { refetch } = useQuery({
+  const { refetch, data } = useQuery({
     queryKey: ["userdata"],
     queryFn: async () => {
       const { data } = await axios.get(`${baseURL}/userdata`, {
@@ -76,7 +76,7 @@ const Layout = ({ children }: IProps): JSX.Element => {
     } else {
       refetch();
     }
-  }, [logcheck.isSuccess]);
+  }, [logcheck.data]);
 
   return (
     <div className="min-w-[270px] select-none">

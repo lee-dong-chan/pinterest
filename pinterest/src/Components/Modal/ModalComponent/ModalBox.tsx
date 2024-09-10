@@ -25,8 +25,8 @@ const ModalBox = ({ refetch }: IProps): JSX.Element => {
       ></div>
       <div
         className={`${
-          ismobile ? "w-screen top-[3%]" : "w-[30rem] top-[15%]"
-        } fixed h-fit bg-white rounded-[1.3rem] z-[100]    mx-auto`}
+          ismobile ? "w-screen top-[3%]" : "w-[30rem] top-[8%]"
+        } fixed h-fit bg-white rounded-[1.3rem] z-[100]  mx-auto`}
       >
         <div className="absolute w-[100%] flex justify-end ">
           <div
