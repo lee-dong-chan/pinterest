@@ -1,6 +1,6 @@
 "use client";
 
-import Comp from "@/Components/postArr/Comp";
+import Comp from "@/pages/PageComp/List/Comp";
 import { IPost } from "@/pages/PageContainer/ListContainer";
 import { InfiniteData } from "@tanstack/react-query";
 import { useEffect, useState } from "react";

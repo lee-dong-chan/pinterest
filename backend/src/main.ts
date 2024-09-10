@@ -10,7 +10,7 @@ async function bootstrap() {
   });
 
   app.enableCors({
-    origin: ['http://localhost:3000'],
+    origin: ['http://localhost:3000', 'http://172.30.1.90:3000'],
     credentials: true,
     // exposedHeaders:[] 사용할 헤더 추가
   });

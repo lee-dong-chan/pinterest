@@ -1,3 +1,4 @@
+import { useBreakPoint } from "@/CustomHook/BreakPoint";
 import { ChangeEvent } from "react";
 import { FaCircleArrowUp } from "react-icons/fa6";
 interface IProps {
@@ -6,10 +7,17 @@ interface IProps {
 }
 
 const ImgComp = ({ inputfile, previewUrl }: IProps): JSX.Element => {
+  const { isdesktop } = useBreakPoint();
   return (
     <div>
       <div>
-        <div className="w-[25rem] h-[27em] border border-gray-300 rounded-[2rem] bg-gray-200">
+        <div
+          className={
+            isdesktop
+              ? "w-[25rem] h-[27em] border border-gray-300 rounded-[2rem] bg-gray-200"
+              : "mx-5 w-[screen] h-[27em] border border-gray-300 rounded-[2rem] bg-gray-200"
+          }
+        >
           <label htmlFor="imgupload" className="w-[100%] h-[100%] ">
             {!previewUrl ? (
               <div className="w-[100%] h-[100%] flex flex-col items-center justify-center">
@@ -34,10 +42,14 @@ const ImgComp = ({ inputfile, previewUrl }: IProps): JSX.Element => {
           onChange={inputfile}
         ></input>
       </div>
-      <hr className="my-7 border-gray-400"></hr>
-      <div className="p-3 text-center border rounded-[1rem] bg-gray-200 font-bold">
-        URL 에서 저장
-      </div>
+      {isdesktop && (
+        <div>
+          <hr className="my-7 border-gray-400"></hr>
+          <div className="p-3 text-center border rounded-[1rem] bg-gray-200 font-bold">
+            URL 에서 저장
+          </div>
+        </div>
+      )}
     </div>
   );
 };

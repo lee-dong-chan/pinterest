@@ -8,15 +8,17 @@ import { Observer } from "@/lib/Observer";
 import { IoMdArrowDropdown } from "react-icons/io";
 import PostListComp from "@/Components/Comp/List/PostListComp";
 import Link from "next/link";
+import { useBreakPoint } from "@/CustomHook/BreakPoint";
 
 const CategoryPageContainer = () => {
   const searchparams = useSearchParams();
   const catename = searchparams?.get("category");
   const category = useParams();
   const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
-  const [cols, setcols] = useState<number>(5);
+  const { isdesktop } = useBreakPoint();
+
   const fetchdata = async (pageParam: number) => {
-    const pagesize = cols * 2;
+    const pagesize = 10;
     const { data } = await axios.get(
       `${baseURL}/list/${category?.id}?page=${pageParam}&limit=${pagesize}`
     );
@@ -47,15 +49,17 @@ const CategoryPageContainer = () => {
           </div>
         </Link>
         <div className="p-5 text-[1.5rem] font-bold">카테고리: {catename}</div>
-        <div className="text-center">
-          pinterest에서 {catename}에 관한 멋진 아이디어를 확인하고 영감을
-          얻어보세요. 아이디어를 얻고 새로운 것을
-          <br />
-          시도해 보세요.
-        </div>
+        {isdesktop && (
+          <div className="text-center">
+            pinterest에서 {catename}에 관한 멋진 아이디어를 확인하고 영감을
+            얻어보세요. 아이디어를 얻고 새로운 것을
+            <br />
+            시도해 보세요.
+          </div>
+        )}
       </div>
       <div className="my-5">
-        <PostListComp postlist={data} cols={cols} />
+        <PostListComp postlist={data} />
         {isFetching && !isFetchingNextPage && (
           <p className="w-fit mx-auto">로딩중...</p>
         )}

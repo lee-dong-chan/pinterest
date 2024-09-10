@@ -5,6 +5,11 @@ export const Droponoff = atom<boolean>({
   default: false,
 });
 
+export const Droptype = atom<string>({
+  key: "drop type",
+  default: "",
+});
+
 export const Categoryonoff = atom<boolean>({
   key: "Category onoff",
   default: false,
