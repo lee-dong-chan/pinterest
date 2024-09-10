@@ -8,7 +8,7 @@ export const useBreakPoint = () => {
   useEffect(() => {
     const handleResize = () => {
       const screenWidth = window.innerWidth;
-      setIsmobile(screenWidth < 430);
+      setIsmobile(screenWidth < 450);
       setIsMini(screenWidth < 768 && screenWidth >= 430);
       setIsDesktop(screenWidth >= 768);
     };

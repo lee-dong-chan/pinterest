@@ -1,9 +1,9 @@
-import HomeContainer from "@/pages/PageContainer/HomeContainer";
+import PageContainer from "@/Components/Conteiner/PageComp";
 
 export default function Home({}) {
   return (
     <main>
-      <HomeContainer />
+      <PageContainer />
     </main>
   );
 }

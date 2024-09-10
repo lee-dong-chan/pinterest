@@ -2,10 +2,12 @@
 import CategoryComp from "@/Components/Comp/Category/ListCategoryComp";
 import PostListComp from "@/Components/Comp/List/PostListComp";
 import { Logincheck } from "@/Context/usercheck";
+import { useBreakPoint } from "@/CustomHook/BreakPoint";
 import { ICategory } from "@/app/list/page";
 import { Observer } from "@/lib/Observer";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { useRecoilValue } from "recoil";
@@ -24,6 +26,8 @@ interface IProps {
   categorylist: ICategory[];
 }
 const ListContainer = ({ categorylist }: IProps): JSX.Element => {
+  const router = useRouter();
+  const { ismobile } = useBreakPoint();
   const logincheck = useRecoilValue(Logincheck);
   const BaseUrl = process.env.NEXT_PUBLIC_BASE_URL;
   const [catelength, setcatelength] = useState<boolean>(false);
@@ -51,9 +55,13 @@ const ListContainer = ({ categorylist }: IProps): JSX.Element => {
     Observer(hasNextPage, fetchNextPage, loadmore);
   }, [hasNextPage, fetchNextPage]);
 
+  useEffect(() => {
+    router.refresh();
+  }, []);
+
   return (
     <div>
-      {logincheck === "false" && (
+      {logincheck === "false" && !ismobile && (
         <div>
           <div className="mx-auto my-10 w-fit text-[1.7rem] font-bold">
             pinterest 최고의 아이디어 탐색하기

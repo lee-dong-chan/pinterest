@@ -1,7 +1,9 @@
 import { Middlebutton } from "@/Components/Button/Button";
+import { Modalonoff } from "@/Context/LoginModalSystem";
 import { UseMutateFunction } from "@tanstack/react-query";
-import Link from "next/link";
+
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
+import { useSetRecoilState } from "recoil";
 
 interface IProps {
   setid: Dispatch<SetStateAction<string | undefined>>;
@@ -47,16 +49,15 @@ const RegistComp = ({ setid, setpw, setdate, submit }: IProps): JSX.Element => {
         ></input>
       </label>
       <div
-        className="mb-4"
+        className="mb-4 w-[100%]"
         onClick={() => {
           submit();
-          window.location.reload();
         }}
       >
         <Middlebutton text="계속하기" back="bg-red-600" color="text-white" />
       </div>
       <div className="mb-4">또는</div>
-      <div className="mb-8">
+      <div className="mb-8 w-[100%]">
         <img
           src="/imgs/google.png"
           className="absolute w-[2rem] mx-3 my-2 pointer-events-none"

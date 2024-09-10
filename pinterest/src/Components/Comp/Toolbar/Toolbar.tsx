@@ -7,6 +7,11 @@ import { usePathname } from "next/navigation";
 
 import { useBreakPoint } from "@/CustomHook/BreakPoint";
 
+import { FaAngleDown } from "react-icons/fa";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { Droponoff, Droptype } from "@/Context/DropDownModal";
+import { useEffect } from "react";
+
 interface IProps {
   login: string;
   userdata?: IUser;
@@ -14,39 +19,66 @@ interface IProps {
 
 const ToolbarComp = ({ login, userdata }: IProps): JSX.Element => {
   const pathname = usePathname();
-  const { ismini, isdesktop } = useBreakPoint();
+  const { ismini, isdesktop, ismobile } = useBreakPoint();
+  const Drop = useRecoilValue(Droponoff);
+  const setDrop = useSetRecoilState(Droponoff);
+  const setDroptype = useSetRecoilState(Droptype);
+
+  useEffect(() => {
+    if (ismini == false) {
+      setDrop(false);
+    }
+  }, [ismini]);
   return (
     <div className="p-2 flex justify-between items-center">
       <div className="flex items-center">
         {login === "false" ? (
-          <Link href={"/"}>
+          ismobile || ismini ? (
             <img
-              src={`${
-                ismini ? "/imgs/minipin.png" : isdesktop && "imgs/pinterest.png"
-              }`}
-              className="h-[3.5rem] me-3 pointer-events-none"
+              src={"/imgs/minipin.png"}
+              className={`${
+                ismobile ? "h-[2rem]" : "h-[3.5rem]"
+              } me-3 pointer-events-none`}
               alt="logo"
             ></img>
-          </Link>
+          ) : (
+            isdesktop && (
+              <Link href={"/"}>
+                <img
+                  src={"/imgs/pinterest.png"}
+                  className={"h-[3.5rem] me-3 pointer-events-none"}
+                  alt="logo"
+                ></img>
+              </Link>
+            )
+          )
         ) : (
           <img
             src={`${
-              ismini ? "/imgs/minipin.png" : isdesktop && "imgs/pinterest.png"
+              ismini
+                ? "/imgs/minipin.png"
+                : isdesktop
+                ? "/imgs/pinterest.png"
+                : ismobile && "/imgs/minipin.png"
             }`}
-            className="h-[3.5rem] me-3 pointer-events-none"
+            className={`${
+              ismobile ? "h-[2rem]" : "h-[3.5rem]"
+            } me-3 pointer-events-none`}
             alt="logo"
           ></img>
         )}
-        <Link href={"/list"}>
-          {pathname !== "/" && pathname !== "/write" ? (
-            <div className="px-4 py-3 border rounded-[1.2rem] text-white bg-black">
-              탐색
-            </div>
-          ) : (
-            <div className="me-2">탐색</div>
-          )}
-        </Link>
-        {login === "true" && (
+        {isdesktop && (
+          <Link href={"/list"}>
+            {pathname !== "/" && pathname !== "/write" ? (
+              <div className="px-4 py-3 border rounded-[1.2rem] text-white bg-black">
+                탐색
+              </div>
+            ) : (
+              <div className="me-2">탐색</div>
+            )}
+          </Link>
+        )}
+        {login === "true" && isdesktop && (
           <Link href={"/write"}>
             {pathname == "/write" ? (
               <div className="ms-2 px-4 py-3 border rounded-[1.2rem] text-white bg-black">
@@ -57,7 +89,38 @@ const ToolbarComp = ({ login, userdata }: IProps): JSX.Element => {
             )}
           </Link>
         )}
+
+        {ismini && login == "false" && (
+          <div>
+            <div
+              className="px-4 py-2  text-[1.2rem]  rounded-[1rem]  bg-white  hover:bg-gray-200 flex items-center"
+              onClick={() => {
+                setDroptype("not login toolbar");
+                setDrop(!Drop);
+              }}
+            >
+              탐색
+              <FaAngleDown size={20} />
+            </div>
+          </div>
+        )}
+
+        {ismini && login == "true" && (
+          <div>
+            <div
+              className="px-4 py-2  text-[1.2rem]  rounded-[1rem]  bg-white  hover:bg-gray-200 flex items-center"
+              onClick={() => {
+                setDroptype("login toolbar");
+                setDrop(!Drop);
+              }}
+            >
+              홈
+              <FaAngleDown size={20} />
+            </div>
+          </div>
+        )}
       </div>
+
       {pathname === "/" && <HomeToolbar />}
       {pathname !== "/" &&
         (login == "true" ? <Onlogin userdata={userdata} /> : <Notlogin />)}

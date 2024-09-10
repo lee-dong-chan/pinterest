@@ -8,6 +8,7 @@ import { ChangeEvent, Dispatch, SetStateAction } from "react";
 import { IoReload } from "react-icons/io5";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { Categoryonoff } from "@/Context/DropDownModal";
+import { useBreakPoint } from "@/CustomHook/BreakPoint";
 interface IProps {
   settag: Dispatch<SetStateAction<string>>;
   tagdata: Itag[];
@@ -39,9 +40,16 @@ const InfoComp = ({
 }: IProps): JSX.Element => {
   const cateonoff = useSetRecoilState(Categoryonoff);
   const catestate = useRecoilValue(Categoryonoff);
+  const { isdesktop } = useBreakPoint();
 
   return (
-    <div className=" flex flex-1 flex-col gap-5">
+    <div
+      className={
+        isdesktop
+          ? "flex flex-1 flex-col gap-5"
+          : "mx-3 flex flex-1 flex-col gap-5"
+      }
+    >
       <div className="w-[100%]">
         <div className="py-2 text-[0.8rem]">제목</div>
         <input
@@ -65,34 +73,42 @@ const InfoComp = ({
       </div>
       <div className="w-[100%]">
         <div className="flex items-center gap-2">
-          <div className="py-2 text-[0.8rem]">카테고리 선택</div>
           <div
+            className="py-2 text-[0.8rem]"
             onClick={() => {
               cateonoff(!catestate);
             }}
           >
-            <IoIosArrowDropdown />
+            카테고리 선택
           </div>
+
+          <IoIosArrowDropdown />
         </div>
-        <div className=" px-2 w-[100%] h-[3rem] border border-gray-400 rounded flex items-center">
-          {selectcate.name}
-        </div>
-        {catestate && (
-          <div className="absolute  w-[100%] h-[10rem] border-s border-e border-b bg-white overflow-auto ">
-            {categorydata.map((item: ICategory, idx: number) => (
-              <div
-                key={idx}
-                className="px-3 py-2 text-[1.1rem]"
-                onClick={() => {
-                  setselctcate({ id: item.id, name: item.name, img: item.img });
-                  cateonoff(false);
-                }}
-              >
-                {item.name}
-              </div>
-            ))}
+        <div className="relative">
+          <div className="w-[100%] h-[3rem] border border-gray-400 rounded flex items-center">
+            {selectcate.name}
           </div>
-        )}
+          {catestate && (
+            <div className="absolute w-[100%] h-[10rem] border-s border-e border-b bg-white overflow-auto ">
+              {categorydata.map((item: ICategory, idx: number) => (
+                <div
+                  key={idx}
+                  className="px-3 py-2 text-[1.1rem]"
+                  onClick={() => {
+                    setselctcate({
+                      id: item.id,
+                      name: item.name,
+                      img: item.img,
+                    });
+                    cateonoff(false);
+                  }}
+                >
+                  {item.name}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
       <div className="w-[100%]">
         <div className="py-2 text-[0.8rem]">태그검색</div>

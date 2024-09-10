@@ -9,6 +9,7 @@ const HomeContainer = () => {
   const [page, setCount] = useState<number>(1);
   const logincheck = useRecoilValue(Logincheck);
   const router = useRouter();
+
   useEffect(() => {
     if (page == 1) {
       window.scrollTo({ top: 0, behavior: "smooth" });

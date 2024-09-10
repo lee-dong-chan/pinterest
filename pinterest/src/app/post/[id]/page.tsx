@@ -1,3 +1,4 @@
+import { useBreakPoint } from "@/CustomHook/BreakPoint";
 import PostContainer from "@/pages/PageContainer/PostContainer";
 import axios from "axios";
 import Link from "next/link";
@@ -28,16 +29,7 @@ const Post = async (searchParams: {
   const { data } = await axios.get(`${baseURL}/getpost/${id}`);
 
   return (
-    <div className="mt-10 flex flex-col items-center">
-      <div className="flex items-center text-[0.8rem]">
-        <Link href={"/list"}>
-          <div className="p-1 border rounded-[0.8rem] bg-gray-200 ">탐색</div>
-        </Link>
-        <div className="px-2">
-          <FaChevronLeft />
-        </div>
-        <div>{data?.categoryname}</div>
-      </div>
+    <div className="my-10 flex flex-col items-center">
       <PostContainer data={data} />
     </div>
   );

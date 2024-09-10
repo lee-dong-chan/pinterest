@@ -2,7 +2,7 @@ import { Middlebutton } from "@/Components/Button/Button";
 import GoogleContainer from "@/Components/Conteiner/GoogleLoginContainer";
 import { Modalonoff } from "@/Context/LoginModalSystem";
 import { UseMutateFunction } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
+
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
 import { useSetRecoilState } from "recoil";
 
@@ -10,11 +10,17 @@ interface IProps {
   setid: Dispatch<SetStateAction<string | undefined>>;
   setpw: Dispatch<SetStateAction<string | undefined>>;
   submit: UseMutateFunction<any, Error, void, unknown>;
+  data: any;
+  loginfail: boolean;
 }
 
-const LoginComp = ({ setid, setpw, submit }: IProps): JSX.Element => {
-  const Modal = useSetRecoilState(Modalonoff);
-  const router = useRouter();
+const LoginComp = ({
+  setid,
+  setpw,
+  submit,
+  data,
+  loginfail,
+}: IProps): JSX.Element => {
   return (
     <div className="flex flex-col items-center">
       <label className="w-[100%]">
@@ -39,13 +45,16 @@ const LoginComp = ({ setid, setpw, submit }: IProps): JSX.Element => {
           }}
         ></input>
       </label>
-      <div onClick={() => {}}>비밀번호를 잊으셧나요?</div>
+      <div className="p-1  flex items-center h-[1rem] w-[100%] text-[0.8rem] text-red-500">
+        {data?.result === "not found email" &&
+          "로그인실패!! 이메일을 확인하세요"}
+        {data?.result === "not found password" &&
+          "로그인실패!! 비밀번호를 확인하세요"}
+      </div>
       <div
-        className="mb-4"
+        className="mb-4 w-[100%]"
         onClick={() => {
           submit();
-          Modal(false);
-          window.location.replace("/list");
         }}
       >
         <Middlebutton text="로그인" back="bg-red-600" color="text-white" />

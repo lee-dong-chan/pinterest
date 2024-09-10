@@ -11,7 +11,7 @@ const GoogleComp = (): JSX.Element => {
     router.replace(`${googleOAuthUrl}`);
   };
   return (
-    <div className="mb-8" onClick={loginHandler}>
+    <div className="mb-8 w-[100%]" onClick={loginHandler}>
       <img
         src="/imgs/google.png"
         className="absolute w-[2rem] mx-3 my-2"
