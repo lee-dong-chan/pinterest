@@ -41,7 +41,7 @@ export const Smallbutton = ({ text, back, color }: IProps) => {
 export const Middlebutton = ({ text, back, color }: IProps): JSX.Element => {
   return (
     <Button
-      width="w-[20rem]"
+      width="w-[100%]"
       height="h-[3rem]"
       text={text}
       back={back}

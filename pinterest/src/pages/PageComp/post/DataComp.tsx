@@ -1,5 +1,6 @@
 import { IUser } from "@/Components/Conteiner/LayoutContainer";
 import { Modalonoff, Modaltype } from "@/Context/LoginModalSystem";
+import { useBreakPoint } from "@/CustomHook/BreakPoint";
 import { IPostData } from "@/app/post/[id]/page";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
@@ -30,15 +31,14 @@ const DataComp = ({
   submit,
   setcomment,
 }: IProps) => {
-  const commentCount = data?.comment.length;
+  const commentCount = data?.comment?.length;
   const Modal = useSetRecoilState(Modalonoff);
   const loginModal = useSetRecoilState(Modaltype);
   const router = useRouter();
+  const { isdesktop } = useBreakPoint();
   return (
-    <div className="m-2 pt-10 w-[30rem] flex flex-1 flex-col">
-      <div className="px-2 text-[1.5rem] text-wrap font-bold ">
-        {data?.title}
-      </div>
+    <div className="px-5 py-5 pt flex flex-1 flex-col">
+      <div className="text-[1.5rem] text-wrap font-bold ">{data?.title}</div>
       <div className="flex items-center gap-3">
         <img
           src={`${ImgBaseURL}/${data?.postuserimg}`}
@@ -49,7 +49,7 @@ const DataComp = ({
       </div>
       <div className="py-10 text-[1rem]">{data?.content}</div>
       <div className="flex gap-2">
-        {data?.tag.map((item: string, idx: number) => (
+        {data?.tag?.map((item: string, idx: number) => (
           <div
             key={idx}
             className="p-1 w-fit text-[0.8rem] border rounded-[0.5rem] bg-gray-200"
@@ -79,7 +79,7 @@ const DataComp = ({
         ) : (
           <div>
             <div className="my-3 text-[1.5rem]">댓글</div>
-            <div className="py-3 text-gray-400 ">
+            <div className="py-3 text-gray-400 w-[20rem] ">
               아직 댓글이 없습니다! 대화를 시작하려면 하나를 추가하세요.
             </div>
           </div>
@@ -91,7 +91,7 @@ const DataComp = ({
                 Modal(true);
                 loginModal("login");
               }}
-              className="w-[27rem] h-[3rem] border rounded-[3rem] p-2"
+              className="w-[100%] h-[3rem] border rounded-[3rem] p-2"
               placeholder="댓글추가"
             ></input>
           </div>
@@ -103,7 +103,7 @@ const DataComp = ({
               alt="userimg"
             ></img>
             <input
-              className="w-[25rem] h-[3rem] border rounded-[3rem] p-2"
+              className="w-[100%] h-[3rem] border rounded-[3rem] p-2"
               placeholder="댓글추가"
               onChange={setinput}
               onKeyDown={(e) => {

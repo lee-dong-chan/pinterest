@@ -18,7 +18,6 @@ let categorys: ICategory[] = [];
 
 const Mainlist = async () => {
   categorys = await category();
-  console.log(categorys);
   return (
     <div>
       <div>{<ListContainer categorylist={categorys} />}</div>

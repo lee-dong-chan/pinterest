@@ -1,16 +1,16 @@
 import { Smallbutton } from "@/Components/Button/Button";
 import SearchContainer from "@/Components/Conteiner/SearchContainer";
 import { Modalonoff, Modaltype } from "@/Context/LoginModalSystem";
+import { useBreakPoint } from "@/CustomHook/BreakPoint";
 import { useSetRecoilState } from "recoil";
 
 const Notlogin = (): JSX.Element => {
   const onoffModal = useSetRecoilState(Modalonoff);
   const ModalType = useSetRecoilState(Modaltype);
+  const { isdesktop } = useBreakPoint();
   return (
     <div className="ms-4 flex items-center flex-1">
-      <div className="me-5 w-[100%]">
-        <SearchContainer />
-      </div>
+      <div className="me-5 w-[100%]">{isdesktop && <SearchContainer />}</div>
       <div className="flex me-4 gap-5">
         <div
           onClick={() => {

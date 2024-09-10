@@ -13,7 +13,6 @@ import { Selecttags } from './entities/selecttag.entity';
 import { URLSearchParams } from 'url';
 import axios from 'axios';
 import { pbkdf2Sync } from 'crypto';
-import { MulterModule } from '@nestjs/platform-express';
 
 @Injectable()
 export class AppService {

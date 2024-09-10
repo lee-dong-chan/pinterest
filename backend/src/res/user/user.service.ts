@@ -48,7 +48,7 @@ export class UserService {
         return { result: 'regist ok' };
       }
     } catch (err) {
-      console.error(err);
+      return { result: 'regist error' };
     }
   }
 
@@ -81,7 +81,7 @@ export class UserService {
         return { result: 'not found password' };
       } else {
         req.session.user = checkid.id;
-        console.log('ok');
+        console.log('login ok');
         return { result: 'login ok' };
       }
     } catch (err) {

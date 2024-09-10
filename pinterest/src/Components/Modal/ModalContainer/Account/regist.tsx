@@ -3,8 +3,11 @@ import RegistComp from "../../ModalComponent/Comps/AccountComp/RegistComp";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import Ment from "../../ModalComponent/Comps/AccountComp/text";
+import { useSetRecoilState } from "recoil";
+import { Modalonoff } from "@/Context/LoginModalSystem";
 
 const Regist = (): JSX.Element => {
+  const Modal = useSetRecoilState(Modalonoff);
   const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
   const [id, setid] = useState<string>();
   const [pw, setpw] = useState<string>();
@@ -20,7 +23,10 @@ const Regist = (): JSX.Element => {
       });
       return data;
     },
-    onError() {},
+    onSuccess(data) {
+      if (data.regist == "regist ok") {
+      }
+    },
   });
 
   return (
