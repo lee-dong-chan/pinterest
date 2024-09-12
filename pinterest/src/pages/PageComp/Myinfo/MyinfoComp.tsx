@@ -2,7 +2,13 @@ import MyImgComp from "@/Components/Modal/ModalComponent/Comps/UserImgComp/Myimg
 import { useBreakPoint } from "@/CustomHook/BreakPoint";
 import { ImgBaseURL } from "@/lib/Baseurls";
 import Link from "next/link";
-import { ChangeEvent, Dispatch, SetStateAction } from "react";
+import {
+  ChangeEvent,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
 
 interface Myinfo {
   name: string;
@@ -33,6 +39,9 @@ const MyinfoComp = ({
   setviewpost,
 }: IProps) => {
   const { ismobile, ismini, isdesktop } = useBreakPoint();
+  const [failuserimg, setfailuserimg] = useState<boolean>(false);
+  const [failpostimg, setfailpostimg] = useState<number[]>([]);
+
   return (
     <div className="flex flex-col justify-center items-center">
       {userdata?.img == null ? (
@@ -44,9 +53,16 @@ const MyinfoComp = ({
       ) : (
         <div className="h-[15rem] w-[15rem] border rounded-[15rem] overflow-hidden">
           <img
-            src={`${ImgBaseURL}/${userdata.img}`}
+            src={
+              !failuserimg ? `${ImgBaseURL}/${userdata.img}` : "/imgs/noimg.png"
+            }
             className=" w-[100%] h-[100%] pointer-events-none "
             alt="userimg"
+            onError={() => {
+              if (userdata) {
+                setfailuserimg(true);
+              }
+            }}
           ></img>
         </div>
       )}
@@ -91,9 +107,16 @@ const MyinfoComp = ({
                 <Link key={idx} href={`/post/${item.id}`}>
                   <div className="m-1 flex flex-col items-center group hover:bg-black">
                     <img
-                      src={`${ImgBaseURL}/${item.img}`}
+                      src={
+                        failpostimg.indexOf(item.id) === -1
+                          ? `${ImgBaseURL}/${item.img}`
+                          : "/imgs/noimg.png"
+                      }
                       className="w-[10rem] h-[10rem]  border pointer-events-none group-hover:opacity-[0.8]"
                       alt="mypostimg"
+                      onError={() => {
+                        setfailpostimg([...failpostimg, item.id]);
+                      }}
                     ></img>
                   </div>
                 </Link>

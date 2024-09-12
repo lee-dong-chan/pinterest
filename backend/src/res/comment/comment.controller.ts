@@ -8,6 +8,7 @@ export class CommentController {
 
   @Post('/write')
   writecomment(@Body() createCommentDto: CreateCommentDto) {
+    console.log(createCommentDto);
     return this.commentService.comment(createCommentDto);
   }
 }

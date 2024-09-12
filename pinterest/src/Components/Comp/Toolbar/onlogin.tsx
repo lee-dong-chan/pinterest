@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { Droponoff, Droptype } from "@/Context/DropDownModal";
 import { useBreakPoint } from "@/CustomHook/BreakPoint";
+import { useState } from "react";
 
 interface IProps {
   userdata?: IUser;
@@ -16,6 +17,7 @@ const Onlogin = ({ userdata }: IProps): JSX.Element => {
   const setDroptype = useSetRecoilState(Droptype);
   const baseimgURL = process.env.NEXT_PUBLIC_SERVER_IMG_BASE_URL;
   const userimg = userdata?.userimg;
+  const [myimg, setmyimg] = useState<boolean>(false);
   const { ismobile } = useBreakPoint();
   return (
     <div className="ms-4 flex items-center flex-1">
@@ -25,8 +27,15 @@ const Onlogin = ({ userdata }: IProps): JSX.Element => {
           {userimg ? (
             <div className="me-1 border overflow-hidden h-[3rem] w-[3rem] rounded-[3rem]">
               <img
-                src={`${baseimgURL}/${userdata.userimg}`}
+                src={
+                  !myimg
+                    ? `${baseimgURL}/${userdata?.userimg}`
+                    : "/imgs/noimg.png"
+                }
                 alt="userimg"
+                onError={() => {
+                  setmyimg(true);
+                }}
               ></img>
             </div>
           ) : (

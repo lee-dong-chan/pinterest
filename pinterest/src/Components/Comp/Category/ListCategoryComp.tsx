@@ -1,3 +1,4 @@
+import { useBreakPoint } from "@/CustomHook/BreakPoint";
 import { ICategory } from "@/pages/PageContainer/WriteContainer";
 import Link from "next/link";
 import { Dispatch, SetStateAction } from "react";
@@ -9,12 +10,17 @@ interface IProps {
 }
 
 const CategoryComp = ({ categorylist, catelength, setcatelength }: IProps) => {
+  const { isdesktop, ismobile, ismini } = useBreakPoint();
   return (
     <div className="px-7 max-w-[70rem] mx-auto">
       <div
-        className={`p-2  ${!catelength ? "h-[10.5rem] overflow-hidden" : ""}`}
+        className={`p-2  ${!catelength ? "h-[11.5rem] overflow-hidden" : ""}`}
       >
-        <div className="flex flex-wrap max-w-[70rem] justify-center">
+        <div
+          className={`${isdesktop && "mx-auto grid grid-cols-5 "} ${
+            ismini && "mx-auto grid grid-cols-3"
+          }`}
+        >
           {categorylist?.map((item: ICategory, idx: number) => (
             <Link
               key={idx}
@@ -22,7 +28,7 @@ const CategoryComp = ({ categorylist, catelength, setcatelength }: IProps) => {
             >
               <div>
                 <div
-                  className="w-[13rem] h-[5rem] border rounded-[1rem] flex items-center justify-center text-[1.2rem] text-white "
+                  className="m-1 w-[100%] h-[5rem] border rounded-[1rem] flex items-center justify-center text-[1.2rem] text-white "
                   style={{
                     backgroundImage: `url(/imgs/category/${item.img}.png)`,
                     backgroundSize: "100% 100%",
