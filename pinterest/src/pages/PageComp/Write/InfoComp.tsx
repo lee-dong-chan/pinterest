@@ -85,7 +85,7 @@ const InfoComp = ({
           <IoIosArrowDropdown />
         </div>
         <div className="relative">
-          <div className="w-[100%] h-[3rem] border border-gray-400 rounded flex items-center">
+          <div className="p-2 w-[100%] h-[3rem] border border-gray-400 rounded flex items-center">
             {selectcate.name}
           </div>
           {catestate && (

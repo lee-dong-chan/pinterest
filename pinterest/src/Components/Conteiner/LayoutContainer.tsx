@@ -1,15 +1,15 @@
 "use client";
 
-import React, { use, useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import Toolbar from "./ToolbarContainer";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import ModalContainer from "../Modal/ModalContainer/AccountModalContiner";
 import { Modalonoff } from "@/Context/LoginModalSystem";
 import { usePathname, useRouter } from "next/navigation";
 
-import { Logincheck, Userdata } from "@/Context/usercheck";
+import { Logincheck, Userdata, refetchuser } from "@/Context/usercheck";
 import { useBreakPoint } from "@/CustomHook/BreakPoint";
 import MobileMenu from "../Modal/Mobile/MobileMenu";
 import { Droponoff } from "@/Context/DropDownModal";
@@ -32,16 +32,17 @@ const Layout = ({ children }: IProps): JSX.Element => {
   const MobileModal = useSetRecoilState(MobileDrop);
   const setlogin = useSetRecoilState(Logincheck);
   const setuser = useSetRecoilState(Userdata);
+  const setrefetch = useSetRecoilState(refetchuser);
   const onoffModal = useRecoilValue(Modalonoff);
   const userdata = useRecoilValue(Userdata);
   const login = useRecoilValue(Logincheck);
   const MobileDropon = useRecoilValue(MobileDrop);
   const onoffDrop = useRecoilValue(Droponoff);
+  const userrefetch = useRecoilValue(refetchuser);
   const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
   const router = useRouter();
   const { ismobile } = useBreakPoint();
   const Path = usePathname();
-
   const logcheck = useQuery({
     queryKey: ["logincheck"],
     queryFn: async () => {
@@ -55,12 +56,13 @@ const Layout = ({ children }: IProps): JSX.Element => {
     refetchInterval: 200000,
   });
 
-  const { refetch, data } = useQuery({
+  const { refetch } = useQuery({
     queryKey: ["userdata"],
     queryFn: async () => {
       const { data } = await axios.get(`${baseURL}/userdata`, {
         withCredentials: true,
       });
+      console.log(data);
       setuser(data);
       return data;
     },
@@ -78,6 +80,13 @@ const Layout = ({ children }: IProps): JSX.Element => {
     }
   }, [logcheck.data]);
 
+  useEffect(() => {
+    if (userrefetch == true) {
+      refetch();
+      setrefetch(false);
+    }
+  }, [userrefetch]);
+
   return (
     <div className="min-w-[270px] select-none">
       <div>
@@ -91,7 +100,9 @@ const Layout = ({ children }: IProps): JSX.Element => {
         >
           {children}
         </div>
-        {onoffDrop && <DropModalContainer refetch={logcheck.refetch} />}
+        {onoffDrop && (
+          <DropModalContainer refetch={logcheck.refetch} userdata={userdata} />
+        )}
         {ismobile && <MobileMenu />}
         {onoffModal && <ModalContainer refetch={logcheck.refetch} />}
         {MobileDropon && ismobile && <MobileModalBox />}

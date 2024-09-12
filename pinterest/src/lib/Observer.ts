@@ -1,7 +1,6 @@
 export const Observer = (hasNextPage, fetchNextPage, loadMore) => {
   const observer = new IntersectionObserver(
     (entries) => {
-      console.log(entries[0].isIntersecting);
       if (entries[0].isIntersecting && hasNextPage) {
         //요소가 보일떄
         fetchNextPage();

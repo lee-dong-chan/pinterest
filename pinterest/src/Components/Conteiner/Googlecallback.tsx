@@ -3,6 +3,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import Loading from "../Comp/Loading/Loding";
 
 const GoogleCallback = () => {
   const router = useRouter();
@@ -45,7 +46,11 @@ const GoogleCallback = () => {
     Google();
   });
 
-  return <div>loding</div>;
+  return (
+    <div>
+      <Loading />
+    </div>
+  );
 };
 
 export default GoogleCallback;

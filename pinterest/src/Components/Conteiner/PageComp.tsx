@@ -5,13 +5,14 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 const PageContainer = () => {
-  const { isdesktop } = useBreakPoint();
+  const { isdesktop, ismini, ismobile } = useBreakPoint();
   const router = useRouter();
   useEffect(() => {
-    if (!isdesktop) {
+    const Mobi = /Mibi/i.test(window.navigator.userAgent);
+    if (Mobi || ismini || ismobile) {
       router.replace("/list");
     }
-  }, []);
-  return <div>{isdesktop ? <HomeContainer /> : <div></div>}</div>;
+  }, [isdesktop, ismini, ismobile]);
+  return <div>{isdesktop && <HomeContainer />}</div>;
 };
 export default PageContainer;

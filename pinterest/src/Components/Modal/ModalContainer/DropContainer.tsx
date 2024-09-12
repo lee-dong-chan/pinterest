@@ -24,11 +24,11 @@ const DropModalContainer = ({ userdata, refetch }: IProps) => {
 
   return (
     <div>
-      {Dropname == "myinfo" && (
+      {Dropname == "myinfo" && userdata && (
         <div
-          className={`absolute h-fit ${
+          className={`fixed h-fit ${
             isdesktop ? "w-[15rem]" : ismini && "w-fit"
-          }  bg-white right-3 top-[4rem] rounded-[1rem] shadow`}
+          }  bg-white right-1 top-[2.2rem] rounded-b-[1rem] shadow z-[50]`}
         >
           <DropComp userdata={userdata} logout={logout} />
         </div>
@@ -36,7 +36,7 @@ const DropModalContainer = ({ userdata, refetch }: IProps) => {
 
       {Dropname == "not login toolbar" && (
         <div
-          className={`absolute h-fit w-[10rem] bg-white left-[10%] top-[4rem] rounded-[1rem] shadow`}
+          className={`fixed h-fit w-[10rem] bg-white left-[10%] top-[4rem] rounded-[1rem] shadow`}
         >
           <DropComp userdata={userdata} logout={logout} />
         </div>
@@ -44,7 +44,7 @@ const DropModalContainer = ({ userdata, refetch }: IProps) => {
 
       {Dropname == "login toolbar" && (
         <div
-          className={`absolute h-fit w-[10rem] bg-white left-[10%] top-[4rem] rounded-[1rem] shadow`}
+          className={`fixed h-fit w-[10rem] bg-white left-[10%] top-[4rem] rounded-[1rem] shadow`}
         >
           <DropComp userdata={userdata} logout={logout} />
         </div>

@@ -1,13 +1,14 @@
-import { IPostData } from "@/app/post/[id]/page";
-
 import DataComp from "../post/DataComp";
 import ImgComp from "../post/ImgComp";
 import { IUser } from "@/Components/Conteiner/LayoutContainer";
 
-import { ChangeEvent, Dispatch, SetStateAction } from "react";
+import { ChangeEvent, Dispatch, SetStateAction, Suspense } from "react";
 import { useBreakPoint } from "@/CustomHook/BreakPoint";
 import Link from "next/link";
 import { FaChevronLeft } from "react-icons/fa";
+import { IPostData } from "@/pages/PageContainer/PostContainer";
+import { QueryObserverResult, RefetchOptions } from "@tanstack/query-core";
+import { UseMutateFunction } from "@tanstack/react-query";
 
 interface IProps {
   data?: IPostData;
@@ -16,8 +17,9 @@ interface IProps {
   setinput: (e: ChangeEvent<HTMLInputElement>) => void;
   setcomment: Dispatch<SetStateAction<string>>;
   submit: () => Promise<void>;
+  mutate: UseMutateFunction<IPostData, Error, void, unknown>;
+  comment: string;
 }
-
 const PostComp = ({
   data,
   login,
@@ -25,6 +27,8 @@ const PostComp = ({
   setinput,
   setcomment,
   submit,
+  comment,
+  mutate,
 }: IProps) => {
   const ImgBaseURL = process.env.NEXT_PUBLIC_SERVER_IMG_BASE_URL;
   const { isdesktop } = useBreakPoint();
@@ -49,6 +53,7 @@ const PostComp = ({
         }
       >
         <ImgComp ImgBaseURL={ImgBaseURL} data={data} />
+
         <DataComp
           ImgBaseURL={ImgBaseURL}
           data={data}
@@ -57,6 +62,8 @@ const PostComp = ({
           setinput={setinput}
           setcomment={setcomment}
           submit={submit}
+          comment={comment}
+          mutate={mutate}
         />
       </div>
     </div>
