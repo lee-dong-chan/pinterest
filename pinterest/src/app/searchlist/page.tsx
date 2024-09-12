@@ -1,4 +1,4 @@
-import SearchPageContainer from "@/pages/PageContainer/SearchPageContainer";
+import SearchPageContainer from "@/Components/pageData/PageContainer/SearchPageContainer";
 
 interface Props {
   searchParams: { [key: string]: string | string[] | null };

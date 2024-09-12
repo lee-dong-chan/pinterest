@@ -3,15 +3,8 @@ import { IoMdClose } from "react-icons/io";
 import { useSetRecoilState } from "recoil";
 import Modal from "./Modals/Modal";
 import { useBreakPoint } from "@/CustomHook/BreakPoint";
-import { QueryObserverResult, RefetchOptions } from "@tanstack/react-query";
 
-interface IProps {
-  refetch: (
-    options?: RefetchOptions | undefined
-  ) => Promise<QueryObserverResult<string, Error>>;
-}
-
-const ModalBox = ({ refetch }: IProps): JSX.Element => {
+const ModalBox = (): JSX.Element => {
   const onoffModal = useSetRecoilState(Modalonoff);
   const { ismobile } = useBreakPoint();
 
@@ -40,7 +33,7 @@ const ModalBox = ({ refetch }: IProps): JSX.Element => {
         </div>
 
         <div className="mx-auto w-[20rem] flex flex-col items-center">
-          <Modal refetch={refetch} />
+          <Modal />
         </div>
       </div>
     </div>

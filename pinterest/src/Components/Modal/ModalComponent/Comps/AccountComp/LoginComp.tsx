@@ -1,10 +1,9 @@
 import { Middlebutton } from "@/Components/Button/Button";
 import GoogleContainer from "@/Components/Conteiner/GoogleLoginContainer";
-import { Modalonoff } from "@/Context/LoginModalSystem";
+
 import { UseMutateFunction } from "@tanstack/react-query";
 
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
-import { useSetRecoilState } from "recoil";
 
 interface IProps {
   setid: Dispatch<SetStateAction<string | undefined>>;

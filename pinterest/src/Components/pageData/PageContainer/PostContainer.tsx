@@ -6,7 +6,7 @@ import { Logincheck, Userdata } from "@/Context/usercheck";
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { BaseURL } from "@/lib/Baseurls";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 
 export interface IPostData {

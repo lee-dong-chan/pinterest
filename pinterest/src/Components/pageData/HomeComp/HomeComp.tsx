@@ -11,7 +11,7 @@ interface IProps {
 }
 const HomeComp = ({ setCount, page }: IProps) => {
   return (
-    <div>
+    <div className="w-screen">
       <FirstContainer setCount={setCount} page={page} />
       <SecondContainer setCount={setCount} page={page} />
       <ThirdContainer setCount={setCount} page={page} />

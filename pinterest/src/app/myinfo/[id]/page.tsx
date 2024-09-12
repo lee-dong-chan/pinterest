@@ -1,4 +1,4 @@
-import MyinfoContainer from "@/pages/PageContainer/MyinfoContiner";
+import MyinfoContainer from "@/Components/pageData/PageContainer/MyinfoContiner";
 
 const Myinfo = () => {
   return <MyinfoContainer />;

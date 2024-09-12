@@ -1,7 +1,7 @@
 import { IUser } from "@/Components/Conteiner/LayoutContainer";
 import { Modalonoff, Modaltype } from "@/Context/LoginModalSystem";
-import { IPostData } from "@/pages/PageContainer/PostContainer";
-import { UseMutateFunction, useQueryClient } from "@tanstack/react-query";
+import { IPostData } from "@/Components/pageData/PageContainer/PostContainer";
+import { UseMutateFunction } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
 import {

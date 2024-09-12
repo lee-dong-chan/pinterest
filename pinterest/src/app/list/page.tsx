@@ -1,4 +1,4 @@
-import ListContainer from "@/pages/PageContainer/ListContainer";
+import ListContainer from "@/Components/pageData/PageContainer/ListContainer";
 
 const Mainlist = async () => {
   return (

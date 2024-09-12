@@ -1,13 +1,11 @@
 import DataComp from "../post/DataComp";
 import ImgComp from "../post/ImgComp";
 import { IUser } from "@/Components/Conteiner/LayoutContainer";
-
-import { ChangeEvent, Dispatch, SetStateAction, Suspense } from "react";
+import { ChangeEvent, Dispatch, SetStateAction } from "react";
 import { useBreakPoint } from "@/CustomHook/BreakPoint";
 import Link from "next/link";
 import { FaChevronLeft } from "react-icons/fa";
-import { IPostData } from "@/pages/PageContainer/PostContainer";
-import { QueryObserverResult, RefetchOptions } from "@tanstack/query-core";
+import { IPostData } from "@/Components/pageData/PageContainer/PostContainer";
 import { UseMutateFunction } from "@tanstack/react-query";
 
 interface IProps {

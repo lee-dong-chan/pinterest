@@ -1,10 +1,6 @@
 import Login from "@/Components/Modal/ModalContainer/Account/login";
 import { Dispatch, SetStateAction } from "react";
-import {
-  RiArrowDropDownLine,
-  RiArrowDropUpFill,
-  RiArrowDropUpLine,
-} from "react-icons/ri";
+import { RiArrowDropUpLine } from "react-icons/ri";
 
 interface IProps {
   setCount: Dispatch<SetStateAction<number>>;

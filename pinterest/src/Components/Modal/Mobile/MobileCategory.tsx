@@ -1,6 +1,8 @@
+"use client";
+
 import { MobileDrop } from "@/Context/MobileDrop";
-import { ICategory } from "@/app/list/page";
 import { BaseURL } from "@/lib/Baseurls";
+import { ICategory } from "@/Components/pageData/PageContainer/WriteContainer";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import Link from "next/link";

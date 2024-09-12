@@ -23,7 +23,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <RecoilWrap>
           <Providers>
-            <Layout children={children} />
+            <Layout> {children}</Layout>
           </Providers>
         </RecoilWrap>
       </body>
