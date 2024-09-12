@@ -1,23 +1,15 @@
 "use client";
 import { useState } from "react";
 import LoginComp from "../../ModalComponent/Comps/AccountComp/LoginComp";
-import {
-  QueryObserverResult,
-  RefetchOptions,
-  useMutation,
-} from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import Ment from "../../ModalComponent/Comps/AccountComp/text";
 import { useSetRecoilState } from "recoil";
 import { Modalonoff } from "@/Context/LoginModalSystem";
+import { fetchLogincheck } from "@/Context/usercheck";
 
-interface IProps {
-  refetch: (
-    options?: RefetchOptions | undefined
-  ) => Promise<QueryObserverResult<string, Error>>;
-}
-
-const Login = ({ refetch }: IProps): JSX.Element => {
+const Login = (): JSX.Element => {
+  const fetchlogincheck = useSetRecoilState(fetchLogincheck);
   const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
   const [id, setid] = useState<string>();
   const [pw, setpw] = useState<string>();
@@ -38,7 +30,7 @@ const Login = ({ refetch }: IProps): JSX.Element => {
     },
     onSuccess(data) {
       if (data.result == "login ok") {
-        refetch();
+        fetchlogincheck(true);
         Modal(false);
       } else {
         setfail(true);

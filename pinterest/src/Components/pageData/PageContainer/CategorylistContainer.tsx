@@ -3,7 +3,7 @@
 import axios from "axios";
 import { useParams, useSearchParams } from "next/navigation";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { Observer } from "@/lib/Observer";
 import { IoMdArrowDropdown } from "react-icons/io";
 import PostListComp from "@/Components/Comp/List/PostListComp";

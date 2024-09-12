@@ -1,5 +1,5 @@
 import { useBreakPoint } from "@/CustomHook/BreakPoint";
-import { IPost } from "@/pages/PageContainer/ListContainer";
+import { IPost } from "@/Components/pageData/PageContainer/ListContainer";
 import Link from "next/link";
 import { useState } from "react";
 

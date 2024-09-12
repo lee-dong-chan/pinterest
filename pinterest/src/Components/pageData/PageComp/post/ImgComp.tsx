@@ -1,5 +1,5 @@
 import { useBreakPoint } from "@/CustomHook/BreakPoint";
-import { IPostData } from "@/pages/PageContainer/PostContainer";
+import { IPostData } from "@/Components/pageData/PageContainer/PostContainer";
 import { useRouter } from "next/navigation";
 
 import { useEffect, useState } from "react";

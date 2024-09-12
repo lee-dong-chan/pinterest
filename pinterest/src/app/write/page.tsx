@@ -1,4 +1,4 @@
-import WriteContainer from "@/pages/PageContainer/WriteContainer";
+import WriteContainer from "@/Components/pageData/PageContainer/WriteContainer";
 
 const Write = () => {
   return <WriteContainer />;

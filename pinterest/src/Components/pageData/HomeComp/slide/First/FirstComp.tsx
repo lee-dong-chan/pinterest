@@ -71,13 +71,13 @@ const FirstComp = ({ slide, setslide, setCount }: IProps) => {
           <CardComp
             prevdirname={"home"}
             previmgs={HomeArr}
-            nowdirname={"fasion"}
+            nowdirname={"Fasion"}
             nowimgs={FasionArr}
           />
         )}
         {slide === 4 && (
           <CardComp
-            prevdirname={"fasion"}
+            prevdirname={"Fasion"}
             previmgs={FasionArr}
             nowdirname={"garden"}
             nowimgs={GardenArr}

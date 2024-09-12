@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Toolbar from "./ToolbarContainer";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
@@ -9,7 +9,12 @@ import ModalContainer from "../Modal/ModalContainer/AccountModalContiner";
 import { Modalonoff } from "@/Context/LoginModalSystem";
 import { usePathname, useRouter } from "next/navigation";
 
-import { Logincheck, Userdata, refetchuser } from "@/Context/usercheck";
+import {
+  Logincheck,
+  Userdata,
+  fetchLogincheck,
+  refetchuser,
+} from "@/Context/usercheck";
 import { useBreakPoint } from "@/CustomHook/BreakPoint";
 import MobileMenu from "../Modal/Mobile/MobileMenu";
 import { Droponoff } from "@/Context/DropDownModal";
@@ -33,12 +38,14 @@ const Layout = ({ children }: IProps): JSX.Element => {
   const setlogin = useSetRecoilState(Logincheck);
   const setuser = useSetRecoilState(Userdata);
   const setrefetch = useSetRecoilState(refetchuser);
+  const fetchlogin = useSetRecoilState(fetchLogincheck);
   const onoffModal = useRecoilValue(Modalonoff);
   const userdata = useRecoilValue(Userdata);
   const login = useRecoilValue(Logincheck);
   const MobileDropon = useRecoilValue(MobileDrop);
   const onoffDrop = useRecoilValue(Droponoff);
   const userrefetch = useRecoilValue(refetchuser);
+  const loginfetch = useRecoilValue(fetchLogincheck);
   const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
   const router = useRouter();
   const { ismobile } = useBreakPoint();
@@ -87,6 +94,13 @@ const Layout = ({ children }: IProps): JSX.Element => {
     }
   }, [userrefetch]);
 
+  useEffect(() => {
+    if (loginfetch == true) {
+      logcheck.refetch();
+      fetchlogin(false);
+    }
+  }, [loginfetch]);
+
   return (
     <div className="min-w-[270px] select-none">
       <div>
@@ -104,7 +118,7 @@ const Layout = ({ children }: IProps): JSX.Element => {
           <DropModalContainer refetch={logcheck.refetch} userdata={userdata} />
         )}
         {ismobile && <MobileMenu />}
-        {onoffModal && <ModalContainer refetch={logcheck.refetch} />}
+        {onoffModal && <ModalContainer />}
         {MobileDropon && ismobile && <MobileModalBox />}
       </div>
     </div>

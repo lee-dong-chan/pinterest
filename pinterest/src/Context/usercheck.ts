@@ -5,7 +5,10 @@ export const Logincheck = atom<string>({
   key: "Userlogcheck",
   default: "false",
 });
-
+export const fetchLogincheck = atom<boolean>({
+  key: "Userlogfetch",
+  default: false,
+});
 export const Userdata = atom<IUser>({
   key: "userdata",
   default: undefined,

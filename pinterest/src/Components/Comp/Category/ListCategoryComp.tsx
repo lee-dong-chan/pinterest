@@ -1,5 +1,5 @@
 import { useBreakPoint } from "@/CustomHook/BreakPoint";
-import { ICategory } from "@/pages/PageContainer/WriteContainer";
+import { ICategory } from "@/Components/pageData/PageContainer/WriteContainer";
 import Link from "next/link";
 import { Dispatch, SetStateAction } from "react";
 
