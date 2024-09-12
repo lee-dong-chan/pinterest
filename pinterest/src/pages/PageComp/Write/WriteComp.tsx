@@ -25,6 +25,7 @@ interface IProps {
   categorydata: ICategory[];
   selectcate: ICategory;
   setselctcate: Dispatch<SetStateAction<ICategory>>;
+  fail: boolean;
 }
 
 const WriteComp = ({
@@ -43,29 +44,41 @@ const WriteComp = ({
   categorydata,
   selectcate,
   setselctcate,
+  fail,
 }: IProps): JSX.Element => {
   const { isdesktop } = useBreakPoint();
+
   return (
     <div>
       {isdesktop ? (
         <div className="ps-5 py-5 border-t border-b text-[1.3rem] font-bold flex items-center justify-between">
           <div>핀 만들기</div>
-          <div
-            className="px-8 py-3 border text-[1.2rem] text-white me-10 rounded-[1rem] bg-red-500"
-            onClick={() => {
-              upload();
-            }}
-          >
-            게시
+          <div>
+            <div
+              className={`px-8 py-3 w-fit border text-[1.2rem] text-white me-10 rounded-[1rem] ${
+                fail ? "bg-gray-200" : " bg-red-500"
+              }`}
+              onClick={() => {
+                if (!fail) {
+                  upload();
+                }
+              }}
+            >
+              게시
+            </div>
           </div>
         </div>
       ) : (
         <div className="ps-5 py-2  border-b text-[1.3rem] font-bold flex items-center justify-between bg-white  sticky top-[7.9%]">
           <div>핀 만들기</div>
           <div
-            className="px-8 py-3 border text-[1.2rem] text-white me-10 rounded-[1rem] bg-red-500"
+            className={`px-8 py-3 w-fit border text-[1.2rem] text-white me-10 rounded-[1rem] ${
+              fail ? "bg-gray-200" : " bg-red-500"
+            }`}
             onClick={() => {
-              upload();
+              if (!fail) {
+                upload();
+              }
             }}
           >
             게시

@@ -1,9 +1,16 @@
 import { IUser } from "@/Components/Conteiner/LayoutContainer";
 import { Modalonoff, Modaltype } from "@/Context/LoginModalSystem";
-import { useBreakPoint } from "@/CustomHook/BreakPoint";
-import { IPostData } from "@/app/post/[id]/page";
+import { IPostData } from "@/pages/PageContainer/PostContainer";
+import { UseMutateFunction, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { ChangeEvent, Dispatch, SetStateAction } from "react";
+
+import {
+  ChangeEvent,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
 import { useSetRecoilState } from "recoil";
 
 export interface IComment {
@@ -20,6 +27,8 @@ interface IProps {
   setinput: (e: ChangeEvent<HTMLInputElement>) => void;
   setcomment: Dispatch<SetStateAction<string>>;
   submit: () => Promise<void>;
+  mutate: UseMutateFunction<IPostData, Error, void, unknown>;
+  comment: string;
 }
 
 const DataComp = ({
@@ -30,21 +39,45 @@ const DataComp = ({
   setinput,
   submit,
   setcomment,
+  mutate,
+  comment,
 }: IProps) => {
   const commentCount = data?.comment?.length;
   const Modal = useSetRecoilState(Modalonoff);
   const loginModal = useSetRecoilState(Modaltype);
   const router = useRouter();
-  const { isdesktop } = useBreakPoint();
+  const [img, setimg] = useState<boolean>(false);
+  const [Elem, setElem] = useState<JSX.Element>();
+
+  useEffect(() => {
+    setElem(
+      <img
+        src={`${ImgBaseURL}/${user?.userimg}`}
+        className="me-2 w-[3rem] rounded-[3rem] pointer-events-none"
+        alt="userimg"
+      ></img>
+    );
+  }, []);
+
   return (
     <div className="px-5 py-5 pt flex flex-1 flex-col">
       <div className="text-[1.5rem] text-wrap font-bold ">{data?.title}</div>
       <div className="flex items-center gap-3">
-        <img
-          src={`${ImgBaseURL}/${data?.postuserimg}`}
-          className="w-[3.5rem] h-[3.5rem] border rounded-[3.5rem] pointer-events-none"
-          alt="commentimg"
-        ></img>
+        {data && (
+          <img
+            src={
+              !img ? `${ImgBaseURL}/${data?.postuserimg}` : "/imgs/noimg.png"
+            }
+            className="w-[3.5rem] h-[3.5rem] border rounded-[3.5rem] pointer-events-none"
+            alt="commentimg"
+            onError={() => {
+              if (data?.postuserimg) {
+                setimg(true);
+              }
+            }}
+          ></img>
+        )}
+
         <div className="text-[0.8rem] text-gray-500">{data?.postuser}</div>
       </div>
       <div className="py-10 text-[1rem]">{data?.content}</div>
@@ -79,45 +112,53 @@ const DataComp = ({
         ) : (
           <div>
             <div className="my-3 text-[1.5rem]">댓글</div>
-            <div className="py-3 text-gray-400 w-[20rem] ">
+            <div className="py-3 text-gray-400 min-w-[10rem] ">
               아직 댓글이 없습니다! 대화를 시작하려면 하나를 추가하세요.
             </div>
           </div>
         )}
-        {login === "false" ? (
-          <div>
-            <input
-              onClick={() => {
-                Modal(true);
-                loginModal("login");
-              }}
-              className="w-[100%] h-[3rem] border rounded-[3rem] p-2"
-              placeholder="댓글추가"
-            ></input>
-          </div>
-        ) : (
-          <div className="flex">
-            <img
-              src={`${ImgBaseURL}/${user?.userimg}`}
-              className="me-2 w-[3rem] rounded-[3rem] pointer-events-none"
-              alt="userimg"
-            ></img>
-            <input
-              className="w-[100%] h-[3rem] border rounded-[3rem] p-2"
-              placeholder="댓글추가"
-              onChange={setinput}
-              onKeyDown={(e) => {
-                if (e.key == "Enter") {
-                  if (e.nativeEvent.isComposing === false) {
-                    submit();
-                    setcomment("");
-                    router.refresh();
+        <div>
+          {login === "false" ? (
+            <div>
+              <input
+                onClick={() => {
+                  Modal(true);
+                  loginModal("login");
+                }}
+                className="w-[100%] h-[3rem] border rounded-[3rem] p-2"
+                placeholder="댓글추가"
+              ></input>
+            </div>
+          ) : (
+            <div className={Elem && "flex"}>
+              {Elem}
+              <input
+                className="w-[100%] h-[3rem] border rounded-[3rem] p-2"
+                placeholder="댓글추가"
+                value={comment}
+                onChange={(e) => {
+                  if (user) {
+                    setinput(e);
                   }
-                }
-              }}
-            ></input>
-          </div>
-        )}
+                }}
+                onKeyDown={(e) => {
+                  if (e.key == "Enter") {
+                    if (e.nativeEvent.isComposing === false) {
+                      if (comment !== "") {
+                        submit();
+                        setcomment("");
+                        setTimeout(() => {
+                          mutate();
+                          router.refresh();
+                        }, 100);
+                      }
+                    }
+                  }
+                }}
+              ></input>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

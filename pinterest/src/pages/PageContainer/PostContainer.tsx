@@ -1,32 +1,58 @@
 "use client";
 
-import { IPostData } from "@/app/post/[id]/page";
 import PostComp from "../PageComp/Write/PostComp";
 import { useRecoilValue } from "recoil";
 import { Logincheck, Userdata } from "@/Context/usercheck";
-import { ChangeEvent, useCallback, useState } from "react";
+import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { BaseURL } from "@/lib/Baseurls";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { useParams } from "next/navigation";
 
-interface IProps {
-  data: IPostData;
+export interface IPostData {
+  id: number;
+  title: string;
+  postimg: string;
+  content: string;
+  tag: string[];
+  categoryname: string;
+  postuser: string;
+  postuserimg: string;
+  comment: {
+    user: string;
+    img: string;
+    content: string;
+  }[];
 }
 
-const PostContainer = ({ data }: IProps) => {
+const PostContainer = () => {
   const [comment, setcomment] = useState<string>("");
   const login = useRecoilValue(Logincheck);
   const user = useRecoilValue(Userdata);
+  const params = useParams();
+  const { data, mutate } = useMutation({
+    mutationKey: ["postdata"],
+    mutationFn: async () => {
+      const { data } = await axios.get(`${BaseURL}/getpost/${params?.id}`);
+      const lastdata: IPostData = data;
+      return lastdata;
+    },
+  });
 
   const setinput = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setcomment(e.target.value);
   }, []);
+
   const submit = async () => {
     await axios.post(
       `${BaseURL}/comment/write`,
-      { postId: data.id, userId: user?.userid, content: comment },
+      { postId: data?.id, userId: user?.userid, content: comment },
       { withCredentials: true }
     );
   };
+  useEffect(() => {
+    mutate();
+  }, []);
   return (
     <PostComp
       data={data}
@@ -35,6 +61,8 @@ const PostContainer = ({ data }: IProps) => {
       setinput={setinput}
       setcomment={setcomment}
       submit={submit}
+      comment={comment}
+      mutate={mutate}
     />
   );
 };

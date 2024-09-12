@@ -21,11 +21,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Providers>
-          <RecoilWrap>
+        <RecoilWrap>
+          <Providers>
             <Layout children={children} />
-          </RecoilWrap>
-        </Providers>
+          </Providers>
+        </RecoilWrap>
       </body>
     </html>
   );

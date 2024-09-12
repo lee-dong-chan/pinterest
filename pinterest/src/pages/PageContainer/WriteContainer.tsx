@@ -38,6 +38,7 @@ const WriteContainer = (): JSX.Element => {
     name: "",
     img: "",
   });
+  const [fail, setfail] = useState<boolean>(false);
 
   const router = useRouter();
   const user = useRecoilValue(Userdata);
@@ -103,7 +104,7 @@ const WriteContainer = (): JSX.Element => {
 
   const upload = async () => {
     if (login == "true") {
-      if (Img !== undefined) {
+      if (Img !== undefined && title !== "" && selectcate.id !== 0) {
         const data = await axios.post(`${baseULR}/upload`, Formdata, {
           headers: { "Content-type": "multipart/form-data" },
         });
@@ -118,7 +119,6 @@ const WriteContainer = (): JSX.Element => {
         });
         router.replace("/list");
       }
-    } else {
     }
   };
 
@@ -132,8 +132,17 @@ const WriteContainer = (): JSX.Element => {
     }
   }, [login]);
 
+  useEffect(() => {
+    if (Img !== undefined && title !== "" && selectcate.id !== 0) {
+      setfail(false);
+    } else {
+      setfail(true);
+    }
+  }, [Img, title, selectcate]);
+
   return (
     <WriteComp
+      fail={fail}
       inputfile={inputFile}
       upload={upload}
       previewUrl={previewUrl}

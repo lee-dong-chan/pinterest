@@ -5,8 +5,8 @@ import { useQuery } from "@tanstack/react-query";
 
 import { useParams, useRouter } from "next/navigation";
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
-import { Logincheck } from "@/Context/usercheck";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { Logincheck, refetchuser } from "@/Context/usercheck";
 
 const MyinfoContainer = () => {
   const [onimg, setonimg] = useState<boolean>(false);
@@ -17,7 +17,7 @@ const MyinfoContainer = () => {
   const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
   const params = useParams();
   const logcheck = useRecoilValue(Logincheck);
-
+  const setrefetch = useSetRecoilState(refetchuser);
   const { data, refetch } = useQuery({
     queryKey: ["infouser"],
     queryFn: async () => {
@@ -53,6 +53,9 @@ const MyinfoContainer = () => {
       refetch();
     }
   };
+  useEffect(() => {
+    setrefetch(true);
+  }, [data]);
 
   useEffect(() => {
     if (logcheck == "false") {

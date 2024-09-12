@@ -1,6 +1,7 @@
 import { useBreakPoint } from "@/CustomHook/BreakPoint";
 import { IPost } from "@/pages/PageContainer/ListContainer";
 import Link from "next/link";
+import { useState } from "react";
 
 interface IProps {
   data: IPost;
@@ -9,6 +10,8 @@ interface IProps {
 const Comp = ({ data }: IProps) => {
   const { isdesktop } = useBreakPoint();
   const ImgBaseURL = process.env.NEXT_PUBLIC_SERVER_IMG_BASE_URL;
+  const [postimg, postsetimg] = useState<boolean>(false);
+
   return (
     <div>
       <Link href={`/post/${data?.id}`}>
@@ -20,9 +23,14 @@ const Comp = ({ data }: IProps) => {
                 className={`border rounded-[1rem] hover:bg-black group  overflow-hidden `}
               >
                 <img
-                  src={`${ImgBaseURL}/${data?.img}`}
+                  src={
+                    !postimg ? `${ImgBaseURL}/${data?.img}` : "/imgs/noimg.png"
+                  }
                   className={`relative w-[100%] min-h-[10rem] max-h-[60rem] pointer-events-none group-hover:opacity-[0.8]`}
                   alt="postimg"
+                  onError={() => {
+                    postsetimg(true);
+                  }}
                 ></img>
               </div>
               <div className="flex gap-2 min-h-[3rem]">
@@ -53,9 +61,14 @@ const Comp = ({ data }: IProps) => {
               className={`m-1 border rounded-[1rem]  overflow-hidden hover:bg-black group`}
             >
               <img
-                src={`${ImgBaseURL}/${data?.img}`}
+                src={
+                  !postimg ? `${ImgBaseURL}/${data?.img}` : "/imgs/noimg.png"
+                }
                 className="relative rounded-[0.7rem]  w-[100%] min-h-[5rem] max-h-[60rem] pointer-events-none  group-hover:opacity-[0.8] "
                 alt="postimg"
+                onError={() => {
+                  postsetimg(true);
+                }}
               ></img>
             </div>
           ))}

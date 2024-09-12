@@ -16,7 +16,7 @@ const DropComp = ({ userdata, logout }: IProps) => {
   const Dropname = useRecoilValue(Droptype);
   const Drop = useRecoilValue(Droponoff);
   const setDroponoff = useSetRecoilState(Droponoff);
-  console.log(Drop);
+
   return (
     <div className="p-3 text-[0.8rem]">
       {Dropname === "myinfo" && (

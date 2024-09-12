@@ -48,7 +48,7 @@ const SearchPageContainer = () => {
     refetch();
   }, [searchname]);
   return (
-    <div className="w-screen">
+    <div className="px-1 w-screen">
       <PostListComp postlist={data} />
       {isFetching && !isFetchingNextPage && (
         <p className="w-fit mx-auto">로딩중...</p>

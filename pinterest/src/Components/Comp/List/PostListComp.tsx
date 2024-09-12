@@ -24,17 +24,15 @@ const PostListComp = ({ postlist }: IProps) => {
 
   useEffect(() => {
     setElem(
-      <div className="px-[1rem]">
-        <ResponsiveMasonry
-          columnsCountBreakPoints={{ 350: 2, 750: 3, 900: 4, 1200: 5, 1600: 7 }}
-        >
-          <Masonry columnsCount={10}>
-            {Arr.map((item: IPost) => (
-              <Comp key={item.id} data={item} />
-            ))}
-          </Masonry>
-        </ResponsiveMasonry>
-      </div>
+      <ResponsiveMasonry
+        columnsCountBreakPoints={{ 350: 2, 750: 3, 900: 4, 1200: 5, 1600: 7 }}
+      >
+        <Masonry columnsCount={10}>
+          {Arr.map((item: IPost) => (
+            <Comp key={item.id} data={item} />
+          ))}
+        </Masonry>
+      </ResponsiveMasonry>
     );
   }, [pages]);
   return Elem;
