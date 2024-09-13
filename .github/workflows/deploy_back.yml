@@ -98,17 +98,17 @@ jobs:
       - name: create .env.dev
         working-directory: ./backend
         run: |
-          echo DB_HOST="${{secrets.DB_HOST}}" > .env
-          echo DB_PORT="${{secrets.DB_PORT}}" >> .env
-          echo DB_USERNAME="${{secrets.DB_USERNAME}}" >> .env
-          echo DB_PASSWORD="${{secrets.DB_PASSWORD}}" >> .env
-          echo DB_DATABASE="${{secrets.DB_DATABASE}}" >> .env
-          echo SYNCHRONIZE="${{secrets.SYNCHRONIZE}}" >> .env
-          echo DB_LOGGING="${{secrets.DB_LOGGING}}" >> .env
-          echo CLIENT_ID="${{secrets.CLIENT_ID}}" >> .env
-          echo CLIENT_SECRET="${{secrets.CLIENT_SECRET}}" >> .env
-          echo GOOGLEUSER_PW="${{secrets.GOOGLEUSER_PW}}" >> .env
-          echo GOOGLE_BR="${{secrets.GOOGLE_BR}}" >> .env
+          echo DB_HOST="${{secrets.DB_HOST}}" > .env.dev
+          echo DB_PORT="${{secrets.DB_PORT}}" >> .env.dev
+          echo DB_USERNAME="${{secrets.DB_USERNAME}}" >> .env.dev
+          echo DB_PASSWORD="${{secrets.DB_PASSWORD}}" >> .env.dev
+          echo DB_DATABASE="${{secrets.DB_DATABASE}}" >> .env.dev
+          echo SYNCHRONIZE="${{secrets.SYNCHRONIZE}}" >> .env.dev
+          echo DB_LOGGING="${{secrets.DB_LOGGING}}" >> .env.dev
+          echo CLIENT_ID="${{secrets.CLIENT_ID}}" >> .env.dev
+          echo CLIENT_SECRET="${{secrets.CLIENT_SECRET}}" >> .env.dev
+          echo GOOGLEUSER_PW="${{secrets.GOOGLEUSER_PW}}" >> .env.dev
+          echo GOOGLE_BR="${{secrets.GOOGLE_BR}}" >> .env.dev
 
       - name: Build Back
         working-directory: ./backend
@@ -127,7 +127,7 @@ jobs:
             mkdir /var/www/pinterestback'
           rsync -avz -e "ssh" ./backend/dist/ ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:/var/www/pinterestback
           rsync -avz -e "ssh" ./backend/package.json ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:/var/www/pinterestback/package.json
-          rsync -avz -e "ssh" ./backend/.env ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:/var/www/pinterestback/.env
+          rsync -avz -e "ssh" ./backend/.env.dev ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:/var/www/pinterestback/.env.dev
 
       - name: Install and Configure Node.js and PM2
         run: |
