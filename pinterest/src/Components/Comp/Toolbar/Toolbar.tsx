@@ -11,6 +11,8 @@ import { FaAngleDown } from "react-icons/fa";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { Droponoff, Droptype } from "@/Context/DropDownModal";
 import { useEffect } from "react";
+import Image from "next/image";
+import { FrontImg } from "@/lib/Baseurls";
 
 interface IProps {
   login: string;
@@ -34,21 +36,21 @@ const ToolbarComp = ({ login, userdata }: IProps): JSX.Element => {
       <div className="flex items-center">
         {login === "false" ? (
           ismobile || ismini ? (
-            <img
+            <Image
               src={"/minipin.png"}
               className={`${
                 ismobile ? "h-[2rem]" : "h-[3.5rem]"
               } me-3 pointer-events-none`}
               alt="logo"
-            ></img>
+            ></Image>
           ) : (
             isdesktop && (
               <Link href={"/"}>
-                <img
+                <Image
                   src={"/pinterest.png"}
                   className={"h-[3.5rem] me-3 pointer-events-none"}
                   alt="logo"
-                ></img>
+                ></Image>
               </Link>
             )
           )
@@ -56,10 +58,10 @@ const ToolbarComp = ({ login, userdata }: IProps): JSX.Element => {
           <img
             src={`${
               ismini
-                ? "/minipin.png"
+                ? `${FrontImg}/minipin.png`
                 : isdesktop
-                ? "/pinterest.png"
-                : ismobile && "/imgs/minipin.png"
+                ? `${FrontImg}/pinterest.png`
+                : ismobile && `${FrontImg}/imgs/minipin.png`
             }`}
             className={`${
               ismobile ? "h-[2rem]" : "h-[3.5rem]"
