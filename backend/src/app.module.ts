@@ -34,7 +34,7 @@ import { MulterModule } from '@nestjs/platform-express';
     ConfigModule.forRoot({
       //프로젝트 루트 리렉토리에서 해당파일 이름의 .env 파일 호출(dev,prod)
       isGlobal: true,
-      envFilePath: `.env.${process.env.NODE_ENV}`,
+      envFilePath: `.env.dev`,
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],

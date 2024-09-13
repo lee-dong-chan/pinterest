@@ -1,4 +1,4 @@
-name: Deploy project
+name: Deploy project back
 on:
   push:
     branches:
