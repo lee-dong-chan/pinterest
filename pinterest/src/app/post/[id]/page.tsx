@@ -1,4 +1,4 @@
-import PostContainer from "@/Components/pageData/PageContainer/PostContainer";
+import PostContainer from "@/components/pageData/PageContainer/PostContainer";
 import axios from "axios";
 
 const Post = () => {

@@ -1,7 +1,7 @@
 "use client";
 
-import Comp from "@/Components/pageData/PageComp/List/Comp";
-import { IPost } from "@/Components/pageData/PageContainer/ListContainer";
+import Comp from "@/components/pageData/PageComp/List/Comp";
+import { IPost } from "@/components/pageData/PageContainer/ListContainer";
 
 import { InfiniteData } from "@tanstack/react-query";
 import Masonry from "react-masonry-css";
@@ -49,7 +49,7 @@ const PostListComp = ({ postlist }: IProps) => {
       className="my-masonry-grid flex"
       columnClassName="my-masonry-grid_column"
     >
-      {Arr.map((item: IPost) => (
+      {Arr?.map((item: IPost) => (
         <Comp key={item.id} data={item} />
       ))}
     </Masonry>

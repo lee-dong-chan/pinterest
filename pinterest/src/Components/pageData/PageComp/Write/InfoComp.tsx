@@ -2,7 +2,7 @@ import {
   ICategory,
   ISelecttag,
   Itag,
-} from "@/Components/pageData/PageContainer/WriteContainer";
+} from "@/components/pageData/PageContainer/WriteContainer";
 import { IoIosArrowDropdown } from "react-icons/io";
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
 import { IoReload } from "react-icons/io5";

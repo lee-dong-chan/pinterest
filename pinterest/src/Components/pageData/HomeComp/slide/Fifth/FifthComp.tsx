@@ -1,4 +1,4 @@
-import Login from "@/Components/Modal/ModalContainer/Account/login";
+import Login from "@/components/Modal/ModalContainer/Account/login";
 import { Dispatch, SetStateAction } from "react";
 import { RiArrowDropUpLine } from "react-icons/ri";
 

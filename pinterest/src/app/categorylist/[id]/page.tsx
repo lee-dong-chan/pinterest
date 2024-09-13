@@ -1,4 +1,4 @@
-import CategoryPageContainer from "@/Components/pageData/PageContainer/CategorylistContainer";
+import CategoryPageContainer from "@/components/pageData/PageContainer/CategorylistContainer";
 
 const Categorylist = async () => {
   return <CategoryPageContainer />;

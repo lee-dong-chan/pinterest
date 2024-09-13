@@ -1,6 +1,5 @@
 "use client";
 
-import PostComp from "../PageComp/Write/PostComp";
 import { useRecoilValue } from "recoil";
 import { Logincheck, Userdata } from "@/Context/usercheck";
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
@@ -8,6 +7,7 @@ import axios from "axios";
 import { BaseURL } from "@/lib/Baseurls";
 import { useMutation } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
+import PostComp from "../PageComp/Write/PostComp";
 
 export interface IPostData {
   id: number;

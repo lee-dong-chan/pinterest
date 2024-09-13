@@ -6,7 +6,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { useEffect, useRef } from "react";
 import { Observer } from "@/lib/Observer";
 import { IoMdArrowDropdown } from "react-icons/io";
-import PostListComp from "@/Components/Comp/List/PostListComp";
+import PostListComp from "@/components/Comp/List/PostListComp";
 import Link from "next/link";
 import { useBreakPoint } from "@/CustomHook/BreakPoint";
 

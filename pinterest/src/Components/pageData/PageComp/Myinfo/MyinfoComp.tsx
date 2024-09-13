@@ -1,4 +1,4 @@
-import MyImgComp from "@/Components/Modal/ModalComponent/Comps/UserImgComp/MyimgComp";
+import MyImgComp from "@/components/Modal/ModalComponent/Comps/UserImgComp/MyimgComp";
 import { useBreakPoint } from "@/CustomHook/BreakPoint";
 import { ImgBaseURL } from "@/lib/Baseurls";
 import Link from "next/link";

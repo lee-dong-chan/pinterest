@@ -1,5 +1,5 @@
-import { Middlebutton } from "@/Components/Button/Button";
-import GoogleContainer from "@/Components/Conteiner/GoogleLoginContainer";
+import { Middlebutton } from "@/components/Button/Button";
+import GoogleContainer from "@/components/Conteiner/GoogleLoginContainer";
 
 import { UseMutateFunction } from "@tanstack/react-query";
 

@@ -1,4 +1,4 @@
-import GoogleCallback from "@/Components/Conteiner/Googlecallback";
+import GoogleCallback from "@/components/Conteiner/Googlecallback";
 
 const Google = (): JSX.Element => {
   return <GoogleCallback />;

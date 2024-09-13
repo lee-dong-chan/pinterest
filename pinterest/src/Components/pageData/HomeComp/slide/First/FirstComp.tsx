@@ -1,9 +1,10 @@
 import { Dispatch, SetStateAction } from "react";
-import TextComp from "./TextComp";
-import CardComp from "./CardComp";
-import FirstCardComp from "./FirstCardComp";
+
 import { FasionArr, GardenArr, HomeArr, dinnerArr } from "@/lib/Animation";
 import { RiArrowDropDownLine } from "react-icons/ri";
+import TextComp from "./TextComp";
+import FirstCardComp from "./FirstCardComp";
+import CardComp from "./CardComp";
 
 interface IProps {
   slide: number;

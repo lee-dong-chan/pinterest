@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
-import Providers from "@/Components/provider";
-import RecoilWrap from "@/Components/recoil";
-import Layout from "@/Components/Conteiner/LayoutContainer";
+import Providers from "@/components/provider";
+import RecoilWrap from "@/components/recoil";
+import Layout from "@/components/Conteiner/LayoutContainer";
 
 const inter = Inter({ subsets: ["latin"] });
 

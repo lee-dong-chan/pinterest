@@ -1,4 +1,4 @@
-import { IUser } from "@/Components/Conteiner/LayoutContainer";
+import { IUser } from "@/components/Conteiner/LayoutContainer";
 import { atom } from "recoil";
 
 export const Logincheck = atom<string>({

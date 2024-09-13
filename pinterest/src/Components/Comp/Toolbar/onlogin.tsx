@@ -1,6 +1,6 @@
 import { IoIosArrowDropdown } from "react-icons/io";
-import { IUser } from "@/Components/Conteiner/LayoutContainer";
-import SearchContainer from "@/Components/Conteiner/SearchContainer";
+import { IUser } from "@/components/Conteiner/LayoutContainer";
+import SearchContainer from "@/components/Conteiner/SearchContainer";
 import Link from "next/link";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { Droponoff, Droptype } from "@/Context/DropDownModal";

@@ -1,4 +1,4 @@
-import SearchContainer from "@/Components/Conteiner/SearchContainer";
+import SearchContainer from "@/components/Conteiner/SearchContainer";
 import { MobileDropType } from "@/Context/MobileDrop";
 import { useRecoilValue } from "recoil";
 import { motion } from "framer-motion";

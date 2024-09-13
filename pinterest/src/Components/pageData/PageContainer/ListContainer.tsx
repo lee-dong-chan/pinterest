@@ -1,7 +1,7 @@
 "use client";
-import CategoryComp from "@/Components/Comp/Category/ListCategoryComp";
-import PostListComp from "@/Components/Comp/List/PostListComp";
-import Loading from "@/Components/Comp/Loading/Loding";
+import CategoryComp from "@/components/Comp/Category/ListCategoryComp";
+import PostListComp from "@/components/Comp/List/PostListComp";
+import Loading from "@/components/Comp/Loading/Loding";
 import { Logincheck } from "@/Context/usercheck";
 import { useBreakPoint } from "@/CustomHook/BreakPoint";
 

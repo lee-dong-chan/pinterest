@@ -1,5 +1,5 @@
-import ImgComp from "@/Components/pageData/PageComp/Write/ImgComp";
-import InfoComp from "@/Components/pageData/PageComp/Write/InfoComp";
+import ImgComp from "@/components/pageData/PageComp/Write/ImgComp";
+import InfoComp from "@/components/pageData/PageComp/Write/InfoComp";
 
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
 import {
