@@ -64,10 +64,10 @@ jobs:
             nvm use --lts
             npm install -g pm2
             pm2 stop all
-
+            
             cd /var/www/pinterestfront
-
-            pm2 start npm --name pinterestfront -- start
+            npm i --production
+            pm2 start npm --name pinterestfront -- start'
 
 
            
