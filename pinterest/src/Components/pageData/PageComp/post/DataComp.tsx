@@ -1,6 +1,6 @@
-import { IUser } from "@/components/Conteiner/LayoutContainer";
+import { IUser } from "@/Components/Conteiner/LayoutContainer";
 import { Modalonoff, Modaltype } from "@/Context/LoginModalSystem";
-import { IPostData } from "@/components/pageData/PageContainer/PostContainer";
+import { IPostData } from "@/Components/pageData/PageContainer/PostContainer";
 import { UseMutateFunction } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 

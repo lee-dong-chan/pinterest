@@ -1,5 +1,5 @@
-import { Smallbutton } from "@/components/Button/Button";
-import SearchContainer from "@/components/Conteiner/SearchContainer";
+import { Smallbutton } from "@/Components/Button/Button";
+import SearchContainer from "@/Components/Conteiner/SearchContainer";
 import { Modalonoff, Modaltype } from "@/Context/LoginModalSystem";
 import { useBreakPoint } from "@/CustomHook/BreakPoint";
 import { useSetRecoilState } from "recoil";

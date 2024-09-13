@@ -2,7 +2,7 @@ import Link from "next/link";
 import HomeToolbar from "./HomeToolbar";
 import Notlogin from "./notlogin";
 import Onlogin from "./onlogin";
-import { IUser } from "@/components/Conteiner/LayoutContainer";
+import { IUser } from "@/Components/Conteiner/LayoutContainer";
 import { usePathname } from "next/navigation";
 
 import { useBreakPoint } from "@/CustomHook/BreakPoint";

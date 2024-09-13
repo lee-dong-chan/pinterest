@@ -2,7 +2,7 @@
 
 import { MobileDrop } from "@/Context/MobileDrop";
 import { BaseURL } from "@/lib/Baseurls";
-import { ICategory } from "@/components/pageData/PageContainer/WriteContainer";
+import { ICategory } from "@/Components/pageData/PageContainer/WriteContainer";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import Link from "next/link";

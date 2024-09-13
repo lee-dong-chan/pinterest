@@ -1,4 +1,4 @@
-import { IUser } from "@/components/Conteiner/LayoutContainer";
+import { IUser } from "@/Components/Conteiner/LayoutContainer";
 import DropComp from "../ModalComponent/Comps/DropComp/DropComp";
 import axios from "axios";
 import { useBreakPoint } from "@/CustomHook/BreakPoint";

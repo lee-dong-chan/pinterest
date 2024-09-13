@@ -1,4 +1,4 @@
-import { Middlebutton } from "@/components/Button/Button";
+import { Middlebutton } from "@/Components/Button/Button";
 import { UseMutateFunction } from "@tanstack/react-query";
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
 

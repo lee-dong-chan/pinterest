@@ -1,4 +1,4 @@
-import { IUser } from "@/components/Conteiner/LayoutContainer";
+import { IUser } from "@/Components/Conteiner/LayoutContainer";
 import { Droponoff, Droptype } from "@/Context/DropDownModal";
 import { useBreakPoint } from "@/CustomHook/BreakPoint";
 import Link from "next/link";

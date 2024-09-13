@@ -1,4 +1,4 @@
-import { IUser } from "@/components/Conteiner/LayoutContainer";
+import { IUser } from "@/Components/Conteiner/LayoutContainer";
 import DropModalContainer from "../ModalContainer/DropContainer";
 import { QueryObserverResult, RefetchOptions } from "@tanstack/react-query";
 

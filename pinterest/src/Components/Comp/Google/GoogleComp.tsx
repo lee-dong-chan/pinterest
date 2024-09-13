@@ -1,4 +1,4 @@
-import { Middlebutton } from "@/components/Button/Button";
+import { Middlebutton } from "@/Components/Button/Button";
 import { useRouter } from "next/navigation";
 
 const GoogleComp = (): JSX.Element => {

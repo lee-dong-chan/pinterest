@@ -1,5 +1,5 @@
 "use client";
-import PostListComp from "@/components/Comp/List/PostListComp";
+import PostListComp from "@/Components/Comp/List/PostListComp";
 import { Observer } from "@/lib/Observer";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import axios from "axios";
