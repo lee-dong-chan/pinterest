@@ -35,7 +35,7 @@ const ToolbarComp = ({ login, userdata }: IProps): JSX.Element => {
         {login === "false" ? (
           ismobile || ismini ? (
             <img
-              src={"/imgs/minipin.png"}
+              src={"/minipin.png"}
               className={`${
                 ismobile ? "h-[2rem]" : "h-[3.5rem]"
               } me-3 pointer-events-none`}
@@ -45,7 +45,7 @@ const ToolbarComp = ({ login, userdata }: IProps): JSX.Element => {
             isdesktop && (
               <Link href={"/"}>
                 <img
-                  src={"/imgs/pinterest.png"}
+                  src={"/pinterest.png"}
                   className={"h-[3.5rem] me-3 pointer-events-none"}
                   alt="logo"
                 ></img>
@@ -56,9 +56,9 @@ const ToolbarComp = ({ login, userdata }: IProps): JSX.Element => {
           <img
             src={`${
               ismini
-                ? "/imgs/minipin.png"
+                ? "/minipin.png"
                 : isdesktop
-                ? "/imgs/pinterest.png"
+                ? "/pinterest.png"
                 : ismobile && "/imgs/minipin.png"
             }`}
             className={`${
