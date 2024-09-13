@@ -58,10 +58,10 @@ const ToolbarComp = ({ login, userdata }: IProps): JSX.Element => {
           <img
             src={`${
               ismini
-                ? `${FrontImg}/minipin.png`
+                ? "/minipin.png"
                 : isdesktop
-                ? `${FrontImg}/pinterest.png`
-                : ismobile && `${FrontImg}/imgs/minipin.png`
+                ? "/pinterest.png"
+                : ismobile && `/minipin.png`
             }`}
             className={`${
               ismobile ? "h-[2rem]" : "h-[3.5rem]"
