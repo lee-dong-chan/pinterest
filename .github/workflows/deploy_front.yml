@@ -46,6 +46,7 @@ jobs:
             rm -rf /var/www/pinterestfront
             mkdir /var/www/pinterestfront'
           rsync -avz -e "ssh" ./pinterest/.next ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:/var/www/pinterestfront/.next
+          rsync -avz -e "ssh" ./pinterest/.env ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:/var/www/pinterestfront/.env
           rsync -avz -e "ssh" ./pinterest/package.json ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:/var/www/pinterestfront/package.json
 
       - name: Restart Nginx
@@ -63,7 +64,6 @@ jobs:
             fi
             nvm use --lts
             npm install -g pm2
-            pm2 stop all
             
             cd /var/www/pinterestfront
             npm i --production
