@@ -68,9 +68,3 @@ jobs:
             cd /var/www/pinterestfront
             npm i --production
             pm2 start npm --name pinterestfront -- start'
-
-
-           
-
-
-          '
