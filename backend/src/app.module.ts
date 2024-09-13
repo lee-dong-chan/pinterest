@@ -34,7 +34,7 @@ import { MulterModule } from '@nestjs/platform-express';
     ConfigModule.forRoot({
       //프로젝트 루트 리렉토리에서 해당파일 이름의 .env 파일 호출(dev,prod)
       isGlobal: true,
-      envFilePath: `/var/www/pinterestback/.env.dev`,
+      envFilePath: `/var/www/pinterestback/.env`,
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
