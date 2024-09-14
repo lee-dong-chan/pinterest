@@ -81,7 +81,7 @@ export class AppController {
   @UseInterceptors(
     FileInterceptor('File', {
       storage: diskStorage({
-        destination: '/var/www/pinterestback/upload/',
+        destination: '/var/www/pinterestback/upload',
         filename(req, file, callback) {
           return callback(null, `${Date.now()}${file.originalname}`);
         },

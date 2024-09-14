@@ -9,6 +9,7 @@ import { useRecoilValue } from "recoil";
 import { Logincheck, Userdata } from "@/Context/usercheck";
 import { useRouter } from "next/navigation";
 import WriteComp from "@/Components/pageData/PageComp/Write/WriteComp";
+import { BaseURL } from "@/lib/Baseurls";
 
 export interface Itag {
   id: number;
@@ -25,7 +26,6 @@ export interface ICategory {
   img: string;
 }
 const WriteContainer = (): JSX.Element => {
-  const baseULR = process.env.NEXT_PUBLIC_BASE_URL;
   const [previewUrl, setpreviewUrl] = useState<string>("");
   const [Img, setImg] = useState<File>();
   const [title, settitle] = useState<string>("");
@@ -40,7 +40,6 @@ const WriteContainer = (): JSX.Element => {
     img: "",
   });
   const [fail, setfail] = useState<boolean>(false);
-
   const router = useRouter();
   const user = useRecoilValue(Userdata);
   const login = useRecoilValue(Logincheck);
@@ -52,7 +51,6 @@ const WriteContainer = (): JSX.Element => {
         const priview = URL.createObjectURL(File);
         setpreviewUrl(priview);
       }
-
       setImg(File);
     }
   };
@@ -65,7 +63,7 @@ const WriteContainer = (): JSX.Element => {
   useQuery({
     queryKey: ["category data"],
     queryFn: async () => {
-      const { data } = await axios.get(`${baseULR}/category`, {
+      const { data } = await axios.get(`${BaseURL}/category`, {
         withCredentials: true,
       });
       const lastdata: ICategory[] = data;
@@ -80,7 +78,7 @@ const WriteContainer = (): JSX.Element => {
     queryKey: ["tagdata"],
     queryFn: async () => {
       const { data } = await axios.get(
-        `${baseULR}/searchtag?keyword=${search}`,
+        `${BaseURL}/searchtag?keyword=${search}`,
         { withCredentials: true }
       );
       setdata(data);
@@ -106,11 +104,9 @@ const WriteContainer = (): JSX.Element => {
   const upload = async () => {
     if (login == "true") {
       if (Img !== undefined && title !== "" && selectcate.id !== 0) {
-        const data = await axios.post(`${baseULR}/upload`, Formdata, {
-          headers: { "Content-type": "multipart/form-data" },
-        });
+        const data = await axios.post(`${BaseURL}/upload`, Formdata);
         const imgname: string = data.data.filename;
-        await axios.post(`${baseULR}/post/write`, {
+        await axios.post(`${BaseURL}/post/write`, {
           title: title,
           content: content,
           postimg: imgname,

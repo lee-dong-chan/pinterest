@@ -43,9 +43,7 @@ const MyinfoContainer = () => {
   }
   const upload = async () => {
     if (Img !== undefined) {
-      const data = await axios.post(`${baseURL}/upload`, Formdata, {
-        headers: { "Content-type": "multipart/form-data" },
-      });
+      const data = await axios.post(`${baseURL}/upload`, Formdata);
 
       await axios.patch(
         `${baseURL}/user/userimg/${params?.id}?img=${data.data.filename}`
