@@ -44,15 +44,17 @@ const PostListComp = ({ postlist }: IProps) => {
     //     ))}
     //   </Masonry>
     // </ResponsiveMasonry>
-    <Masonry
-      breakpointCols={breakpointColumnsObj}
-      className="my-masonry-grid flex"
-      columnClassName="my-masonry-grid_column"
-    >
-      {Arr?.map((item: IPost) => (
-        <Comp key={item.id} data={item} />
-      ))}
-    </Masonry>
+    <div className="px-2">
+      <Masonry
+        breakpointCols={breakpointColumnsObj}
+        className="my-masonry-grid flex"
+        columnClassName="my-masonry-grid_column"
+      >
+        {Arr?.map((item: IPost) => (
+          <Comp key={item.id} data={item} />
+        ))}
+      </Masonry>
+    </div>
   );
 };
 export default PostListComp;

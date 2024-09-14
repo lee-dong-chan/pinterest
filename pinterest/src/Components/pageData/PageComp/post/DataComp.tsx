@@ -65,7 +65,7 @@ const DataComp = ({
         {data && (
           <img
             src={
-              data.postimg !== null
+              data.postuserimg !== null
                 ? !img
                   ? `${ImgBaseURL}/${data?.postuserimg}`
                   : "/imgs/noimg.png"
