@@ -1,4 +1,3 @@
-import { IUser } from "@/Components/Conteiner/LayoutContainer";
 import { Modalonoff, Modaltype } from "@/Context/LoginModalSystem";
 import { IPostData } from "@/Components/pageData/PageContainer/PostContainer";
 import { UseMutateFunction } from "@tanstack/react-query";
@@ -23,7 +22,7 @@ interface IProps {
   data?: IPostData;
   ImgBaseURL?: string;
   login: string;
-  user: IUser;
+  user: any;
   setinput: (e: ChangeEvent<HTMLInputElement>) => void;
   setcomment: Dispatch<SetStateAction<string>>;
   submit: () => Promise<void>;

@@ -6,7 +6,7 @@ import {
   ICategory,
   ISelecttag,
   Itag,
-} from "../../PageContainer/WriteContainer";
+} from "@/Components/pageData/PageContainer/WriteContainer";
 import { useBreakPoint } from "@/CustomHook/BreakPoint";
 
 interface IProps {

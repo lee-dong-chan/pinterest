@@ -1,8 +1,9 @@
 import { Modalonoff } from "@/Context/LoginModalSystem";
 import { IoMdClose } from "react-icons/io";
 import { useSetRecoilState } from "recoil";
-import Modal from "./Modals/Modal";
+
 import { useBreakPoint } from "@/CustomHook/BreakPoint";
+import Modal from "./Modals/Modal";
 
 const ModalBox = (): JSX.Element => {
   const onoffModal = useSetRecoilState(Modalonoff);

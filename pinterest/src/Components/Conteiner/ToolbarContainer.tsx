@@ -1,4 +1,4 @@
-import ToolbarComp from "../Comp/Toolbar/Toolbar";
+import ToolbarComp from "@/Components/Comp/Toolbar/Toolbar";
 import { IUser } from "./LayoutContainer";
 
 interface IProps {

@@ -125,6 +125,7 @@ jobs:
           ssh ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} '
             rm -rf /var/www/pinterestback
             mkdir /var/www/pinterestback'
+            mkdir /var/www/pinterestback/upload'
           rsync -avz -e "ssh" ./backend/dist/ ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:/var/www/pinterestback/dist/
           rsync -avz -e "ssh" ./backend/package.json ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:/var/www/pinterestback/package.json
           rsync -avz -e "ssh" ./backend/.env ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:/var/www/pinterestback/.env

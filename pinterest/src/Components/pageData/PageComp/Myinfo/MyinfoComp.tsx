@@ -2,13 +2,7 @@ import MyImgComp from "@/Components/Modal/ModalComponent/Comps/UserImgComp/Myimg
 import { useBreakPoint } from "@/CustomHook/BreakPoint";
 import { ImgBaseURL } from "@/lib/Baseurls";
 import Link from "next/link";
-import {
-  ChangeEvent,
-  Dispatch,
-  SetStateAction,
-  useEffect,
-  useState,
-} from "react";
+import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
 
 interface Myinfo {
   name: string;

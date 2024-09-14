@@ -1,11 +1,12 @@
 import { IoIosArrowDropdown } from "react-icons/io";
-import { IUser } from "@/Components/Conteiner/LayoutContainer";
+
 import SearchContainer from "@/Components/Conteiner/SearchContainer";
 import Link from "next/link";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { Droponoff, Droptype } from "@/Context/DropDownModal";
 import { useBreakPoint } from "@/CustomHook/BreakPoint";
 import { useState } from "react";
+import { IUser } from "@/Components/Conteiner/LayoutContainer";
 
 interface IProps {
   userdata?: IUser;

@@ -1,7 +1,5 @@
 import Link from "next/link";
-import HomeToolbar from "./HomeToolbar";
-import Notlogin from "./notlogin";
-import Onlogin from "./onlogin";
+
 import { IUser } from "@/Components/Conteiner/LayoutContainer";
 import { usePathname } from "next/navigation";
 
@@ -11,8 +9,9 @@ import { FaAngleDown } from "react-icons/fa";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { Droponoff, Droptype } from "@/Context/DropDownModal";
 import { useEffect } from "react";
-import Image from "next/image";
-import { FrontImg } from "@/lib/Baseurls";
+import HomeToolbar from "@/Components/Comp/Toolbar/HomeToolbar";
+import Onlogin from "@/Components/Comp/Toolbar/onlogin";
+import Notlogin from "@/Components/Comp/Toolbar/notlogin";
 
 interface IProps {
   login: string;
@@ -36,21 +35,21 @@ const ToolbarComp = ({ login, userdata }: IProps): JSX.Element => {
       <div className="flex items-center">
         {login === "false" ? (
           ismobile || ismini ? (
-            <Image
-              src={"/minipin.png"}
+            <img
+              src={"/imgs/minipin.png"}
               className={`${
                 ismobile ? "h-[2rem]" : "h-[3.5rem]"
               } me-3 pointer-events-none`}
               alt="logo"
-            ></Image>
+            ></img>
           ) : (
             isdesktop && (
               <Link href={"/"}>
-                <Image
-                  src={"/pinterest.png"}
+                <img
+                  src={"/imgs/pinterest.png"}
                   className={"h-[3.5rem] me-3 pointer-events-none"}
                   alt="logo"
-                ></Image>
+                ></img>
               </Link>
             )
           )
@@ -58,10 +57,10 @@ const ToolbarComp = ({ login, userdata }: IProps): JSX.Element => {
           <img
             src={`${
               ismini
-                ? "/minipin.png"
+                ? "/imgs/minipin.png"
                 : isdesktop
-                ? "/pinterest.png"
-                : ismobile && `/minipin.png`
+                ? "/imgs/pinterest.png"
+                : ismobile && "/imgs/minipin.png"
             }`}
             className={`${
               ismobile ? "h-[2rem]" : "h-[3.5rem]"

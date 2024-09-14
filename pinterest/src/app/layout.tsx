@@ -3,8 +3,9 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 
 import Providers from "@/Components/provider";
-import RecoilWrap from "@/Components/recoil";
+
 import Layout from "@/Components/Conteiner/LayoutContainer";
+import RecoilWrap from "@/Components/recoil";
 
 const inter = Inter({ subsets: ["latin"] });
 

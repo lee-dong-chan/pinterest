@@ -1,5 +1,4 @@
 import PostContainer from "@/Components/pageData/PageContainer/PostContainer";
-import axios from "axios";
 
 const Post = () => {
   return (

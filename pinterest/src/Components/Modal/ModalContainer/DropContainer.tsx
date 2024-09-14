@@ -1,10 +1,11 @@
 import { IUser } from "@/Components/Conteiner/LayoutContainer";
-import DropComp from "../ModalComponent/Comps/DropComp/DropComp";
+
 import axios from "axios";
 import { useBreakPoint } from "@/CustomHook/BreakPoint";
 import { useRecoilValue } from "recoil";
 import { Droptype } from "@/Context/DropDownModal";
 import { QueryObserverResult, RefetchOptions } from "@tanstack/react-query";
+import DropComp from "../ModalComponent/Comps/DropComp/DropComp";
 
 interface IProps {
   userdata?: IUser;
