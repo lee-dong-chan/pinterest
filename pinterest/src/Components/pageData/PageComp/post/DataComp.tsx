@@ -65,7 +65,11 @@ const DataComp = ({
         {data && (
           <img
             src={
-              !img ? `${ImgBaseURL}/${data?.postuserimg}` : "/imgs/noimg.png"
+              data.postimg !== null
+                ? !img
+                  ? `${ImgBaseURL}/${data?.postuserimg}`
+                  : "/imgs/noimg.png"
+                : "/imgs/defaultuser.png"
             }
             className="w-[3.5rem] h-[3.5rem] border rounded-[3.5rem] pointer-events-none"
             alt="commentimg"

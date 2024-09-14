@@ -49,7 +49,11 @@ const Comp = ({ data }: IProps) => {
                 <div
                   className="w-[3rem] h-[3rem] rounded-[3rem] border gap-1"
                   style={{
-                    backgroundImage: `url(${ImgBaseURL}/${data?.userimg})`,
+                    backgroundImage: `url(${
+                      data?.userimg === null
+                        ? `${ImgBaseURL}/${data?.userimg}`
+                        : "/imgs/defaultuser.png"
+                    })`,
                     backgroundSize: "cover",
                   }}
                 ></div>
