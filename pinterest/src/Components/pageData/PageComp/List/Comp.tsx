@@ -20,7 +20,7 @@ const Comp = ({ data }: IProps) => {
           (isdesktop ? (
             <div className="w-[100%] my-5 px-1">
               <div
-                className={`border rounded-[1rem] hover:bg-black group  overflow-hidden `}
+                className={`border rounded-[1rem] hover:bg-gray-600 group  overflow-hidden `}
               >
                 <img
                   src={
@@ -50,7 +50,7 @@ const Comp = ({ data }: IProps) => {
                   className="w-[3rem] h-[3rem] rounded-[3rem] border gap-1"
                   style={{
                     backgroundImage: `url(${
-                      data?.userimg === null
+                      data?.userimg !== null
                         ? `${ImgBaseURL}/${data?.userimg}`
                         : "/imgs/defaultuser.png"
                     })`,
