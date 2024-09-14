@@ -1,13 +1,14 @@
 "use client";
 
 import { Debounce } from "@/CustomHook/Debounce";
-import WriteComp from "../PageComp/Write/WriteComp";
+
 import axios from "axios";
 import { ChangeEvent, useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useRecoilValue } from "recoil";
 import { Logincheck, Userdata } from "@/Context/usercheck";
 import { useRouter } from "next/navigation";
+import WriteComp from "@/Components/pageData/PageComp/Write/WriteComp";
 
 export interface Itag {
   id: number;
