@@ -8,10 +8,11 @@ import {
   Itag,
 } from "@/Components/pageData/PageContainer/WriteContainer";
 import { useBreakPoint } from "@/CustomHook/BreakPoint";
+import { UseMutateFunction } from "@tanstack/react-query";
 
 interface IProps {
   inputfile: (e: ChangeEvent<HTMLInputElement>) => void;
-  upload: () => void;
+  upload: UseMutateFunction<string | undefined, Error, void, unknown>;
   previewUrl: string;
   settag: Dispatch<SetStateAction<string>>;
   tagdata: Itag[];
@@ -26,6 +27,9 @@ interface IProps {
   selectcate: ICategory;
   setselctcate: Dispatch<SetStateAction<ICategory>>;
   fail: boolean;
+  uploadEnd: boolean;
+  uploadstate: boolean;
+  filesize: number;
 }
 
 const WriteComp = ({
@@ -45,6 +49,9 @@ const WriteComp = ({
   selectcate,
   setselctcate,
   fail,
+  uploadEnd,
+  uploadstate,
+  filesize,
 }: IProps): JSX.Element => {
   const { isdesktop } = useBreakPoint();
 
@@ -59,13 +66,18 @@ const WriteComp = ({
                 fail ? "bg-gray-200" : " bg-red-500"
               }`}
               onClick={() => {
-                if (!fail) {
+                if (!fail && uploadEnd) {
                   upload();
                 }
               }}
             >
               게시
             </div>
+            {uploadstate === false && (
+              <div className="ps-[1.4rem] text-red-500 text-[0.8rem]">
+                업로드실패!
+              </div>
+            )}
           </div>
         </div>
       ) : (
@@ -76,7 +88,7 @@ const WriteComp = ({
               fail ? "bg-gray-200" : " bg-red-500"
             }`}
             onClick={() => {
-              if (!fail) {
+              if (!fail && uploadEnd) {
                 upload();
               }
             }}
@@ -92,7 +104,11 @@ const WriteComp = ({
             : ""
         }
       >
-        <ImgComp inputfile={inputfile} previewUrl={previewUrl} />
+        <ImgComp
+          inputfile={inputfile}
+          previewUrl={previewUrl}
+          filesize={filesize}
+        />
         <InfoComp
           settag={settag}
           tagdata={tagdata}

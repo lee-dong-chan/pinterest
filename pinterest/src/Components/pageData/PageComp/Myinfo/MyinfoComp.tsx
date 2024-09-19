@@ -20,6 +20,7 @@ interface IProps {
   upload: () => Promise<void>;
   viewpost: boolean;
   setviewpost: Dispatch<SetStateAction<boolean>>;
+  filesize: number;
 }
 
 const MyinfoComp = ({
@@ -31,6 +32,7 @@ const MyinfoComp = ({
   upload,
   viewpost,
   setviewpost,
+  filesize,
 }: IProps) => {
   const { ismobile, ismini, isdesktop } = useBreakPoint();
   const [failuserimg, setfailuserimg] = useState<boolean>(false);
@@ -70,6 +72,7 @@ const MyinfoComp = ({
       </div>
       {onimg && (
         <MyImgComp
+          filesize={filesize}
           setonimg={setonimg}
           inputimg={inputimg}
           priview={priview}

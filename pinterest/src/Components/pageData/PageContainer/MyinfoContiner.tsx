@@ -9,6 +9,7 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import { Logincheck, refetchuser } from "@/Context/usercheck";
 
 const MyinfoContainer = () => {
+  const [filesize, setfilesize] = useState<number>(0);
   const [onimg, setonimg] = useState<boolean>(false);
   const [Img, setImg] = useState<File>();
   const [priview, setpriview] = useState<string>("");
@@ -31,6 +32,7 @@ const MyinfoContainer = () => {
   const inputimg = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files !== null) {
       const File = e.target.files[0];
+      setfilesize(File.size);
       setImg(File);
       const priviewUrl = URL.createObjectURL(File);
       setpriview(priviewUrl);
@@ -71,6 +73,7 @@ const MyinfoContainer = () => {
       upload={upload}
       viewpost={viewpost}
       setviewpost={setviewpost}
+      filesize={filesize}
     />
   );
 };

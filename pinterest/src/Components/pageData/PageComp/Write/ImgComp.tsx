@@ -4,9 +4,10 @@ import { FaCircleArrowUp } from "react-icons/fa6";
 interface IProps {
   inputfile: (e: ChangeEvent<HTMLInputElement>) => void;
   previewUrl: string;
+  filesize: number;
 }
 
-const ImgComp = ({ inputfile, previewUrl }: IProps): JSX.Element => {
+const ImgComp = ({ inputfile, previewUrl, filesize }: IProps): JSX.Element => {
   const { isdesktop } = useBreakPoint();
   return (
     <div>
@@ -41,6 +42,11 @@ const ImgComp = ({ inputfile, previewUrl }: IProps): JSX.Element => {
           accept="image/*"
           onChange={inputfile}
         ></input>
+        {filesize / 1000 > 3000 && (
+          <div className="w-[100%] text-center text-red-500 text-[0.9rem]">
+            업로드 가능한크기 3MB이상의 이미지입니다
+          </div>
+        )}
       </div>
       {isdesktop && (
         <div>

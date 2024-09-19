@@ -7,6 +7,7 @@ interface IProps {
   inputimg: (e: ChangeEvent<HTMLInputElement>) => void;
   priview: string;
   upload: () => Promise<void>;
+  filesize: number;
 }
 
 const MyImgComp = ({
@@ -14,6 +15,7 @@ const MyImgComp = ({
   inputimg,
   priview,
   upload,
+  filesize,
 }: IProps): JSX.Element => {
   const { ismobile, ismini, isdesktop } = useBreakPoint();
   const router = useRouter();
@@ -59,11 +61,16 @@ const MyImgComp = ({
           onChange={inputimg}
           className="hidden"
         ></input>
+        {filesize / 1000 > 3000 && (
+          <div className="w-[100%] text-center text-red-500 text-[0.9rem]">
+            업로드 가능한크기 3MB이상의 이미지입니다
+          </div>
+        )}
         <div>
           <div
             className="mx-auto mt-20 flex items-center justify-center w-[15rem] h-[5rem] border rounded-[1rem] text-white bg-red-500"
             onClick={() => {
-              if (priview) {
+              if (priview && filesize / 1000 < 3000) {
                 upload();
                 setonimg(false);
                 router.refresh();

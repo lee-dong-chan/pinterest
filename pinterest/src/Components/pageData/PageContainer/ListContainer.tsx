@@ -32,7 +32,6 @@ export interface ICategory {
 const ListContainer = (): JSX.Element => {
   const router = useRouter();
   const { ismobile } = useBreakPoint();
-  const logincheck = useRecoilValue(Logincheck);
   const BaseUrl = process.env.NEXT_PUBLIC_BASE_URL;
   const [catelength, setcatelength] = useState<boolean>(false);
 

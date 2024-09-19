@@ -4,7 +4,7 @@ import { Debounce } from "@/CustomHook/Debounce";
 
 import axios from "axios";
 import { ChangeEvent, useEffect, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useRecoilValue } from "recoil";
 import { Logincheck, Userdata } from "@/Context/usercheck";
 import { useRouter } from "next/navigation";
@@ -26,6 +26,7 @@ export interface ICategory {
   img: string;
 }
 const WriteContainer = (): JSX.Element => {
+  const [filesize, setfilesize] = useState<number>(0);
   const [previewUrl, setpreviewUrl] = useState<string>("");
   const [Img, setImg] = useState<File>();
   const [title, settitle] = useState<string>("");
@@ -40,6 +41,8 @@ const WriteContainer = (): JSX.Element => {
     img: "",
   });
   const [fail, setfail] = useState<boolean>(false);
+  const [uploadEnd, setuploadEnd] = useState<boolean>(true);
+  const [uploadstate, setuploadstate] = useState<boolean>(true);
   const router = useRouter();
   const user = useRecoilValue(Userdata);
   const login = useRecoilValue(Logincheck);
@@ -48,6 +51,7 @@ const WriteContainer = (): JSX.Element => {
     if (e.target.files) {
       const File = e.target.files[0];
       if (File !== undefined) {
+        setfilesize(File.size);
         const priview = URL.createObjectURL(File);
         setpreviewUrl(priview);
       }
@@ -101,23 +105,39 @@ const WriteContainer = (): JSX.Element => {
     );
   });
 
-  const upload = async () => {
-    if (login == "true") {
-      if (Img !== undefined && title !== "" && selectcate.id !== 0) {
-        const data = await axios.post(`${BaseURL}/upload`, Formdata);
-        const imgname: string = data.data.filename;
-        await axios.post(`${BaseURL}/post/write`, {
-          title: title,
-          content: content,
-          postimg: imgname,
-          tags: filtertags,
-          categoryid: selectcate.id,
-          userid: user.userid,
-        });
-        router.replace("/list");
+  const { mutate } = useMutation({
+    mutationKey: ["uploadpost"],
+    mutationFn: async () => {
+      if (login == "true") {
+        if (Img !== undefined && title !== "" && selectcate.id !== 0) {
+          setuploadEnd(false);
+          const { data } = await axios.post(`${BaseURL}/upload`, Formdata);
+          const imgname: string = data.filename;
+          await axios.post(`${BaseURL}/post/write`, {
+            title: title,
+            content: content,
+            postimg: imgname,
+            tags: filtertags,
+            categoryid: selectcate.id,
+            userid: user.userid,
+          });
+          return imgname;
+        }
       }
-    }
-  };
+    },
+    onSuccess(imgname) {
+      if (imgname) {
+        setuploadEnd(true);
+        router.replace("/list");
+      } else {
+        setuploadstate(false);
+      }
+    },
+    onError() {
+      setuploadEnd(true);
+      setuploadstate(false);
+    },
+  });
 
   useEffect(() => {
     refetch();
@@ -139,9 +159,12 @@ const WriteContainer = (): JSX.Element => {
 
   return (
     <WriteComp
+      filesize={filesize}
+      uploadstate={uploadstate}
+      uploadEnd={uploadEnd}
       fail={fail}
       inputfile={inputFile}
-      upload={upload}
+      upload={mutate}
       previewUrl={previewUrl}
       settag={settag}
       tagdata={tagdata}

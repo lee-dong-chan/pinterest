@@ -46,17 +46,17 @@ const Comp = ({ data }: IProps) => {
               <div className="trancate font-bold">{data?.title}</div>
               <div className="trancate text-[0.9rem]">{data?.content}</div>
               <div className="flex items-center gap-3">
-                <div
-                  className="w-[3rem] h-[3rem] rounded-[3rem] border gap-1"
-                  style={{
-                    backgroundImage: `url(${
-                      data?.userimg !== null
+                <div className="w-[3rem] h-[3rem] rounded-[3rem] border gap-1 overflow-hidden">
+                  <img
+                    className="w-[100%] h-[100%]"
+                    src={`${
+                      data?.userimg !== undefined
                         ? `${ImgBaseURL}/${data?.userimg}`
                         : "/imgs/defaultuser.png"
-                    })`,
-                    backgroundSize: "cover",
-                  }}
-                ></div>
+                    }`}
+                    alt="user"
+                  ></img>
+                </div>
                 <div className="text-[0.8rem] font-bold">{data?.username}</div>
               </div>
             </div>

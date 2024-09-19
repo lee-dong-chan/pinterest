@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Noto_Sans_KR } from "next/font/google";
+import { Inter, Noto_Sans_KR } from "next/font/google";
 import "./globals.css";
 
 import Providers from "@/Components/provider";
@@ -7,10 +7,12 @@ import Providers from "@/Components/provider";
 import Layout from "@/Components/Conteiner/LayoutContainer";
 import RecoilWrap from "@/Components/recoil";
 
-export const notoSansKr = Noto_Sans_KR({
-  subsets: ["latin"],
-  weight: ["100", "400", "700", "900"],
-});
+const inter = Inter({ subsets: ["latin"] });
+
+// export const notoSansKr = Noto_Sans_KR({
+//   subsets: ["latin"],
+//   weight: ["100", "400", "700", "900"],
+// });
 
 export const metadata: Metadata = {
   title: "pinterest",
@@ -24,7 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={notoSansKr.className}>
+      <body className={inter.className}>
         <RecoilWrap>
           <Providers>
             <Layout> {children}</Layout>

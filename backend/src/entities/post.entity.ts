@@ -23,7 +23,7 @@ export class Post extends Common {
   @Column({ type: 'varchar', length: 500 })
   content: string;
 
-  @Column({ type: 'varchar', length: 30 })
+  @Column({ type: 'varchar', length: 200 })
   postimg: string;
 
   @ManyToOne((type) => User, (User) => User.id, {
