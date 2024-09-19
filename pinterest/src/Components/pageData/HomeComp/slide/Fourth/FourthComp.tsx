@@ -25,7 +25,7 @@ const FourthComp = () => {
       </div>
       <div className="w-[50%] h-screen flex flex-col justify-center items-center">
         <div className="text-center text-[4rem] text-red-700 font-bold">
-          <p>구매하거,만들고,</p>
+          <p>구매하고,만들고,</p>
           <p>시도하고,실행하</p>
           <p>세요.</p>
         </div>

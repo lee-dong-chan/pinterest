@@ -47,7 +47,7 @@ const PostComp = ({
         className={
           isdesktop
             ? `mt-10 w-[60rem] max-h-[50rem] border rounded-[1rem] shadow-[0_4px_4px_rgba(0,0,0,0.25)] flex justify-evenly`
-            : ""
+            : "pb-[2rem]"
         }
       >
         <ImgComp ImgBaseURL={ImgBaseURL} data={data} />

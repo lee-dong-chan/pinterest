@@ -28,7 +28,7 @@ export default Button;
 export const Smallbutton = ({ text, back, color }: IProps) => {
   return (
     <Button
-      width="w-[4rem]"
+      width="w-[5rem]"
       height="h-[2.5rem]"
       text={text}
       back={back}

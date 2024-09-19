@@ -74,27 +74,20 @@ const ListContainer = (): JSX.Element => {
 
   return (
     <div>
-      {logincheck === "false" && !ismobile && (
+      {!ismobile && (
         <div>
-          {!catelist.isLoading ? (
-            <div>
-              <div className="mx-auto my-10 w-fit text-[1.7rem] font-bold">
-                pinterest 최고의 아이디어 탐색하기
-              </div>
-              <div className="p-10 mx-auto w-fit font-bold ">
-                관심사 발견하기
-              </div>
-              <CategoryComp
-                categorylist={catelist.data}
-                catelength={catelength}
-                setcatelength={setcatelength}
-              />
-              <div className="p-10 mx-auto w-fit ">인기아이디어 탐색하기</div>
+          <div>
+            <div className="mx-auto my-10 w-fit text-[1.7rem] font-bold">
+              pinterest 최고의 아이디어 탐색하기
             </div>
-          ) : (
-            // <Loading />
-            <div></div>
-          )}
+            <div className="p-10 mx-auto w-fit font-bold ">관심사 발견하기</div>
+            <CategoryComp
+              categorylist={catelist.data}
+              catelength={catelength}
+              setcatelength={setcatelength}
+            />
+            <div className="p-10 mx-auto w-fit ">인기아이디어 탐색하기</div>
+          </div>
         </div>
       )}
       <PostListComp postlist={data} />

@@ -94,7 +94,7 @@ const ToolbarComp = ({ login, userdata }: IProps): JSX.Element => {
         {ismini && login == "false" && (
           <div>
             <div
-              className="px-4 py-2  text-[1.2rem]  rounded-[1rem]  bg-white  hover:bg-gray-200 flex items-center"
+              className="relative px-4 py-2  text-[1.2rem]  rounded-[1rem]  bg-white  hover:bg-gray-200 flex items-center"
               onClick={() => {
                 setDroptype("not login toolbar");
                 setDrop(!Drop);
@@ -109,7 +109,7 @@ const ToolbarComp = ({ login, userdata }: IProps): JSX.Element => {
         {ismini && login == "true" && (
           <div>
             <div
-              className="px-4 py-2  text-[1.2rem]  rounded-[1rem]  bg-white  hover:bg-gray-200 flex items-center"
+              className=" px-4 py-2  text-[1.2rem]  rounded-[1rem]  bg-white  hover:bg-gray-200 flex items-center"
               onClick={() => {
                 setDroptype("login toolbar");
                 setDrop(!Drop);

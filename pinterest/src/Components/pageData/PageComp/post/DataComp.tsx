@@ -50,11 +50,13 @@ const DataComp = ({
 
   useEffect(() => {
     setElem(
-      <img
-        src={`${ImgBaseURL}/${user?.userimg}`}
-        className="me-2 w-[3rem] rounded-[3rem] pointer-events-none"
-        alt="userimg"
-      ></img>
+      <div className="w-[2.5rem] h-[2.5rem] border rounded-[2.5rem] overflow-hidden">
+        <img
+          src={`${ImgBaseURL}/${user?.userimg}`}
+          className="pointer-events-none"
+          alt="userimg"
+        ></img>
+      </div>
     );
   }, []);
 
@@ -103,7 +105,7 @@ const DataComp = ({
                 <div key={idx} className="m-2 flex items-center gap-1">
                   <img
                     src={`${ImgBaseURL}/${item.img}`}
-                    className="w-[2rem] rounded-[2rem] pointer-events-none"
+                    className="w-[2rem] h-[2rem] rounded-[2rem] pointer-events-none"
                     alt="comment"
                   ></img>
                   <div className="font-bold">{item.user}</div>
@@ -133,10 +135,10 @@ const DataComp = ({
               ></input>
             </div>
           ) : (
-            <div className={Elem && "flex"}>
+            <div className={Elem && "flex items-center gap-2 "}>
               {Elem}
               <input
-                className="w-[100%] h-[3rem] border rounded-[3rem] p-2"
+                className="w-[100%] max-w-[23rem] h-[3rem] border rounded-[3rem] p-2"
                 placeholder="댓글추가"
                 value={comment}
                 onChange={(e) => {

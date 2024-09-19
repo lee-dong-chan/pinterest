@@ -15,7 +15,7 @@ const HomeContainer = () => {
     } else if (page === 4) {
       window.scrollTo({ top: window.innerHeight * 3, behavior: "smooth" });
     } else if (page === 5) {
-      window.scrollTo({ top: window.innerHeight * 4, behavior: "smooth" });
+      window.scrollTo({ top: window.innerHeight * 4.05, behavior: "smooth" });
     }
   }, [page]);
 

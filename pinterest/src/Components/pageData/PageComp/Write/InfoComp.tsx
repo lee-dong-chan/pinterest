@@ -4,11 +4,18 @@ import {
   Itag,
 } from "@/Components/pageData/PageContainer/WriteContainer";
 import { IoIosArrowDropdown } from "react-icons/io";
-import { ChangeEvent, Dispatch, SetStateAction } from "react";
+import {
+  ChangeEvent,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
 import { IoReload } from "react-icons/io5";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { Categoryonoff } from "@/Context/DropDownModal";
 import { useBreakPoint } from "@/CustomHook/BreakPoint";
+
 interface IProps {
   settag: Dispatch<SetStateAction<string>>;
   tagdata: Itag[];
@@ -38,16 +45,23 @@ const InfoComp = ({
   selectcate,
   setselctcate,
 }: IProps): JSX.Element => {
+  const [tagDrop, settagDrop] = useState<boolean>(false);
   const cateonoff = useSetRecoilState(Categoryonoff);
   const catestate = useRecoilValue(Categoryonoff);
   const { isdesktop } = useBreakPoint();
+
+  useEffect(() => {
+    if (tagdata[0]) {
+      settagDrop(true);
+    }
+  }, [tagdata]);
 
   return (
     <div
       className={
         isdesktop
           ? "flex flex-1 flex-col gap-5"
-          : "mx-3 flex flex-1 flex-col gap-5"
+          : "mx-3 pb-[1rem] flex flex-1 flex-col gap-5"
       }
     >
       <div className="w-[100%]">
@@ -126,7 +140,7 @@ const InfoComp = ({
             if (select.length < 6) {
               if (e.key == "Enter") {
                 if (e.nativeEvent.isComposing === false) {
-                  if (tagdata && !tagdata[0]) {
+                  if (tagdata && !tagDrop) {
                     entertag();
                     settag("");
                   }
@@ -135,13 +149,14 @@ const InfoComp = ({
             }
           }}
         ></input>
-        {tagdata[0] && (
+        {tagDrop && (
           <div className="p-2 relative w-[100%] border z-10">
             {tagdata.map((item, idx) => (
               <div
                 key={idx}
                 onClick={() => {
                   clicktag(item.id, item.name);
+                  settagDrop(false);
                 }}
               >
                 {item.name}
@@ -162,7 +177,7 @@ const InfoComp = ({
             <IoReload />
           </div>
         </div>
-        <div className="p-3 h-[3.2rem] w-[100%] flex gap-2">
+        <div className="p-3 mb-10 h-[3.2rem] w-[100%] flex gap-2">
           {select &&
             select.map((item, idx) => (
               <div

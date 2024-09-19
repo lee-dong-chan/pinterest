@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
@@ -108,7 +108,6 @@ const Layout = ({ children }: IProps): JSX.Element => {
     <div className="min-w-[270px] select-none">
       <div>
         <Toolbar login={login} userdata={userdata} />
-
         <div
           onClick={() => {
             setDropModal(false);

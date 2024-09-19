@@ -3,6 +3,8 @@ import { ICategory } from "@/Components/pageData/PageContainer/WriteContainer";
 import Link from "next/link";
 import { Dispatch, SetStateAction } from "react";
 
+import { FaAngleDoubleUp } from "react-icons/fa";
+
 interface IProps {
   categorylist?: ICategory[];
   catelength: boolean;
@@ -10,7 +12,7 @@ interface IProps {
 }
 
 const CategoryComp = ({ categorylist, catelength, setcatelength }: IProps) => {
-  const { isdesktop, ismobile, ismini } = useBreakPoint();
+  const { isdesktop, ismini } = useBreakPoint();
   return (
     <div className="px-7 max-w-[70rem] mx-auto">
       <div
@@ -28,7 +30,9 @@ const CategoryComp = ({ categorylist, catelength, setcatelength }: IProps) => {
             >
               <div>
                 <div
-                  className="m-1 w-[100%] h-[5rem] border rounded-[1rem] flex items-center justify-center text-[1.2rem] text-white "
+                  className={`m-1 w-[100%] h-[5rem] border rounded-[1rem] flex items-center justify-center text-white ${
+                    isdesktop ? "text-[1.2rem]" : "text-[0.9rem]"
+                  } `}
                   style={{
                     backgroundImage: `url(/imgs/category/${item.img}.png)`,
                     backgroundSize: "100% 100%",
@@ -41,7 +45,7 @@ const CategoryComp = ({ categorylist, catelength, setcatelength }: IProps) => {
           ))}
         </div>
       </div>
-      {!catelength && (
+      {!catelength ? (
         <div
           className="mx-auto my-5 p-3 w-fit border bg-gray-200 rounded-[0.5rem]"
           onClick={() => {
@@ -49,6 +53,15 @@ const CategoryComp = ({ categorylist, catelength, setcatelength }: IProps) => {
           }}
         >
           더보기
+        </div>
+      ) : (
+        <div
+          className="mx-auto my-5 p-3 w-fit"
+          onClick={() => {
+            setcatelength(false);
+          }}
+        >
+          <FaAngleDoubleUp />
         </div>
       )}
     </div>

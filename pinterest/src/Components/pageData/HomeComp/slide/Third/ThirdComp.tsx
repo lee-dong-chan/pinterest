@@ -2,9 +2,9 @@ import Link from "next/link";
 
 const ThirdComp = () => {
   return (
-    <div className="w-[90rem] h-[100%] mx-auto flex items-center justify-between">
+    <div className="w-[70rem] h-[100%] mx-auto flex items-center justify-between">
       <div className="text-center">
-        <p className="text-[4rem] font-bold text-cyan-600 text-wrap">
+        <p className="text-[3.5rem]  text-cyan-500 text-wrap">
           좋아하는 아이디어를 저장하세요
         </p>
         <p className="py-10 text-[1.3rem] text-cyan-600">
@@ -18,10 +18,10 @@ const ThirdComp = () => {
           </div>
         </Link>
       </div>
-      <div className="w-[45rem] flex">
+      <div className="w-[35rem] h-[100%] flex">
         <div>
           <div
-            className=" m-3 h-[25rem] w-[25rem] rounded-[4rem] flex flex-col  items-center "
+            className=" m-3 h-[23rem] w-[23rem] rounded-[4rem] flex flex-col  items-center "
             style={{
               backgroundImage: "url(/imgs/idea1.png)",
               backgroundSize: "cover",
@@ -33,13 +33,13 @@ const ThirdComp = () => {
               </div>
             </Link>
             <div className="flex justify-even">
-              <img className="w-[6rem]" src="/imgs/idea2.png"></img>
-              <img className="mx-3 w-[6rem]" src="/imgs/idea3.png"></img>
-              <img className="w-[6rem]" src="/imgs/idea4.png"></img>
+              <img className="w-[4rem]" src="/imgs/idea2.png"></img>
+              <img className="mx-3 w-[4rem]" src="/imgs/idea3.png"></img>
+              <img className="w-[4rem]" src="/imgs/idea4.png"></img>
             </div>
           </div>
           <div
-            className="ms-40 mt-10 h-[15rem] w-[15rem] rounded-[4rem] "
+            className="ms-[7rem] mt-8 h-[15rem] w-[15rem] rounded-[4rem] "
             style={{
               backgroundImage: "url(/imgs/idea5.png)",
               backgroundSize: "cover",
@@ -81,7 +81,7 @@ const ThirdComp = () => {
             </Link>
           </div>
           <div
-            className="mt-20 h-[15rem] w-[15rem] rounded-[4rem]"
+            className="mt-0 h-[15rem] w-[15rem] rounded-[4rem]"
             style={{
               backgroundImage: "url(/imgs/idea8.png)",
               backgroundSize: "cover",
