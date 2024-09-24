@@ -38,7 +38,7 @@ const SearchPageContainer = () => {
       return lastpage.hasmore ? +lastpage.page + 1 : undefined;
     },
   });
-  console.log(data);
+
   const loadMore = useRef(null);
   useEffect(() => {
     Observer(hasNextPage, fetchNextPage, loadMore);

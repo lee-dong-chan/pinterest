@@ -1,7 +1,6 @@
 import { Modalonoff } from "@/Context/LoginModalSystem";
 import { IoMdClose } from "react-icons/io";
 import { useSetRecoilState } from "recoil";
-
 import { useBreakPoint } from "@/CustomHook/BreakPoint";
 import Modal from "./Modals/Modal";
 
@@ -32,7 +31,6 @@ const ModalBox = (): JSX.Element => {
             <IoMdClose size={30} />
           </div>
         </div>
-
         <div className="mx-auto w-[20rem] flex flex-col items-center">
           <Modal />
         </div>

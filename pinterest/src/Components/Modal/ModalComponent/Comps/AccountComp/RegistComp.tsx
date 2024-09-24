@@ -1,4 +1,5 @@
 import { Middlebutton } from "@/Components/Button/Button";
+import GoogleComp from "@/Components/Comp/Google/GoogleComp";
 import { UseMutateFunction } from "@tanstack/react-query";
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
 
@@ -92,19 +93,6 @@ const RegistComp = ({
         }}
       >
         <Middlebutton text="계속하기" back="bg-red-600" color="text-white" />
-      </div>
-      <div className="mb-4">또는</div>
-      <div className="mb-8 w-[100%]">
-        <img
-          src="/imgs/google.png"
-          className="absolute w-[2rem] mx-3 my-2 pointer-events-none"
-          alt="google"
-        ></img>
-        <Middlebutton
-          text="구글 계정으로 계속하기"
-          back="white"
-          color="text-black"
-        />
       </div>
     </div>
   );

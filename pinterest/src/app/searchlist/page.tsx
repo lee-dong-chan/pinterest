@@ -5,7 +5,6 @@ interface Props {
 }
 
 const Searchlist = ({ searchParams }: Props) => {
-  console.log(searchParams);
   return (
     <div className="flex justify-center">
       <div className="flex flex-col items-center">

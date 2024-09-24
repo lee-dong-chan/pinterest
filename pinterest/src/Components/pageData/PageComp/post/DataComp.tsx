@@ -52,8 +52,12 @@ const DataComp = ({
     setElem(
       <div className="w-[2.5rem] h-[2.5rem] border rounded-[2.5rem] overflow-hidden">
         <img
-          src={`${ImgBaseURL}/${user?.userimg}`}
-          className="pointer-events-none"
+          src={`${
+            user?.userimg
+              ? `${ImgBaseURL}/${user?.userimg}`
+              : "/imgs/defaultuser.png"
+          }`}
+          className="pointer-events-none w-[100%] h-[100%]"
           alt="userimg"
         ></img>
       </div>
@@ -90,7 +94,7 @@ const DataComp = ({
         {data?.tag?.map((item: string, idx: number) => (
           <div
             key={idx}
-            className="p-1 w-fit text-[0.8rem] border rounded-[0.5rem] bg-gray-200"
+            className="p-1 w-fit flex items-center text-[0.8rem] border rounded-[0.5rem] bg-gray-200"
           >
             {item}
           </div>
@@ -104,7 +108,11 @@ const DataComp = ({
               {data.comment.map((item: IComment, idx: number) => (
                 <div key={idx} className="m-2 flex items-center gap-1">
                   <img
-                    src={`${ImgBaseURL}/${item.img}`}
+                    src={`${
+                      item.img
+                        ? `${ImgBaseURL}/${item.img}`
+                        : "/imgs/defaultuser.png"
+                    }`}
                     className="w-[2rem] h-[2rem] rounded-[2rem] pointer-events-none"
                     alt="comment"
                   ></img>

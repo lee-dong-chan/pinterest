@@ -72,7 +72,6 @@ const Layout = ({ children }: IProps): JSX.Element => {
       const { data } = await axios.get(`${baseURL}/userdata`, {
         withCredentials: true,
       });
-      console.log(data);
       setuser(data);
       return data;
     },
@@ -106,23 +105,21 @@ const Layout = ({ children }: IProps): JSX.Element => {
 
   return (
     <div className="min-w-[270px] select-none">
-      <div>
-        <Toolbar login={login} userdata={userdata} />
-        <div
-          onClick={() => {
-            setDropModal(false);
-            MobileModal(false);
-          }}
-        >
-          {children}
-        </div>
-        {onoffDrop && (
-          <DropModalContainer refetch={logcheck.refetch} userdata={userdata} />
-        )}
-        {ismobile && <MobileMenu />}
-        {onoffModal && <ModalContainer />}
-        {MobileDropon && ismobile && <MobileModalBox />}
+      <Toolbar login={login} userdata={userdata} />
+      <div
+        onClick={() => {
+          setDropModal(false);
+          MobileModal(false);
+        }}
+      >
+        {children}
       </div>
+      {onoffDrop && (
+        <DropModalContainer refetch={logcheck.refetch} userdata={userdata} />
+      )}
+      {ismobile && <MobileMenu />}
+      {onoffModal && <ModalContainer />}
+      {MobileDropon && ismobile && <MobileModalBox />}
     </div>
   );
 };

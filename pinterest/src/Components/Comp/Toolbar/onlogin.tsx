@@ -28,6 +28,7 @@ const Onlogin = ({ userdata }: IProps): JSX.Element => {
           {userimg ? (
             <div className="me-1 border overflow-hidden h-[3rem] w-[3rem] rounded-[3rem]">
               <img
+                className="w-[100%] h-[100%]"
                 src={
                   !myimg
                     ? `${baseimgURL}/${userdata?.userimg}`

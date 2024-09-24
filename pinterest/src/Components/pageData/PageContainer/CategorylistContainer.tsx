@@ -39,7 +39,7 @@ const CategoryPageContainer = () => {
   useEffect(() => {
     Observer(hasNextPage, fetchNextPage, loadMore);
   }, [hasNextPage, fetchNextPage]);
-  console.log(data);
+
   return (
     <div>
       <div className="mt-10 flex flex-col items-center">

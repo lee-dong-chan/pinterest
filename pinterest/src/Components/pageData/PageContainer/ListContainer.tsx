@@ -45,7 +45,7 @@ const ListContainer = (): JSX.Element => {
   });
 
   const fetchlist = async (pageParam: number) => {
-    const pagesize = 10;
+    const pagesize = 14;
     const { data } = await axios.get(
       `${BaseUrl}/list?page=${pageParam}&limit=${pagesize}`
     );
@@ -54,13 +54,14 @@ const ListContainer = (): JSX.Element => {
 
   const { data, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage } =
     useInfiniteQuery({
-      queryKey: ["videoList"],
+      queryKey: ["mainList"],
       queryFn: ({ pageParam }) => fetchlist(pageParam),
       initialPageParam: 1,
       getNextPageParam: (lastpage) => {
         return lastpage.hasmore ? +lastpage.page + 1 : undefined;
       },
     });
+
   const loadmore = useRef(null);
 
   useEffect(() => {
@@ -90,7 +91,7 @@ const ListContainer = (): JSX.Element => {
         </div>
       )}
       <PostListComp postlist={data} />
-      {isFetching && !isFetchingNextPage && <p className="w-fit mx-auto"></p>}
+      {!isFetching && !isFetchingNextPage && <p className="w-fit mx-auto"></p>}
       <div className="w-fit mx-auto" ref={loadmore}>
         <IoMdArrowDropdown size={30} />
       </div>

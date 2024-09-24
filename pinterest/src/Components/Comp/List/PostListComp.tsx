@@ -20,6 +20,7 @@ const PostListComp = ({ postlist }: IProps) => {
   data?.forEach((item) => {
     Arr.push(...item);
   });
+
   const breakpointColumnsObj = {
     default: 5,
     350: 2,
@@ -35,16 +36,7 @@ const PostListComp = ({ postlist }: IProps) => {
   };
 
   return (
-    // <ResponsiveMasonry
-    //   columnsCountBreakPoints={{ 350: 2, 750: 3, 900: 4, 1200: 5, 1600: 7 }}
-    // >
-    //   <Masonry columnsCount={10}>
-    //     {Arr.map((item: IPost) => (
-    //       <Comp key={item.id} data={item} />
-    //     ))}
-    //   </Masonry>
-    // </ResponsiveMasonry>
-    <div className="px-2">
+    <div className="px-10">
       <Masonry
         breakpointCols={breakpointColumnsObj}
         className="my-masonry-grid flex"
