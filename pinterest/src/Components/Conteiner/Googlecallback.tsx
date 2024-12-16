@@ -16,7 +16,6 @@ const GoogleCallback = () => {
     code = new URL(window.location.href).searchParams.get("code");
   }, []);
 
-  //네이버 콜백시 서버에서 res를 받아오는 코드
   const Google = async (): Promise<void> => {
     //우리의 서버(express)로 보내기 (난 8001포트)
     await axios
@@ -40,7 +39,6 @@ const GoogleCallback = () => {
       });
   };
 
-  //컴포넌트 생성시 naver 실행
   useEffect(() => {
     Google();
   });

@@ -75,6 +75,7 @@ const Layout = ({ children }: IProps): JSX.Element => {
       setuser(data);
       return data;
     },
+    enabled: false,
   });
 
   useEffect(() => {

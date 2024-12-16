@@ -51,7 +51,7 @@ import { MulterModule } from '@nestjs/platform-express';
     MulterModule.register({}),
   ],
   controllers: [AppController],
-  providers: [AppService, CategoryService],
+  providers: [AppService],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

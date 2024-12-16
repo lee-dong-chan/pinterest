@@ -9,7 +9,13 @@ import { Observer } from "@/lib/Observer";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import React, {
+  cloneElement,
+  ReactNode,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { useRecoilValue } from "recoil";
 
@@ -42,6 +48,7 @@ const ListContainer = (): JSX.Element => {
       const lastdata: ICategory[] = data;
       return lastdata;
     },
+    enabled: false,
   });
 
   const fetchlist = async (pageParam: number) => {
@@ -69,6 +76,7 @@ const ListContainer = (): JSX.Element => {
   }, [hasNextPage, fetchNextPage]);
 
   useEffect(() => {
+    catelist.refetch();
     router.refresh();
   }, []);
 
@@ -76,18 +84,16 @@ const ListContainer = (): JSX.Element => {
     <div>
       {!ismobile && (
         <div>
-          <div>
-            <div className="mx-auto my-10 w-fit text-[1.7rem] font-bold">
-              pinterest 최고의 아이디어 탐색하기
-            </div>
-            <div className="p-10 mx-auto w-fit font-bold ">관심사 발견하기</div>
-            <CategoryComp
-              categorylist={catelist.data}
-              catelength={catelength}
-              setcatelength={setcatelength}
-            />
-            <div className="p-10 mx-auto w-fit ">인기아이디어 탐색하기</div>
+          <div className="mx-auto my-10 w-fit text-[1.7rem] font-bold">
+            pinterest 최고의 아이디어 탐색하기
           </div>
+          <div className="p-10 mx-auto w-fit font-bold ">관심사 발견하기</div>
+          <CategoryComp
+            categorylist={catelist.data}
+            catelength={catelength}
+            setcatelength={setcatelength}
+          />
+          <div className="p-10 mx-auto w-fit ">인기아이디어 탐색하기</div>
         </div>
       )}
       <PostListComp postlist={data} />

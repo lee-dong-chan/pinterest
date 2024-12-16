@@ -43,16 +43,18 @@ const PostContainer = () => {
     setcomment(e.target.value);
   }, []);
 
-  const submit = async () => {
+  const submit = useCallback(async () => {
     await axios.post(
       `${BaseURL}/comment/write`,
       { postId: data?.id, userId: user?.userid, content: comment },
       { withCredentials: true }
     );
-  };
+  }, []);
+
   useEffect(() => {
     mutate();
   }, []);
+
   return (
     <PostComp
       data={data}
