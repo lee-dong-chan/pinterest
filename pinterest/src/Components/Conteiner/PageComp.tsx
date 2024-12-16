@@ -11,7 +11,10 @@ const PageContainer = () => {
   const logcheck = useRecoilValue(Logincheck);
   const router = useRouter();
   useEffect(() => {
-    const Mobi = /Mibi/i.test(window.navigator.userAgent);
+    const Mobi =
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        window.navigator.userAgent
+      );
     if (Mobi || ismini || ismobile) {
       router.replace("/list");
     }

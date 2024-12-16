@@ -9,8 +9,8 @@ export const useBreakPoint = () => {
     const handleResize = () => {
       const screenWidth = window.innerWidth;
       setIsmobile(screenWidth < 450);
-      setIsMini(screenWidth < 768 && screenWidth >= 430);
-      setIsDesktop(screenWidth >= 768);
+      setIsMini(screenWidth < 700 && screenWidth >= 430);
+      setIsDesktop(screenWidth >= 700);
     };
 
     window.addEventListener("resize", handleResize);

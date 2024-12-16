@@ -27,6 +27,7 @@ const MyinfoContainer = () => {
       });
       return data;
     },
+    enabled: false,
   });
 
   const inputimg = useCallback((e: ChangeEvent<HTMLInputElement>) => {
@@ -43,7 +44,7 @@ const MyinfoContainer = () => {
   if (Img !== undefined) {
     Formdata.append("File", Img);
   }
-  const upload = async () => {
+  const upload = useCallback(async () => {
     if (Img !== undefined) {
       const data = await axios.post(`${baseURL}/upload`, Formdata);
 
@@ -52,7 +53,8 @@ const MyinfoContainer = () => {
       );
       refetch();
     }
-  };
+  }, []);
+
   useEffect(() => {
     setrefetch(true);
   }, [data]);
@@ -62,6 +64,10 @@ const MyinfoContainer = () => {
       router.back();
     }
   }, [logcheck]);
+
+  useEffect(() => {
+    refetch();
+  }, []);
 
   return (
     <MyinfoComp
