@@ -4,13 +4,15 @@ import Comp from "@/Components/pageData/PageComp/List/Comp";
 import { IPost } from "@/Components/pageData/PageContainer/ListContainer";
 
 import { InfiniteData } from "@tanstack/react-query";
+import React from "react";
 import Masonry from "react-masonry-css";
 
 interface IProps {
   postlist: InfiniteData<any, unknown> | undefined;
+  isFirst: boolean;
 }
 
-const PostListComp = ({ postlist }: IProps) => {
+const PostListComp = ({ postlist, isFirst }: IProps) => {
   const pages = postlist?.pages;
   const data = pages?.map((item) => {
     return item.post;
@@ -43,10 +45,10 @@ const PostListComp = ({ postlist }: IProps) => {
         columnClassName="my-masonry-grid_column"
       >
         {Arr?.map((item: IPost) => (
-          <Comp key={item.id} data={item} />
+          <Comp key={item.id} data={item} isFirst={isFirst} />
         ))}
       </Masonry>
     </div>
   );
 };
-export default PostListComp;
+export default React.memo(PostListComp);

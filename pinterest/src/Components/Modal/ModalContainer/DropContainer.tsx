@@ -4,7 +4,11 @@ import axios from "axios";
 import { useBreakPoint } from "@/CustomHook/BreakPoint";
 import { useRecoilValue } from "recoil";
 import { Droptype } from "@/Context/DropDownModal";
-import { QueryObserverResult, RefetchOptions } from "@tanstack/react-query";
+import {
+  QueryObserverResult,
+  RefetchOptions,
+  useMutation,
+} from "@tanstack/react-query";
 import DropComp from "../ModalComponent/Comps/DropComp/DropComp";
 
 interface IProps {
@@ -18,39 +22,47 @@ const DropModalContainer = ({ userdata, refetch }: IProps) => {
   const { ismini, isdesktop } = useBreakPoint();
   const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
 
-  const logout = async () => {
-    await axios.post(`${baseURL}/user/logout`, {}, { withCredentials: true });
-    refetch();
-  };
+  const logout = useMutation({
+    mutationFn: async () => {
+      await axios.post(`${baseURL}/user/logout`, {}, { withCredentials: true });
+    },
+    onSuccess: () => {
+      refetch();
+    },
+  });
 
   return (
-    <div>
-      {Dropname == "myinfo" && userdata && (
+    <>
+      {Dropname === "myinfo" && userdata && (
         <div
           className={`fixed h-fit ${
             isdesktop ? "w-[15rem]" : ismini && "w-fit"
-          }  bg-white right-1 top-[2.2rem] rounded-b-[1rem] shadow z-[50]`}
+          }  right-1   z-[50]`}
         >
           <DropComp userdata={userdata} logout={logout} />
         </div>
       )}
 
-      {Dropname == "not login toolbar" && (
+      {Dropname === "not login toolbar" && (
         <div
-          className={`fixed h-fit w-[10rem] bg-white left-[10%] top-[4rem] rounded-[1rem] shadow`}
+          className={`fixed h-fit ${
+            isdesktop ? "w-[15rem] " : ismini && "w-fit"
+          }   right-1 z-[50]`}
         >
           <DropComp userdata={userdata} logout={logout} />
         </div>
       )}
 
-      {Dropname == "login toolbar" && (
+      {Dropname === "login toolbar" && (
         <div
-          className={`fixed h-fit w-[10rem] bg-white left-[10%] top-[4rem] rounded-[1rem] shadow`}
+          className={`fixed h-fit ${
+            isdesktop ? "w-[15rem]" : ismini && "w-fit"
+          }   right-1  z-[50]`}
         >
           <DropComp userdata={userdata} logout={logout} />
         </div>
       )}
-    </div>
+    </>
   );
 };
 export default DropModalContainer;

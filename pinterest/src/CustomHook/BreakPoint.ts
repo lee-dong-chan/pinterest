@@ -8,9 +8,9 @@ export const useBreakPoint = () => {
   useEffect(() => {
     const handleResize = () => {
       const screenWidth = window.innerWidth;
-      setIsmobile(screenWidth < 450);
-      setIsMini(screenWidth < 700 && screenWidth >= 430);
-      setIsDesktop(screenWidth >= 700);
+      setIsmobile(screenWidth <= 450);
+      setIsMini(screenWidth > 450 && screenWidth <= 1024);
+      setIsDesktop(screenWidth >= 1025);
     };
 
     window.addEventListener("resize", handleResize);

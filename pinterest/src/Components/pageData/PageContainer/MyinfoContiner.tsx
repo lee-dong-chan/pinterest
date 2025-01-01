@@ -1,7 +1,7 @@
 "use client";
 import axios from "axios";
 import MyinfoComp from "../PageComp/Myinfo/MyinfoComp";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 import { useParams, useRouter } from "next/navigation";
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
@@ -27,13 +27,12 @@ const MyinfoContainer = () => {
       });
       return data;
     },
-    enabled: false,
   });
 
   const inputimg = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files !== null) {
       const File = e.target.files[0];
-      setfilesize(File.size);
+      setfilesize(File?.size);
       setImg(File);
       const priviewUrl = URL.createObjectURL(File);
       setpriview(priviewUrl);
@@ -44,16 +43,21 @@ const MyinfoContainer = () => {
   if (Img !== undefined) {
     Formdata.append("File", Img);
   }
-  const upload = useCallback(async () => {
-    if (Img !== undefined) {
-      const data = await axios.post(`${baseURL}/upload`, Formdata);
+  const upload = useMutation({
+    mutationFn: async () => {
+      if (Img !== undefined) {
+        const data = await axios.post(`${baseURL}/upload`, Formdata);
 
-      await axios.patch(
-        `${baseURL}/user/userimg/${params?.id}?img=${data.data.filename}`
-      );
+        await axios.patch(
+          `${baseURL}/user/userimg/${params?.id}?img=${data.data.filename}`
+        );
+      }
+    },
+    onSuccess: () => {
       refetch();
-    }
-  }, []);
+      router.refresh();
+    },
+  });
 
   useEffect(() => {
     setrefetch(true);

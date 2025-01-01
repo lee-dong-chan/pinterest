@@ -1,4 +1,3 @@
-import Login from "@/Components/Modal/ModalContainer/Account/login";
 import Regist from "@/Components/Modal/ModalContainer/Account/regist";
 import { Dispatch, SetStateAction } from "react";
 import { RiArrowDropUpLine } from "react-icons/ri";

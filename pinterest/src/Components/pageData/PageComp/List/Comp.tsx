@@ -2,12 +2,14 @@ import { useBreakPoint } from "@/CustomHook/BreakPoint";
 import { IPost } from "@/Components/pageData/PageContainer/ListContainer";
 import Link from "next/link";
 import { useState } from "react";
+import Image from "next/image";
 
 interface IProps {
   data: IPost;
+  isFirst: boolean;
 }
 
-const Comp = ({ data }: IProps) => {
+const Comp = ({ data, isFirst }: IProps) => {
   const { isdesktop } = useBreakPoint();
   const ImgBaseURL = process.env.NEXT_PUBLIC_SERVER_IMG_BASE_URL;
   const [postimg, postsetimg] = useState<boolean>(false);
@@ -21,16 +23,26 @@ const Comp = ({ data }: IProps) => {
             <div
               className={`border rounded-[1rem] hover:bg-gray-600 group  overflow-hidden `}
             >
-              <img
+              <Image
                 src={
                   !postimg ? `${ImgBaseURL}/${data?.img}` : "/imgs/noimg.png"
                 }
-                className={`relative w-[100%] min-h-[10rem] max-h-[60rem] pointer-events-none group-hover:opacity-[0.8]`}
+                className={`relative w-full min-h-[10rem] max-h-[60rem] pointer-events-none group-hover:opacity-[0.8]`}
                 alt="postimg"
                 onError={() => {
                   postsetimg(true);
                 }}
-              ></img>
+                quality={75}
+                width={500}
+                height={500}
+                style={{
+                  width: "100%",
+                  height: "auto",
+                  objectFit: "cover",
+                }}
+                priority={isFirst}
+                loading={isFirst ? undefined : "lazy"}
+              />
             </div>
             <div className="flex gap-2 min-h-[3rem]">
               {data?.tag.map((item: string, idx: number) => (
@@ -46,15 +58,23 @@ const Comp = ({ data }: IProps) => {
             <div className="trancate text-[0.9rem]">{data?.content}</div>
             <div className="flex items-center gap-3">
               <div className="w-[3rem] h-[3rem] rounded-[3rem] border gap-1 overflow-hidden">
-                <img
-                  className="w-[100%] h-[100%]"
+                <Image
+                  className="w-full h-full"
                   src={`${
                     data?.userimg
                       ? `${ImgBaseURL}/${data?.userimg}`
                       : "/imgs/defaultuser.png"
                   }`}
                   alt="user"
-                ></img>
+                  width={100}
+                  height={100}
+                  style={{
+                    width: "100%",
+                    height: "auto",
+                    objectFit: "cover",
+                  }}
+                  loading="lazy"
+                />
               </div>
               <div className="text-[0.8rem] font-bold">{data?.username}</div>
             </div>
@@ -63,14 +83,22 @@ const Comp = ({ data }: IProps) => {
           <div
             className={`m-1 border rounded-[1rem]  overflow-hidden hover:bg-black group`}
           >
-            <img
+            <Image
               src={!postimg ? `${ImgBaseURL}/${data?.img}` : "/imgs/noimg.png"}
-              className="relative rounded-[0.7rem]  w-[100%] min-h-[5rem] max-h-[60rem] pointer-events-none  group-hover:opacity-[0.8] "
+              className="relative rounded-[0.7rem]  w-full min-h-[5rem] max-h-[60rem] pointer-events-none  group-hover:opacity-[0.8] "
               alt="postimg"
               onError={() => {
                 postsetimg(true);
               }}
-            ></img>
+              width={100}
+              height={100}
+              style={{
+                width: "100%",
+                height: "auto",
+                objectFit: "cover",
+              }}
+              loading="lazy"
+            />
           </div>
         ))}
     </Link>

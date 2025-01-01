@@ -12,15 +12,15 @@ interface IProps {
   loginfail: boolean;
 }
 
-const LoginComp = ({
-  setid,
-  setpw,
-  submit,
-  data,
-  loginfail,
-}: IProps): JSX.Element => {
+const LoginComp = ({ setid, setpw, submit, data }: IProps): JSX.Element => {
   return (
-    <div className="flex flex-col items-center">
+    <form
+      className="flex flex-col items-center"
+      onSubmit={(e) => {
+        e.preventDefault();
+        submit();
+      }}
+    >
       <label className="w-[100%]">
         <div>이메일</div>
         <input
@@ -30,6 +30,7 @@ const LoginComp = ({
           onChange={(e: ChangeEvent<HTMLInputElement>) => {
             setid(e.target.value);
           }}
+          autoComplete="username"
         ></input>
       </label>
       <label className="w-[100%]">
@@ -38,6 +39,7 @@ const LoginComp = ({
           className="px-3  mb-4 flex w-[100%] h-[3rem] border border-gray-400 rounded-[1rem]"
           placeholder="비밀번호"
           type="password"
+          autoComplete="current-password"
           onChange={(e: ChangeEvent<HTMLInputElement>) => {
             setpw(e.target.value);
           }}
@@ -49,18 +51,12 @@ const LoginComp = ({
         {data?.result === "not found password" &&
           "로그인실패!! 비밀번호를 확인하세요"}
       </div>
-      <div
-        className="mb-4 w-[100%]"
-        onClick={() => {
-          submit();
-        }}
-      >
+      <button type="submit" className="mb-4 w-[100%]">
         <Middlebutton text="로그인" back="bg-red-600" color="text-white" />
-      </div>
+      </button>
       <div className="mb-4">또는</div>
-
       <GoogleContainer />
-    </div>
+    </form>
   );
 };
 export default LoginComp;

@@ -1,7 +1,7 @@
 import { useBreakPoint } from "@/CustomHook/BreakPoint";
 import { ICategory } from "@/Components/pageData/PageContainer/WriteContainer";
 import Link from "next/link";
-import { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction } from "react";
 
 import { FaAngleDoubleUp } from "react-icons/fa";
 
@@ -28,18 +28,16 @@ const CategoryComp = ({ categorylist, catelength, setcatelength }: IProps) => {
               key={idx}
               href={`/categorylist/${item.id}?category=${item.name}`}
             >
-              <div>
-                <div
-                  className={`m-1 w-[100%] h-[5rem] border rounded-[1rem] flex items-center justify-center text-white ${
-                    isdesktop ? "text-[1.2rem]" : "text-[0.9rem]"
-                  } `}
-                  style={{
-                    backgroundImage: `url(/imgs/category/${item.img}.png)`,
-                    backgroundSize: "100% 100%",
-                  }}
-                >
-                  {item.name}
-                </div>
+              <div
+                className={`m-1 w-[100%] h-[5rem] border rounded-[1rem] flex items-center justify-center text-white ${
+                  isdesktop ? "text-[1.2rem]" : "text-[0.9rem]"
+                } `}
+                style={{
+                  backgroundImage: `url(/imgs/category/${item.img}.png)`,
+                  backgroundSize: "100% 100%",
+                }}
+              >
+                {item.name}
               </div>
             </Link>
           ))}
@@ -67,4 +65,4 @@ const CategoryComp = ({ categorylist, catelength, setcatelength }: IProps) => {
     </div>
   );
 };
-export default CategoryComp;
+export default React.memo(CategoryComp);

@@ -123,8 +123,10 @@ jobs:
       - name: Copy Files to EC2
         run: |
           ssh ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} '
-            rm -rf /var/www/pinterestback
-            mkdir /var/www/pinterestback'
+            rm -rf /var/www/pinterestback/dist
+            rm -rf /var/www/pinterestback/package.json
+            rm -rf /var/www/pinterestback/.env
+            rm -rf /var/www/pinterestback/tsconfig.json'
 
           rsync -avz -e "ssh" ./backend/dist/ ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:/var/www/pinterestback/dist/
           rsync -avz -e "ssh" ./backend/package.json ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:/var/www/pinterestback/package.json

@@ -2,7 +2,13 @@
 
 import { useRecoilValue } from "recoil";
 import { Logincheck, Userdata } from "@/Context/usercheck";
-import { ChangeEvent, useCallback, useEffect, useState } from "react";
+import React, {
+  ChangeEvent,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import axios from "axios";
 import { BaseURL } from "@/lib/Baseurls";
 import { useMutation } from "@tanstack/react-query";
@@ -26,6 +32,7 @@ export interface IPostData {
 }
 
 const PostContainer = () => {
+  const sideEffect = useRef(false);
   const [comment, setcomment] = useState<string>("");
   const login = useRecoilValue(Logincheck);
   const user = useRecoilValue(Userdata);
@@ -43,13 +50,19 @@ const PostContainer = () => {
     setcomment(e.target.value);
   }, []);
 
-  const submit = useCallback(async () => {
-    await axios.post(
-      `${BaseURL}/comment/write`,
-      { postId: data?.id, userId: user?.userid, content: comment },
-      { withCredentials: true }
-    );
-  }, []);
+  const submit = useMutation({
+    mutationFn: async () => {
+      await axios.post(
+        `${BaseURL}/comment/write`,
+        { postId: data?.id, userId: user?.userid, content: comment },
+        { withCredentials: true }
+      );
+    },
+    onSuccess: () => {
+      setcomment("");
+      mutate();
+    },
+  });
 
   useEffect(() => {
     mutate();
@@ -61,10 +74,8 @@ const PostContainer = () => {
       login={login}
       user={user}
       setinput={setinput}
-      setcomment={setcomment}
       submit={submit}
       comment={comment}
-      mutate={mutate}
     />
   );
 };

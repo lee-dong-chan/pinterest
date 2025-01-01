@@ -8,7 +8,7 @@ import { useBreakPoint } from "@/CustomHook/BreakPoint";
 import { FaAngleDown } from "react-icons/fa";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { Droponoff, Droptype } from "@/Context/DropDownModal";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import HomeToolbar from "@/Components/Comp/Toolbar/HomeToolbar";
 import Onlogin from "@/Components/Comp/Toolbar/onlogin";
 import Notlogin from "@/Components/Comp/Toolbar/notlogin";
@@ -35,13 +35,15 @@ const ToolbarComp = ({ login, userdata }: IProps): JSX.Element => {
       <div className="flex items-center">
         {login === "false" ? (
           ismobile || ismini ? (
-            <img
-              src={"/imgs/minipin.png"}
-              className={`${
-                ismobile ? "h-[2rem]" : "h-[3.5rem]"
-              } me-3 pointer-events-none`}
-              alt="logo"
-            ></img>
+            <Link href={"/list"}>
+              <img
+                src={"/imgs/minipin.png"}
+                className={`${
+                  ismobile ? "h-[2rem]" : "h-[3.5rem]"
+                } me-3 pointer-events-none`}
+                alt="logo"
+              ></img>
+            </Link>
           ) : (
             isdesktop && (
               <Link href={"/"}>
@@ -54,19 +56,21 @@ const ToolbarComp = ({ login, userdata }: IProps): JSX.Element => {
             )
           )
         ) : (
-          <img
-            src={`${
-              ismini
-                ? "/imgs/minipin.png"
-                : isdesktop
-                ? "/imgs/pinterest.png"
-                : ismobile && "/imgs/minipin.png"
-            }`}
-            className={`${
-              ismobile ? "h-[2rem]" : "h-[3.5rem]"
-            } me-3 pointer-events-none`}
-            alt="logo"
-          ></img>
+          <Link href={"/list"}>
+            <img
+              src={`${
+                ismini
+                  ? "/imgs/minipin.png"
+                  : isdesktop
+                  ? "/imgs/pinterest.png"
+                  : ismobile && "/imgs/minipin.png"
+              }`}
+              className={`${
+                ismobile ? "h-[2rem]" : "h-[3.5rem]"
+              } me-3 pointer-events-none`}
+              alt="logo"
+            ></img>
+          </Link>
         )}
         {isdesktop && (
           <Link href={"/list"}>
@@ -109,7 +113,7 @@ const ToolbarComp = ({ login, userdata }: IProps): JSX.Element => {
         {ismini && login == "true" && (
           <div>
             <div
-              className=" px-4 py-2  text-[1.2rem]  rounded-[1rem]  bg-white  hover:bg-gray-200 flex items-center"
+              className="px-4 py-2  text-[1.2rem]  rounded-[1rem]  bg-white  hover:bg-gray-200 flex items-center"
               onClick={() => {
                 setDroptype("login toolbar");
                 setDrop(!Drop);

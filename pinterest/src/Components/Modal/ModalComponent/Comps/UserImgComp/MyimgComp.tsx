@@ -1,4 +1,6 @@
 import { useBreakPoint } from "@/CustomHook/BreakPoint";
+import { UseMutationResult } from "@tanstack/react-query";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
 import { IoMdClose } from "react-icons/io";
@@ -6,7 +8,7 @@ interface IProps {
   setonimg: Dispatch<SetStateAction<boolean>>;
   inputimg: (e: ChangeEvent<HTMLInputElement>) => void;
   priview: string;
-  upload: () => Promise<void>;
+  upload: UseMutationResult<void, unknown, void, unknown>;
   filesize: number;
 }
 
@@ -18,7 +20,6 @@ const MyImgComp = ({
   filesize,
 }: IProps): JSX.Element => {
   const { ismobile, ismini, isdesktop } = useBreakPoint();
-  const router = useRouter();
   return (
     <div className="flex justify-center">
       <div
@@ -47,11 +48,20 @@ const MyImgComp = ({
             {!priview ? (
               <div className="font-bold">이미지를 선택하세요</div>
             ) : (
-              <img
-                className="h-[15rem] w-[15rem] rounded-[10rem] border"
-                src={priview}
-                alt="priview"
-              ></img>
+              <div className="h-[15rem] w-[15rem] rounded-[10rem] border overflow-hidden ">
+                <Image
+                  className="w-full h-full"
+                  src={priview}
+                  alt="priview"
+                  width={100}
+                  height={100}
+                  style={{
+                    width: "100%",
+                    height: "auto",
+                    objectFit: "cover",
+                  }}
+                />
+              </div>
             )}
           </div>
         </div>
@@ -71,9 +81,8 @@ const MyImgComp = ({
             className="mx-auto mt-20 flex items-center justify-center w-[15rem] h-[5rem] border rounded-[1rem] text-white bg-red-500"
             onClick={() => {
               if (priview && filesize / 1000 < 3000) {
-                upload();
+                upload.mutate();
                 setonimg(false);
-                router.refresh();
               }
             }}
           >
