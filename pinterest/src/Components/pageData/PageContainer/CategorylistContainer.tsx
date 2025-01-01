@@ -3,7 +3,7 @@
 import axios from "axios";
 import { useParams, useSearchParams } from "next/navigation";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Observer } from "@/lib/Observer";
 import { IoMdArrowDropdown } from "react-icons/io";
 import PostListComp from "@/Components/Comp/List/PostListComp";
@@ -11,6 +11,7 @@ import Link from "next/link";
 import { useBreakPoint } from "@/CustomHook/BreakPoint";
 
 const CategoryPageContainer = () => {
+  const [isFirst, setisFirst] = useState<boolean>(true);
   const searchparams = useSearchParams();
   const catename = searchparams?.get("category");
   const category = useParams();
@@ -40,6 +41,12 @@ const CategoryPageContainer = () => {
     Observer(hasNextPage, fetchNextPage, loadMore);
   }, [hasNextPage, fetchNextPage]);
 
+  useEffect(() => {
+    if (data?.pageParams.length !== 1) {
+      setisFirst(false);
+    }
+  }, [data]);
+
   return (
     <div>
       <div className="mt-10 flex flex-col items-center">
@@ -59,7 +66,7 @@ const CategoryPageContainer = () => {
         )}
       </div>
       <div className="my-5">
-        <PostListComp postlist={data} />
+        <PostListComp postlist={data} isFirst={isFirst} />
         {isFetching && !isFetchingNextPage && (
           <p className="w-fit mx-auto">로딩중...</p>
         )}

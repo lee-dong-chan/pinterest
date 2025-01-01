@@ -1,6 +1,7 @@
 import { IUser } from "@/Components/Conteiner/LayoutContainer";
 import { Droponoff, Droptype } from "@/Context/DropDownModal";
 import { useBreakPoint } from "@/CustomHook/BreakPoint";
+import { UseMutationResult } from "@tanstack/react-query";
 import Link from "next/link";
 
 import { FaAngleDown } from "react-icons/fa";
@@ -8,7 +9,7 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 
 interface IProps {
   userdata?: IUser;
-  logout: () => Promise<void>;
+  logout: UseMutationResult<void, unknown, void, unknown>;
 }
 const DropComp = ({ userdata, logout }: IProps) => {
   const imgbaseURL = process.env.NEXT_PUBLIC_SERVER_IMG_BASE_URL;
@@ -18,9 +19,9 @@ const DropComp = ({ userdata, logout }: IProps) => {
   const setDroponoff = useSetRecoilState(Droponoff);
 
   return (
-    <div className="p-3 text-[0.8rem]">
+    <div className="py-5 px-3 text-[0.8rem] rounded-[1rem] shadow bg-white">
       {Dropname === "myinfo" && (
-        <div>
+        <>
           <div>현재 로그인 계정</div>
           <div className="p-2 flex items-center">
             <div>
@@ -47,13 +48,13 @@ const DropComp = ({ userdata, logout }: IProps) => {
           <div
             className="text-[1.2rem] font-bold"
             onClick={() => {
-              logout();
+              logout.mutate();
               setDroponoff(!Drop);
             }}
           >
             로그아웃
           </div>
-        </div>
+        </>
       )}
       {(ismini || ismobile) && Dropname === "not login toolbar" && (
         <div

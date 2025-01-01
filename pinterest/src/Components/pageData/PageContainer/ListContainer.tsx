@@ -1,23 +1,13 @@
 "use client";
 import CategoryComp from "@/Components/Comp/Category/ListCategoryComp";
 import PostListComp from "@/Components/Comp/List/PostListComp";
-
-import { Logincheck } from "@/Context/usercheck";
 import { useBreakPoint } from "@/CustomHook/BreakPoint";
-
 import { Observer } from "@/lib/Observer";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import React, {
-  cloneElement,
-  ReactNode,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { IoMdArrowDropdown } from "react-icons/io";
-import { useRecoilValue } from "recoil";
 
 export interface IPost {
   id: number;
@@ -36,6 +26,7 @@ export interface ICategory {
 }
 
 const ListContainer = (): JSX.Element => {
+  const [isFirst, setisFirst] = useState<boolean>(true);
   const router = useRouter();
   const { ismobile } = useBreakPoint();
   const BaseUrl = process.env.NEXT_PUBLIC_BASE_URL;
@@ -48,11 +39,10 @@ const ListContainer = (): JSX.Element => {
       const lastdata: ICategory[] = data;
       return lastdata;
     },
-    enabled: false,
   });
 
   const fetchlist = async (pageParam: number) => {
-    const pagesize = 14;
+    const pagesize = 10;
     const { data } = await axios.get(
       `${BaseUrl}/list?page=${pageParam}&limit=${pagesize}`
     );
@@ -80,6 +70,12 @@ const ListContainer = (): JSX.Element => {
     router.refresh();
   }, []);
 
+  useEffect(() => {
+    console.log(data);
+    if (data?.pageParams.length !== 1) {
+      setisFirst(false);
+    }
+  }, [data]);
   return (
     <div>
       {!ismobile && (
@@ -96,7 +92,7 @@ const ListContainer = (): JSX.Element => {
           <div className="p-10 mx-auto w-fit ">인기아이디어 탐색하기</div>
         </div>
       )}
-      <PostListComp postlist={data} />
+      <PostListComp postlist={data} isFirst={isFirst} />
       {!isFetching && !isFetchingNextPage && <p className="w-fit mx-auto"></p>}
       <div className="w-fit mx-auto" ref={loadmore}>
         <IoMdArrowDropdown size={30} />

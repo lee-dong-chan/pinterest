@@ -1,16 +1,10 @@
 import { Modalonoff, Modaltype } from "@/Context/LoginModalSystem";
 import { IPostData } from "@/Components/pageData/PageContainer/PostContainer";
-import { UseMutateFunction } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
+import { UseMutationResult } from "@tanstack/react-query";
 
-import {
-  ChangeEvent,
-  Dispatch,
-  SetStateAction,
-  useEffect,
-  useState,
-} from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { useSetRecoilState } from "recoil";
+import Image from "next/image";
 
 export interface IComment {
   user: string;
@@ -24,9 +18,7 @@ interface IProps {
   login: string;
   user: any;
   setinput: (e: ChangeEvent<HTMLInputElement>) => void;
-  setcomment: Dispatch<SetStateAction<string>>;
-  submit: () => Promise<void>;
-  mutate: UseMutateFunction<IPostData, Error, void, unknown>;
+  submit: UseMutationResult<void, Error, void, unknown>;
   comment: string;
 }
 
@@ -37,21 +29,18 @@ const DataComp = ({
   user,
   setinput,
   submit,
-  setcomment,
-  mutate,
   comment,
 }: IProps) => {
   const commentCount = data?.comment?.length;
   const Modal = useSetRecoilState(Modalonoff);
   const loginModal = useSetRecoilState(Modaltype);
-  const router = useRouter();
   const [img, setimg] = useState<boolean>(false);
   const [Elem, setElem] = useState<JSX.Element>();
 
   useEffect(() => {
     setElem(
       <div className="w-[2.5rem] h-[2.5rem] border rounded-[2.5rem] overflow-hidden">
-        <img
+        <Image
           src={`${
             user?.userimg
               ? `${ImgBaseURL}/${user?.userimg}`
@@ -59,7 +48,14 @@ const DataComp = ({
           }`}
           className="pointer-events-none w-[100%] h-[100%]"
           alt="userimg"
-        ></img>
+          width={100}
+          height={100}
+          style={{
+            width: "100%",
+            height: "auto",
+            objectFit: "cover",
+          }}
+        />
       </div>
     );
   }, []);
@@ -69,22 +65,31 @@ const DataComp = ({
       <div className="text-[1.5rem] text-wrap font-bold ">{data?.title}</div>
       <div className="flex items-center gap-3">
         {data && (
-          <img
-            src={
-              data.postuserimg !== null
-                ? !img
-                  ? `${ImgBaseURL}/${data?.postuserimg}`
-                  : "/imgs/noimg.png"
-                : "/imgs/defaultuser.png"
-            }
-            className="w-[3.5rem] h-[3.5rem] border rounded-[3.5rem] pointer-events-none"
-            alt="commentimg"
-            onError={() => {
-              if (data?.postuserimg) {
-                setimg(true);
+          <div className="w-[3.5rem] h-[3.5rem] border rounded-[3.5rem] pointer-events-none overflow-hidden">
+            <Image
+              src={
+                data.postuserimg !== null
+                  ? !img
+                    ? `${ImgBaseURL}/${data?.postuserimg}`
+                    : "/imgs/noimg.png"
+                  : "/imgs/defaultuser.png"
               }
-            }}
-          ></img>
+              className="w-full h-full"
+              alt="commentimg"
+              onError={() => {
+                if (data?.postuserimg) {
+                  setimg(true);
+                }
+              }}
+              width={100}
+              height={100}
+              style={{
+                width: "100%",
+                height: "auto",
+                objectFit: "cover",
+              }}
+            />
+          </div>
         )}
 
         <div className="text-[0.8rem] text-gray-500">{data?.postuser}</div>
@@ -107,15 +112,24 @@ const DataComp = ({
             <div className="max-h-[15rem] overflow-auto scrollbar-hide ">
               {data.comment.map((item: IComment, idx: number) => (
                 <div key={idx} className="m-2 flex items-center gap-1">
-                  <img
-                    src={`${
-                      item.img
-                        ? `${ImgBaseURL}/${item.img}`
-                        : "/imgs/defaultuser.png"
-                    }`}
-                    className="w-[2rem] h-[2rem] rounded-[2rem] pointer-events-none"
-                    alt="comment"
-                  ></img>
+                  <div className="w-[2rem] h-[2rem] rounded-[2rem] pointer-events-none overflow-hidden">
+                    <Image
+                      src={`${
+                        item.img
+                          ? `${ImgBaseURL}/${item.img}`
+                          : "/imgs/defaultuser.png"
+                      }`}
+                      className="w-full h-full"
+                      alt="comment"
+                      width={100}
+                      height={100}
+                      style={{
+                        width: "100%",
+                        height: "auto",
+                        objectFit: "cover",
+                      }}
+                    />
+                  </div>
                   <div className="font-bold">{item.user}</div>
                   <div className="text-[0.9rem] text-wrap">{item.content}</div>
                 </div>
@@ -146,7 +160,7 @@ const DataComp = ({
             <div className={Elem && "flex items-center gap-2 "}>
               {Elem}
               <input
-                className="w-[100%] max-w-[23rem] h-[3rem] border rounded-[3rem] p-2"
+                className="px-[1rem] w-[100%] max-w-[23rem] h-[3rem] border rounded-[3rem] "
                 placeholder="댓글추가"
                 value={comment}
                 onChange={(e) => {
@@ -158,12 +172,7 @@ const DataComp = ({
                   if (e.key == "Enter") {
                     if (e.nativeEvent.isComposing === false) {
                       if (comment !== "") {
-                        submit();
-                        setcomment("");
-                        setTimeout(() => {
-                          mutate();
-                          router.refresh();
-                        }, 100);
+                        submit.mutate();
                       }
                     }
                   }

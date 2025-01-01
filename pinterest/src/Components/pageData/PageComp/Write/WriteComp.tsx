@@ -56,11 +56,11 @@ const WriteComp = ({
   const { isdesktop } = useBreakPoint();
 
   return (
-    <div>
+    <>
       {isdesktop ? (
         <div className="ps-5 py-5 border-t border-b text-[1.3rem] font-bold flex items-center justify-between">
           <div>핀 만들기</div>
-          <div>
+          <>
             <div
               className={`px-8 py-3 w-fit border text-[1.2rem] text-white me-10 rounded-[1rem] ${
                 fail ? "bg-gray-200" : " bg-red-500"
@@ -78,7 +78,7 @@ const WriteComp = ({
                 업로드실패!
               </div>
             )}
-          </div>
+          </>
         </div>
       ) : (
         <div className="ps-5 py-2  border-b text-[1.3rem] font-bold flex items-center justify-between bg-white  sticky top-[7.9%]">
@@ -99,9 +99,7 @@ const WriteComp = ({
       )}
       <div
         className={
-          isdesktop
-            ? "mx-auto mt-7 max-w-[70rem] flex items-center gap-[5rem]"
-            : ""
+          isdesktop ? "mx-auto mt-7 max-w-[70rem] flex  gap-[5rem]" : ""
         }
       >
         <ImgComp
@@ -124,7 +122,7 @@ const WriteComp = ({
           selectcate={selectcate}
         />
       </div>
-    </div>
+    </>
   );
 };
 export default WriteComp;

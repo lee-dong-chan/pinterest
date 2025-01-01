@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect } from "react";
 
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
@@ -75,7 +75,6 @@ const Layout = ({ children }: IProps): JSX.Element => {
       setuser(data);
       return data;
     },
-    enabled: false,
   });
 
   useEffect(() => {
@@ -107,6 +106,9 @@ const Layout = ({ children }: IProps): JSX.Element => {
   return (
     <div className="min-w-[270px] select-none">
       <Toolbar login={login} userdata={userdata} />
+      {onoffDrop && (
+        <DropModalContainer refetch={logcheck.refetch} userdata={userdata} />
+      )}
       <div
         onClick={() => {
           setDropModal(false);
@@ -115,9 +117,7 @@ const Layout = ({ children }: IProps): JSX.Element => {
       >
         {children}
       </div>
-      {onoffDrop && (
-        <DropModalContainer refetch={logcheck.refetch} userdata={userdata} />
-      )}
+
       {ismobile && <MobileMenu />}
       {onoffModal && <ModalContainer />}
       {MobileDropon && ismobile && <MobileModalBox />}

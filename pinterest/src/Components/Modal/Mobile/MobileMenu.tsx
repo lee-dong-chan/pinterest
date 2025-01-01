@@ -14,7 +14,7 @@ const MobileMenu = () => {
   const Mobile = useRecoilValue(MobileDrop);
 
   return (
-    <div className="fixed h-[3rem] w-[100%] text-[0.8rem] flex justify-evenly items-center bottom-0 bg-white shadow">
+    <div className="fixed h-[3rem] w-[100%] text-[0.8rem] flex justify-evenly items-center bottom-0 bg-white shadow z-[50]">
       <Link href={"/list"}>
         <div className="flex flex-col items-center">
           <IoHome />

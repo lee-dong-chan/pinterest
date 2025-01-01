@@ -1,4 +1,5 @@
 import { useBreakPoint } from "@/CustomHook/BreakPoint";
+import Image from "next/image";
 import { ChangeEvent } from "react";
 import { FaCircleArrowUp } from "react-icons/fa6";
 interface IProps {
@@ -10,8 +11,8 @@ interface IProps {
 const ImgComp = ({ inputfile, previewUrl, filesize }: IProps): JSX.Element => {
   const { isdesktop } = useBreakPoint();
   return (
-    <div>
-      <div>
+    <div className="pt-[1rem]">
+      <>
         <div
           className={
             isdesktop
@@ -26,11 +27,15 @@ const ImgComp = ({ inputfile, previewUrl, filesize }: IProps): JSX.Element => {
                 <p className="p-3">이미지를 선택하세요</p>
               </div>
             ) : (
-              <img
+              <Image
                 src={previewUrl}
                 alt="priviewImg"
                 className="w-[100%] h-[100%] rounded-[2rem] pointer-events-none"
-              ></img>
+                width={100}
+                height={100}
+                priority={true}
+                quality={75}
+              ></Image>
             )}
           </label>
         </div>
@@ -41,13 +46,13 @@ const ImgComp = ({ inputfile, previewUrl, filesize }: IProps): JSX.Element => {
           type="file"
           accept="image/*"
           onChange={inputfile}
-        ></input>
+        />
         {filesize / 1000 > 3000 && (
           <div className="w-[100%] text-center text-red-500 text-[0.9rem]">
             업로드 가능한크기 3MB이상의 이미지입니다
           </div>
         )}
-      </div>
+      </>
       {isdesktop && (
         <div>
           <hr className="my-7 border-gray-400"></hr>

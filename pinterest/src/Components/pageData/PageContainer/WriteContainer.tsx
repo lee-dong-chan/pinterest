@@ -140,7 +140,9 @@ const WriteContainer = (): JSX.Element => {
   });
 
   useEffect(() => {
-    refetch();
+    if (search !== "") {
+      refetch();
+    }
   }, [search]);
 
   useEffect(() => {

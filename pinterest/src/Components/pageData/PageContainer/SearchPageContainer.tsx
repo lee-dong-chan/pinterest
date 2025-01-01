@@ -4,10 +4,11 @@ import { Observer } from "@/lib/Observer";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { IoMdArrowDropdown } from "react-icons/io";
 
 const SearchPageContainer = () => {
+  const [isFirst, setisFirst] = useState<boolean>(true);
   const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
   const search = useSearchParams();
   const searchname = search?.get("keyword");
@@ -40,6 +41,13 @@ const SearchPageContainer = () => {
   });
 
   const loadMore = useRef(null);
+
+  useEffect(() => {
+    if (data?.pageParams.length !== 1) {
+      setisFirst(false);
+    }
+  }, [data]);
+
   useEffect(() => {
     Observer(hasNextPage, fetchNextPage, loadMore);
   }, [hasNextPage, fetchNextPage]);
@@ -49,7 +57,7 @@ const SearchPageContainer = () => {
   }, [searchname]);
   return (
     <div className="px-1 w-screen">
-      <PostListComp postlist={data} />
+      <PostListComp postlist={data} isFirst={isFirst} />
       {isFetching && !isFetchingNextPage && (
         <p className="w-fit mx-auto">로딩중...</p>
       )}

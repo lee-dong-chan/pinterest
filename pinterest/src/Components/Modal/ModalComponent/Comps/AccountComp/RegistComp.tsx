@@ -28,7 +28,13 @@ const RegistComp = ({
   const pwReg = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,30}$/;
 
   return (
-    <div className="flex flex-col items-center">
+    <form
+      className="flex flex-col items-center"
+      onSubmit={(e) => {
+        e.preventDefault();
+        submit();
+      }}
+    >
       <label className="w-[100%]">
         <div>이메일</div>
         <input
@@ -42,6 +48,7 @@ const RegistComp = ({
               setid("fail");
             }
           }}
+          autoComplete="username"
         ></input>
         <div className=" w-[100%] h-[1rem] text-[0.8rem] text-red-500 ">
           {id === "fail" && "이메일 형식에 맞추어 입력해 주세요"}
@@ -53,6 +60,7 @@ const RegistComp = ({
           className="px-3  flex w-[100%] h-[3rem] border border-gray-400 rounded-[1rem]"
           placeholder="비밀번호"
           type="password"
+          autoComplete="new-password"
           onChange={(e: ChangeEvent<HTMLInputElement>) => {
             if (pwReg.test(e.target.value) && e.target.value !== "") {
               setpw(e.target.value);
@@ -86,15 +94,10 @@ const RegistComp = ({
       <div className="w-[100%] h-[1rem] text-[0.8rem] text-red-500 flex items-center">
         {registfail ? "회원가입실패!! 입력값을 수정해 주세요!" : ""}
       </div>
-      <div
-        className="mb-4 w-[100%]"
-        onClick={() => {
-          submit();
-        }}
-      >
+      <button type="submit" className="mb-4 w-[100%]">
         <Middlebutton text="계속하기" back="bg-red-600" color="text-white" />
-      </div>
-    </div>
+      </button>
+    </form>
   );
 };
 export default RegistComp;

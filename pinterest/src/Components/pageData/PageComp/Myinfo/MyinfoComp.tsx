@@ -1,6 +1,7 @@
 import MyImgComp from "@/Components/Modal/ModalComponent/Comps/UserImgComp/MyimgComp";
 import { useBreakPoint } from "@/CustomHook/BreakPoint";
 import { ImgBaseURL } from "@/lib/Baseurls";
+import { UseMutationResult } from "@tanstack/react-query";
 import Link from "next/link";
 import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
 
@@ -17,7 +18,7 @@ interface IProps {
   onimg: boolean;
   setonimg: Dispatch<SetStateAction<boolean>>;
   priview: string;
-  upload: () => Promise<void>;
+  upload: UseMutationResult<void, unknown, void, unknown>;
   viewpost: boolean;
   setviewpost: Dispatch<SetStateAction<boolean>>;
   filesize: number;
@@ -37,7 +38,6 @@ const MyinfoComp = ({
   const { ismobile, ismini, isdesktop } = useBreakPoint();
   const [failuserimg, setfailuserimg] = useState<boolean>(false);
   const [failpostimg, setfailpostimg] = useState<number[]>([]);
-
   return (
     <div className="flex flex-col justify-center items-center">
       {userdata?.img == null ? (

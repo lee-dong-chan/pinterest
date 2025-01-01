@@ -53,6 +53,8 @@ const InfoComp = ({
   useEffect(() => {
     if (tagdata[0]) {
       settagDrop(true);
+    } else {
+      settagDrop(false);
     }
   }, [tagdata]);
 
@@ -86,28 +88,25 @@ const InfoComp = ({
         ></textarea>
       </div>
       <div className="w-[100%]">
-        <div className="flex items-center gap-2">
-          <div
-            className="py-2 text-[0.8rem]"
-            onClick={() => {
-              cateonoff(!catestate);
-            }}
-          >
-            카테고리 선택
-          </div>
-
+        <div
+          className="flex items-center gap-2 w-fit"
+          onClick={() => {
+            cateonoff(!catestate);
+          }}
+        >
+          <div className="py-2 text-[0.8rem]">카테고리 선택</div>
           <IoIosArrowDropdown />
         </div>
         <div className="relative">
-          <div className="p-2 w-[100%] h-[3rem] border border-gray-400 rounded flex items-center">
+          <div className="relative  p-2 w-[100%] h-[3rem] border border-gray-400 rounded flex items-center bg-white z-[10] ">
             {selectcate.name}
           </div>
           {catestate && (
-            <div className="absolute w-[100%] h-[10rem] border-s border-e border-b bg-white overflow-auto ">
+            <div className="absolute pt-[3rem] top-0  w-[100%] h-[15rem] border-s border-e border-b rounded-b bg-white overflow-auto z-[5] ">
               {categorydata.map((item: ICategory, idx: number) => (
                 <div
                   key={idx}
-                  className="px-3 py-2 text-[1.1rem]"
+                  className="px-3 py-2 text-[1.1rem] hover:bg-gray-200"
                   onClick={() => {
                     setselctcate({
                       id: item.id,
@@ -124,16 +123,19 @@ const InfoComp = ({
           )}
         </div>
       </div>
-      <div className="w-[100%]">
+      <div className="relative w-[100%] h-[7rem]">
         <div className="py-2 text-[0.8rem]">태그검색</div>
         <input
-          className="p-3 h-[3.2rem] w-[100%] border border-gray-400 rounded-[0.5rem]"
+          className="relative p-3 h-[3.2rem] w-[100%] border border-gray-400 rounded-[0.5rem] bg-white  z-[3]"
           placeholder="태그검색"
           type="text"
           value={tag}
           onChange={(e: ChangeEvent<HTMLInputElement>) => {
-            if (e.target.value.length < 8) {
+            if (e.target.value.length < 10) {
               settag(e.target.value);
+            }
+            if (e.target.value === "") {
+              settagDrop(false);
             }
           }}
           onKeyDown={(e) => {
@@ -150,7 +152,7 @@ const InfoComp = ({
           }}
         ></input>
         {tagDrop && (
-          <div className="p-2 relative w-[100%] border z-10">
+          <div className="absolute pt-[1.2rem] top-[-10px] p-2 relative w-[100%] border z-[0]">
             {tagdata.map((item, idx) => (
               <div
                 key={idx}
